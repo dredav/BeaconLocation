@@ -83,4 +83,9 @@ public class BeaconTools implements BeaconConsumer {
     public boolean bindService(Intent intent, ServiceConnection serviceConnection, int i) {
         return context.bindService(intent, serviceConnection, i);
     }
+
+    public void unbind()
+    {
+        beaconManager.unbind(this);
+    }
 }

@@ -7,11 +7,20 @@ import android.view.MenuItem;
 
 
 public class MainActivity extends Activity {
+    private BeaconTools beaconTools;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        beaconTools = new BeaconTools(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        beaconTools.unbind();
     }
 
     @Override
