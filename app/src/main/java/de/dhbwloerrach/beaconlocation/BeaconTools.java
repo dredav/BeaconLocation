@@ -6,8 +6,12 @@ import android.content.ServiceConnection;
 
 import org.altbeacon.beacon.BeaconConsumer;
 import org.altbeacon.beacon.BeaconManager;
+import org.altbeacon.beacon.MonitorNotifier;
+import org.altbeacon.beacon.RangeNotifier;
+import org.altbeacon.beacon.Region;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * Created by alirei on 20.07.2015.
@@ -15,15 +19,19 @@ import java.util.ArrayList;
 public class BeaconTools implements BeaconConsumer {
     BeaconManager beaconManager;
     Context context;
+    ArrayList beacons;
 
     public BeaconTools(Context context){
         this.context = context;
         beaconManager = BeaconManager.getInstanceForApplication(this.context);
         beaconManager.bind(this);
+        BeaconNotifier notifier = new BeaconNotifier(this.beacons);
+        beaconManager.setRangeNotifier(notifier);
+        beaconManager.setMonitorNotifier(notifier);
     }
 
     public ArrayList GetBeacons(){
-        return null;
+        return beacons;
     }
 
     public Beacon GetBeacon(String uuid){
