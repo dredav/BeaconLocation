@@ -50,9 +50,22 @@ public class MainActivity extends Activity implements IBeaconListView {
     }
 
     @Override
-    public void RefreshList(ArrayList<Beacon> beacons) {
-        ListView listView = (ListView)this.findViewById(R.id.listView);
-        ArrayAdapter<Beacon> adapter = new ArrayAdapter<Beacon>(this, R.layout.listitem_beacon, beacons);
-        listView.setAdapter(adapter);
+    public void RefreshList(final ArrayList<Beacon> beacons) {
+
+        final Activity testt = this;
+
+        this.runOnUiThread(new Runnable() {
+            ArrayList<Beacon> test = beacons;
+
+            @Override
+            public void run() {
+                ListView listView = (ListView) findViewById(R.id.listView);
+                ArrayAdapter<Beacon> adapter;
+                adapter = new ArrayAdapter<Beacon>(testt, R.layout.listitem_beacon, test);
+                listView.setAdapter(adapter);
+            }
+        });
+
+
     }
 }
