@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 /**
@@ -16,6 +17,7 @@ public class BeaconAdapter extends ArrayAdapter<Beacon> {
 
         private final Context context;
         private final ArrayList<Beacon> itemsArrayList;
+        private DecimalFormat distanceFormat = new DecimalFormat("#.##m");
 
         public BeaconAdapter(Context context, ArrayList<Beacon> itemsArrayList) {
 
@@ -41,7 +43,7 @@ public class BeaconAdapter extends ArrayAdapter<Beacon> {
 
             // 4. Set the text for textView
             labelView.setText(itemsArrayList.get(position).getMinor());
-            valueView.setText(String.valueOf(itemsArrayList.get(position).getDistance()));
+            valueView.setText(distanceFormat.format(itemsArrayList.get(position).getDistance()));
 
             // 5. retrn rowView
             return rowView;
