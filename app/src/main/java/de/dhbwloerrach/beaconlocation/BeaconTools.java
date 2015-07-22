@@ -23,10 +23,10 @@ import java.util.Collection;
 public class BeaconTools implements BeaconConsumer {
     Region mRegion = new Region("Region", Identifier.parse("01234567-89AB-CDEF-0123-000000000001"), null, null);
     BeaconManager beaconManager;
-    Context context;
+    MainActivity context;
     ArrayList beacons;
 
-    public BeaconTools(Context context){
+    public BeaconTools(MainActivity context){
         this.context = context;
         beaconManager = BeaconManager.getInstanceForApplication(this.context);
         beaconManager.getBeaconParsers().add(new BeaconParser().setBeaconLayout("m:2-3=0215,i:4-19,i:20-21,i:22-23,p:24-24"));
@@ -59,7 +59,7 @@ public class BeaconTools implements BeaconConsumer {
             e.printStackTrace();
         }
 
-        BeaconNotifier notifier = new BeaconNotifier(this.beacons);
+        BeaconNotifier notifier = new BeaconNotifier(this.context);
         beaconManager.setRangeNotifier(notifier);
         beaconManager.setMonitorNotifier(notifier);
 

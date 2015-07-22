@@ -11,9 +11,11 @@ import java.util.Collection;
  */
 public class BeaconNotifier implements RangeNotifier, MonitorNotifier {
 
+    private ArrayList beaconList;
+    IBeaconListView listView;
 
-    public BeaconNotifier(ArrayList beaconList){
-        this.beaconList = beaconList;
+    public BeaconNotifier(IBeaconListView listView){
+        this.listView = listView;
     }
 
     @Override
