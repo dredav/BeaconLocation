@@ -21,7 +21,7 @@ import java.util.Collection;
  * Created by alirei on 20.07.2015.
  */
 public class BeaconTools implements BeaconConsumer {
-    public static Region mRegion = new Region("Server", Identifier.parse("Here is my UUID"), null, null);
+    Region mRegion = new Region("Region", Identifier.parse("01234567-89AB-CDEF-0123-000000000001"), null, null);
     BeaconManager beaconManager;
     Context context;
     ArrayList beacons;
@@ -65,6 +65,7 @@ public class BeaconTools implements BeaconConsumer {
 
         try {
             //Start Monitoring
+            beaconManager.startRangingBeaconsInRegion(mRegion);
             beaconManager.startMonitoringBeaconsInRegion(mRegion);
         } catch (RemoteException e) {
             e.printStackTrace();
