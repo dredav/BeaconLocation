@@ -52,7 +52,7 @@ public class MainActivity extends Activity implements IBeaconListView {
     @Override
     public void RefreshList(ArrayList<Beacon> beacons) {
         ListView listView = (ListView)this.findViewById(R.id.listView);
-        ArrayAdapter<Beacon> adapter = new ArrayAdapter<Beacon>(this, android.R.layout.simple_list_item_1, beacons);
+        ArrayAdapter<Beacon> adapter = new ArrayAdapter<Beacon>(this, R.layout.listitem_beacon, beacons);
         listView.setAdapter(adapter);
     }
 }
