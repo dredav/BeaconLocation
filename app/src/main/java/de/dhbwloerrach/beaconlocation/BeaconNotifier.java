@@ -25,7 +25,8 @@ public class BeaconNotifier implements RangeNotifier, MonitorNotifier {
             de.dhbwloerrach.beaconlocation.Beacon current = new de.dhbwloerrach.beaconlocation.Beacon();
             current.setUuid(beacon.getId1().toString())
                     .setMajor(beacon.getId2().toString())
-                    .setMinor(beacon.getId3().toString());
+                    .setMinor(beacon.getId3().toString())
+                    .setDistance(beacon.getDistance());
             beaconList.add(current);
         }
         listView.RefreshList(beaconList);

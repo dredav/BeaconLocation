@@ -41,7 +41,7 @@ public class BeaconAdapter extends ArrayAdapter<Beacon> {
 
             // 4. Set the text for textView
             labelView.setText(itemsArrayList.get(position).getMinor());
-            valueView.setText("test");
+            valueView.setText(String.valueOf(itemsArrayList.get(position).getDistance()));
 
             // 5. retrn rowView
             return rowView;

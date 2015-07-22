@@ -7,6 +7,7 @@ public class Beacon {
     private String uuid;
     private String major;
     private String minor;
+    private double distance;
 
     public String getUuid() {
         return uuid;
@@ -32,6 +33,15 @@ public class Beacon {
 
     public Beacon setMinor(String minor) {
         this.minor = minor;
+        return this;
+    }
+
+    public double getDistance() {
+        return distance;
+    }
+
+    public Beacon setDistance(double distance) {
+        this.distance = distance;
         return this;
     }
 }
