@@ -60,8 +60,8 @@ public class MainActivity extends Activity implements IBeaconListView {
             @Override
             public void run() {
                 ListView listView = (ListView) findViewById(R.id.listView);
-                ArrayAdapter<Beacon> adapter;
-                adapter = new ArrayAdapter<Beacon>(testt, R.layout.listitem_beacon, test);
+                BeaconAdapter adapter;
+                adapter = new BeaconAdapter(testt, test);
                 listView.setAdapter(adapter);
             }
         });
