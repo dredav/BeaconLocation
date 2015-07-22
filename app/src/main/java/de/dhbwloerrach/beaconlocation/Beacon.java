@@ -5,8 +5,8 @@ package de.dhbwloerrach.beaconlocation;
  */
 public class Beacon {
     private String uuid;
-    private Integer major;
-    private Integer minor;
+    private String major;
+    private String minor;
 
     public String getUuid() {
         return uuid;
@@ -17,20 +17,20 @@ public class Beacon {
         return this;
     }
 
-    public Integer getMajor() {
+    public String getMajor() {
         return major;
     }
 
-    public Beacon setMajor(Integer major) {
+    public Beacon setMajor(String major) {
         this.major = major;
         return this;
     }
 
-    public Integer getMinor() {
+    public String getMinor() {
         return minor;
     }
 
-    public Beacon setMinor(Integer minor) {
+    public Beacon setMinor(String minor) {
         this.minor = minor;
         return this;
     }
