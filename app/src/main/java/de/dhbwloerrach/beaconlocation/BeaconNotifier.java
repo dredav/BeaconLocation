@@ -11,7 +11,6 @@ import java.util.Collection;
  */
 public class BeaconNotifier implements RangeNotifier, MonitorNotifier {
 
-    private ArrayList beaconList;
 
     public BeaconNotifier(ArrayList beaconList){
         this.beaconList = beaconList;
@@ -19,8 +18,13 @@ public class BeaconNotifier implements RangeNotifier, MonitorNotifier {
 
     @Override
     public void didRangeBeaconsInRegion(Collection<Beacon> collection, Region region) {
+        ArrayList<de.dhbwloerrach.beaconlocation.Beacon> beaconList = new ArrayList<de.dhbwloerrach.beaconlocation.Beacon>();
         for(Beacon beacon : collection){
-            beaconList.add(beacon);
+            de.dhbwloerrach.beaconlocation.Beacon current = new de.dhbwloerrach.beaconlocation.Beacon();
+            current.setUuid(beacon.getId1().toString())
+                    .setMajor(beacon.getId2().toString())
+                    .setMinor(beacon.getId3().toString());
+            beaconList.add(current);
         }
     }
 
