@@ -21,7 +21,7 @@ import java.util.Collection;
  * Created by alirei on 20.07.2015.
  */
 public class BeaconTools implements BeaconConsumer {
-    Region mRegion = new Region("Region", Identifier.parse("01234567-89AB-CDEF-0123-000000000001"), null, null);
+    Region mRegion = new Region("Region", null, null, null);
     BeaconManager beaconManager;
     MainActivity context;
     ArrayList beacons;
