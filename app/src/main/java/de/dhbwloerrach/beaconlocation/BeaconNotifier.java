@@ -28,6 +28,7 @@ public class BeaconNotifier implements RangeNotifier, MonitorNotifier {
                     .setMinor(beacon.getId3().toString());
             beaconList.add(current);
         }
+        listView.RefreshList(beaconList);
     }
 
     @Override
