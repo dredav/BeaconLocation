@@ -58,7 +58,7 @@ public class MainActivity extends Activity implements IBeaconListView {
     public void RefreshList(final ArrayList<Beacon> beacons) {
         final BeaconList newBeaconList = new BeaconList();
         newBeaconList.addAll(beacons);
-        final ArrayList<Beacon> filteredBeacons = newBeaconList.filterByLast(20);
+        final ArrayList<Beacon> filteredBeacons = newBeaconList.filterByLast(5);
 
         this.runOnUiThread(new Runnable() {
             @Override

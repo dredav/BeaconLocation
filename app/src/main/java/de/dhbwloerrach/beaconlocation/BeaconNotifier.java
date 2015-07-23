@@ -26,24 +26,21 @@ public class BeaconNotifier implements RangeNotifier, MonitorNotifier {
         for(Beacon beacon : collection){
             de.dhbwloerrach.beaconlocation.Beacon existing = GetBeacon(beacon.getId1(), beacon.getId2(), beacon.getId3());
             if(existing == null) {
-                de.dhbwloerrach.beaconlocation.Beacon current = new de.dhbwloerrach.beaconlocation.Beacon();
-                current.setUuid(beacon.getId1().toString())
+                existing = new de.dhbwloerrach.beaconlocation.Beacon();
+                existing.setUuid(beacon.getId1().toString())
                         .setMajor(beacon.getId2().toString())
                         .setMinor(beacon.getId3().toString())
-                        .setDistance(beacon.getDistance())
                         .setBluetoothName(beacon.getBluetoothName())
-                        .setTxpower(beacon.getTxPower())
-                        .setRssi(beacon.getRssi())
-                        .setBluetoothAddress(beacon.getBluetoothAddress())
-                        .setLastSeen(new Date());
-                if (current.getBluetoothName() == null || current.getBluetoothName().isEmpty()){
-                    current.setBluetoothName("iBeacon/AltBeacon");
+                        .setBluetoothAddress(beacon.getBluetoothAddress());
+                if (existing.getBluetoothName() == null || existing.getBluetoothName().isEmpty()){
+                    existing.setBluetoothName("iBeacon/AltBeacon");
                 }
-                beaconList.add(current);
-            } else {
-                existing.setDistance(beacon.getDistance())
-                        .setLastSeen(new Date());
+                beaconList.add(existing);
             }
+            existing.setDistance(beacon.getDistance())
+                    .setTxpower(beacon.getTxPower())
+                    .setRssi(beacon.getRssi())
+                    .setLastSeen(new Date());
         }
         listView.RefreshList(beaconList);
     }

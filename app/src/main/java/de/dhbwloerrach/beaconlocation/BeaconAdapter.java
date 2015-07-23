@@ -17,7 +17,7 @@ import java.util.Collection;
 public class BeaconAdapter extends ArrayAdapter<Beacon> {
     private final Context context;
     private ArrayList<Beacon> beacons = new ArrayList<Beacon>();
-    private DecimalFormat distanceFormat = new DecimalFormat("#.##m");
+    private DecimalFormat distanceFormat = new DecimalFormat("#m");
 
     public BeaconAdapter(Context context) {
         super(context, R.layout.listitem_beacon);
@@ -72,7 +72,7 @@ public class BeaconAdapter extends ArrayAdapter<Beacon> {
 
         // 4. Set the text for textView
         valueViewMinor.setText(beacons.get(position).getMinor());
-        valueViewDistance.setText(distanceFormat.format(beacons.get(position).getAverageDistance(20)));
+        valueViewDistance.setText(distanceFormat.format(beacons.get(position).getDistance()));
         valueViewUuid.setText(beacons.get(position).getUuid());
         valueViewBluetoothName.setText(beacons.get(position).getBluetoothName());
         valueViewTxpower.setText(beacons.get(position).getTxpower().toString());
