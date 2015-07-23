@@ -42,6 +42,8 @@ public class BeaconNotifier implements RangeNotifier, MonitorNotifier {
                 beaconList.add(current);
             } else {
                 existing.setDistance(beacon.getDistance())
+                        .setTxpower(beacon.getTxPower())
+                        .setRssi(beacon.getRssi())
                         .setLastSeen(new Date());
             }
         }
