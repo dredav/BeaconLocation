@@ -7,6 +7,8 @@ public class Beacon {
     private String uuid;
     private Integer major;
     private Integer minor;
+    private Integer id;
+    private Integer machineId;
 
     public String getUuid() {
         return uuid;
@@ -32,6 +34,24 @@ public class Beacon {
 
     public Beacon setMinor(Integer minor) {
         this.minor = minor;
+        return this;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public Beacon setId(Integer id) {
+        this.id = id;
+        return this;
+    }
+
+    public Integer getMachineId() {
+        return machineId;
+    }
+
+    public Beacon setMachineId(Integer machineId) {
+        this.machineId = machineId;
         return this;
     }
 }
