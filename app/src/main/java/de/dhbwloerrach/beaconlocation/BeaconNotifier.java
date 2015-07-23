@@ -26,7 +26,14 @@ public class BeaconNotifier implements RangeNotifier, MonitorNotifier {
             current.setUuid(beacon.getId1().toString())
                     .setMajor(beacon.getId2().toString())
                     .setMinor(beacon.getId3().toString())
-                    .setDistance(beacon.getDistance());
+                    .setDistance(beacon.getDistance())
+                    .setBluetoothName(beacon.getBluetoothName())
+                    .setTxpower(beacon.getTxPower())
+                    .setRssi(beacon.getRssi())
+                    .setBluetoothAddress(beacon.getBluetoothAddress());
+            if (current.getBluetoothName() == null || current.getBluetoothName().isEmpty()){
+                current.setBluetoothName("iBeacon/AltBeacon");
+            }
             beaconList.add(current);
         }
         listView.RefreshList(beaconList);

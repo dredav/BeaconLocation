@@ -8,9 +8,10 @@ public class Beacon {
     private String major;
     private String minor;
     private double distance;
-    private String blutoothname;
+    private String bluetoothName;
     private Integer txpower;
     private Integer rssi;
+    private String bluetoothAddress;
 
 
     public String getUuid() {
@@ -49,12 +50,12 @@ public class Beacon {
         return this;
     }
 
-    public String getBlutoothname() {
-        return blutoothname;
+    public String getBluetoothName() {
+        return bluetoothName;
     }
 
-    public Beacon setBlutoothname(String blutoothname) {
-        this.blutoothname = blutoothname;
+    public Beacon setBluetoothName(String bluetoothName) {
+        this.bluetoothName = bluetoothName;
         return this;
     }
 
@@ -73,6 +74,15 @@ public class Beacon {
 
     public Beacon setRssi(Integer rssi) {
         this.rssi = rssi;
+        return this;
+    }
+
+    public String getBluetoothAddress() {
+        return bluetoothAddress;
+    }
+
+    public Beacon setBluetoothAddress(String bluetoothAddress) {
+        this.bluetoothAddress = bluetoothAddress;
         return this;
     }
 }
