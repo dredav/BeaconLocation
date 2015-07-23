@@ -12,6 +12,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends Activity implements IBeaconListView {
     private BeaconTools beaconTools;
+    private BeaconAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,6 +20,10 @@ public class MainActivity extends Activity implements IBeaconListView {
         setContentView(R.layout.activity_main);
 
         beaconTools = new BeaconTools(this);
+        adapter = new BeaconAdapter(this);
+
+        ListView listView = (ListView) findViewById(R.id.listView);
+        listView.setAdapter(adapter);
     }
 
     @Override
@@ -51,25 +56,17 @@ public class MainActivity extends Activity implements IBeaconListView {
 
     @Override
     public void RefreshList(final ArrayList<Beacon> beacons) {
-
-        final Activity self = this;
-
-        BeaconList beaconList = new BeaconList();
-        beaconList.addAll(beacons);
-        final ArrayList<Beacon> filteredBeacons = beaconList.filterByLast(20);
+        final BeaconList newBeaconList = new BeaconList();
+        newBeaconList.addAll(beacons);
+        final ArrayList<Beacon> filteredBeacons = newBeaconList.filterByLast(20);
 
         this.runOnUiThread(new Runnable() {
-            ArrayList<Beacon> test = filteredBeacons;
-
             @Override
             public void run() {
-                ListView listView = (ListView) findViewById(R.id.listView);
-                BeaconAdapter adapter;
-                adapter = new BeaconAdapter(self, test);
-                listView.setAdapter(adapter);
+                adapter.clearItems();
+                adapter.addItems(filteredBeacons);
+                adapter.notifyDataSetChanged();
             }
         });
-
-
     }
 }
