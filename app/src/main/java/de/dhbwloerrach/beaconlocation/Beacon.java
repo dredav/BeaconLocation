@@ -8,6 +8,10 @@ public class Beacon {
     private String major;
     private String minor;
     private double distance;
+    private String blutoothname;
+    private Integer txpower;
+    private Integer rssi;
+
 
     public String getUuid() {
         return uuid;
@@ -42,6 +46,33 @@ public class Beacon {
 
     public Beacon setDistance(double distance) {
         this.distance = distance;
+        return this;
+    }
+
+    public String getBlutoothname() {
+        return blutoothname;
+    }
+
+    public Beacon setBlutoothname(String blutoothname) {
+        this.blutoothname = blutoothname;
+        return this;
+    }
+
+    public Integer getTxpower() {
+        return txpower;
+    }
+
+    public Beacon setTxpower(Integer txpower) {
+        this.txpower = txpower;
+        return this;
+    }
+
+    public Integer getRssi() {
+        return rssi;
+    }
+
+    public Beacon setRssi(Integer rssi) {
+        this.rssi = rssi;
         return this;
     }
 }
