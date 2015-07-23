@@ -97,7 +97,12 @@ public class Beacon {
     }
 
     public double getAverageDistance(int seconds) {
-        return this.distances.getLast(seconds).getAverageDistance();
+        DistanceList last = this.distances.getLast(seconds);
+        if(last.size() > 0)
+            return last.getAverageDistance();
+        else {
+            return this.distances.get(this.distances.size() - 1).getDistance();
+        }
     }
 
     public Date getLastSeen() {
