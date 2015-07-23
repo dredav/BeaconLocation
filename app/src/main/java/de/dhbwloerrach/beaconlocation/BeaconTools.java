@@ -33,15 +33,15 @@ public class BeaconTools implements BeaconConsumer {
         beaconManager.bind(this);
     }
 
-    public ArrayList GetBeacons(){
+    private ArrayList GetBeacons(){
         return beacons;
     }
 
-    public Beacon GetBeacon(String uuid){
+    private Beacon GetBeacon(String uuid){
         return null;
     }
 
-    public Beacon GetBeacon(Integer major, Integer minor){
+    private Beacon GetBeacon(Integer major, Integer minor){
         return null;
     }
 

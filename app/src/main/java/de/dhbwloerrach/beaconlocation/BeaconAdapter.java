@@ -50,7 +50,7 @@ public class BeaconAdapter extends ArrayAdapter<Beacon> {
 
             // 4. Set the text for textView
             valueViewMinor.setText(itemsArrayList.get(position).getMinor());
-            valueViewDistance.setText(distanceFormat.format(itemsArrayList.get(position).getDistance()));
+            valueViewDistance.setText(distanceFormat.format(itemsArrayList.get(position).getAverageDistance(20)));
             valueViewUuid.setText(itemsArrayList.get(position).getUuid());
             valueViewBluetoothName.setText(itemsArrayList.get(position).getBluetoothName());
             valueViewTxpower.setText(itemsArrayList.get(position).getTxpower().toString());
