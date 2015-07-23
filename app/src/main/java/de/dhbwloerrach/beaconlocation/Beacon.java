@@ -101,7 +101,7 @@ public class Beacon {
         if(last.size() > 0)
             return last.getAverageDistance();
         else {
-            return this.distances.get(this.distances.size() - 1).getDistance();
+            return this.getDistance();
         }
     }
 
