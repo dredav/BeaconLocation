@@ -1,5 +1,9 @@
 package de.dhbwloerrach.beaconlocation;
 
+import java.security.Timestamp;
+import java.util.ArrayList;
+import java.util.Date;
+
 /**
  * Created by alirei on 20.07.2015.
  */
@@ -12,7 +16,8 @@ public class Beacon {
     private Integer txpower;
     private Integer rssi;
     private String bluetoothAddress;
-
+    private DistanceList distances = new DistanceList();
+    private Date lastSeen;
 
     public String getUuid() {
         return uuid;
@@ -83,6 +88,24 @@ public class Beacon {
 
     public Beacon setBluetoothAddress(String bluetoothAddress) {
         this.bluetoothAddress = bluetoothAddress;
+        this.distances.add(new TimedDistance(distance));
+        return this;
+    }
+
+    public boolean hasDistanceIn(int seconds) {
+        return this.distances.getLast(seconds).size() > 0;
+    }
+
+    public double getAverageDistance(int seconds) {
+        return this.distances.getLast(seconds).getAverageDistance();
+    }
+
+    public Date getLastSeen() {
+        return lastSeen;
+    }
+
+    public Beacon setLastSeen(Date lastSeen) {
+        this.lastSeen = lastSeen;
         return this;
     }
 }

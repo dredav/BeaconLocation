@@ -52,16 +52,20 @@ public class MainActivity extends Activity implements IBeaconListView {
     @Override
     public void RefreshList(final ArrayList<Beacon> beacons) {
 
-        final Activity testt = this;
+        final Activity self = this;
+
+        BeaconList beaconList = new BeaconList();
+        beaconList.addAll(beacons);
+        ArrayList<Beacon> filteredBeacons = beaconList.filterByLast(20);
 
         this.runOnUiThread(new Runnable() {
-            ArrayList<Beacon> test = beacons;
+            ArrayList<Beacon> test = filteredBeacons;
 
             @Override
             public void run() {
                 ListView listView = (ListView) findViewById(R.id.listView);
                 BeaconAdapter adapter;
-                adapter = new BeaconAdapter(testt, test);
+                adapter = new BeaconAdapter(self, test);
                 listView.setAdapter(adapter);
             }
         });
