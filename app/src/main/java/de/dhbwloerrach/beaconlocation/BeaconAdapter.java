@@ -17,7 +17,7 @@ public class BeaconAdapter extends ArrayAdapter<Beacon> {
 
         private final Context context;
         private final ArrayList<Beacon> itemsArrayList;
-        private DecimalFormat distanceFormat = new DecimalFormat("#.##m");
+        private DecimalFormat distanceFormat = new DecimalFormat("#m");
 
         public BeaconAdapter(Context context, ArrayList<Beacon> itemsArrayList) {
 
