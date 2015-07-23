@@ -52,6 +52,7 @@ public class Beacon {
 
     public Beacon setDistance(double distance) {
         this.distance = distance;
+        this.distances.add(new TimedDistance(distance));
         return this;
     }
 
@@ -88,7 +89,6 @@ public class Beacon {
 
     public Beacon setBluetoothAddress(String bluetoothAddress) {
         this.bluetoothAddress = bluetoothAddress;
-        this.distances.add(new TimedDistance(distance));
         return this;
     }
 
