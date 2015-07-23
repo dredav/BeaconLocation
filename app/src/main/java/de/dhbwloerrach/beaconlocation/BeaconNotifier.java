@@ -14,7 +14,7 @@ import java.util.Objects;
  */
 public class BeaconNotifier implements RangeNotifier, MonitorNotifier {
 
-    private ArrayList<de.dhbwloerrach.beaconlocation.Beacon> beaconList;
+    private ArrayList<de.dhbwloerrach.beaconlocation.Beacon> beaconList = new ArrayList<>();
     IBeaconListView listView;
 
     public BeaconNotifier(IBeaconListView listView){
