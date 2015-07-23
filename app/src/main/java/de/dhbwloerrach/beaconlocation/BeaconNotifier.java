@@ -25,7 +25,7 @@ public class BeaconNotifier implements RangeNotifier, MonitorNotifier {
     public void didRangeBeaconsInRegion(Collection<Beacon> collection, Region region) {
         for(Beacon beacon : collection){
             de.dhbwloerrach.beaconlocation.Beacon existing = GetBeacon(beacon.getId1(), beacon.getId2(), beacon.getId3());
-            if(beacon == null) {
+            if(existing == null) {
                 de.dhbwloerrach.beaconlocation.Beacon current = new de.dhbwloerrach.beaconlocation.Beacon();
                 current.setUuid(beacon.getId1().toString())
                         .setMajor(beacon.getId2().toString())

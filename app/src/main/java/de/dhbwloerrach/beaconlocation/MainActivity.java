@@ -56,7 +56,7 @@ public class MainActivity extends Activity implements IBeaconListView {
 
         BeaconList beaconList = new BeaconList();
         beaconList.addAll(beacons);
-        ArrayList<Beacon> filteredBeacons = beaconList.filterByLast(20);
+        final ArrayList<Beacon> filteredBeacons = beaconList.filterByLast(20);
 
         this.runOnUiThread(new Runnable() {
             ArrayList<Beacon> test = filteredBeacons;
