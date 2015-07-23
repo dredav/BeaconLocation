@@ -38,12 +38,26 @@ public class BeaconAdapter extends ArrayAdapter<Beacon> {
             View rowView = inflater.inflate(R.layout.listitem_beacon, parent, false);
 
             // 3. Get the two text view from the rowView
-            TextView labelView = (TextView) rowView.findViewById(R.id.minor);
-            TextView valueView = (TextView) rowView.findViewById(R.id.distance);
+            TextView valueViewMinor = (TextView) rowView.findViewById(R.id.minor);
+            TextView valueViewDistance = (TextView) rowView.findViewById(R.id.distance);
+            TextView valueViewUuid = (TextView) rowView.findViewById(R.id.uuid);
+            TextView valueViewBluetoothName = (TextView) rowView.findViewById(R.id.bluetoothname);
+            TextView valueViewTxpower = (TextView) rowView.findViewById(R.id.txpower);
+            TextView valueViewRssi = (TextView) rowView.findViewById(R.id.rssi);
+            TextView valueViewMajor = (TextView) rowView.findViewById(R.id.major);
+            TextView valueViewBluetoothAddress = (TextView) rowView.findViewById(R.id.bluetoothaddress);
+
 
             // 4. Set the text for textView
-            labelView.setText(itemsArrayList.get(position).getMinor());
-            valueView.setText(distanceFormat.format(itemsArrayList.get(position).getDistance()));
+            valueViewMinor.setText(itemsArrayList.get(position).getMinor());
+            valueViewDistance.setText(distanceFormat.format(itemsArrayList.get(position).getDistance()));
+            valueViewUuid.setText(itemsArrayList.get(position).getUuid());
+            valueViewBluetoothName.setText(itemsArrayList.get(position).getBluetoothName());
+            valueViewTxpower.setText(itemsArrayList.get(position).getTxpower().toString());
+            valueViewRssi.setText(itemsArrayList.get(position).getRssi().toString());
+            valueViewMajor.setText(itemsArrayList.get(position).getMajor());
+            valueViewBluetoothAddress.setText(itemsArrayList.get(position).getBluetoothAddress().toString());
+
 
             // 5. retrn rowView
             return rowView;

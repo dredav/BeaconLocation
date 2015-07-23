@@ -5,16 +5,73 @@
     >
 
     <TextView
-        android:id="@+id/minor"
+        android:id="@+id/bluetoothname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="30sp"
         android:paddingLeft="5dp"
         android:textColor="#000000">
+        >
     </TextView>
 
     <TextView
-        android:id="@+id/distance"
+        android:id="@+id/bluetoothaddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/bluetoothname"
+        android:textSize="12sp"
+        android:paddingLeft="5dp"
+        android:textColor="#005"
+        >
+    </TextView>
+
+    <TextView
+        android:id="@+id/rssi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/bluetoothaddress"
+        android:layout_below="@+id/bluetoothname"
+        android:textSize="12sp"
+        android:paddingLeft="5dp"
+        android:textColor="#005"
+        >
+    </TextView>
+
+    <TextView
+        android:id="@+id/uuid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/bluetoothaddress"
+        android:textSize="12sp"
+        android:paddingLeft="5dp"
+        android:textColor="#005"
+        >
+    </TextView>
+
+    <TextView
+        android:id="@+id/major"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/uuid"
+        android:textSize="12sp"
+        android:paddingLeft="5dp"
+        android:textColor="#005"
+        >
+    </TextView>
+
+    <TextView
+        android:id="@+id/minor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/major"
+        android:textSize="12sp"
+        android:paddingLeft="5dp"
+        android:textColor="#005"
+        >
+    </TextView>
+
+    <TextView
+        android:id="@+id/txpower"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/minor"
@@ -23,5 +80,18 @@
         android:textColor="#005"
         >
     </TextView>
+
+
+    <TextView
+        android:id="@+id/distance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txpower"
+        android:textSize="12sp"
+        android:paddingLeft="5dp"
+        android:textColor="#005"
+        >
+    </TextView>
+
 
 </RelativeLayout>
