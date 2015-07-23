@@ -9,6 +9,8 @@ import android.widget.TextView;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 /**
  * Created by Lukas on 22.07.2015.
@@ -19,13 +21,13 @@ public class BeaconAdapter extends ArrayAdapter<Beacon> {
         private final ArrayList<Beacon> itemsArrayList;
         private DecimalFormat distanceFormat = new DecimalFormat("#m");
 
-        public BeaconAdapter(Context context, ArrayList<Beacon> itemsArrayList) {
+        public BeaconAdapter(Context context, BeaconList beaconArrayList) {
 
-            super(context, R.layout.listitem_beacon, itemsArrayList);
+            super(context, R.layout.listitem_beacon, beaconArrayList.SortByDistance());
 
             this.context = context;
-            this.itemsArrayList = itemsArrayList;
-        }
+            this.itemsArrayList = beaconArrayList;
+}
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
