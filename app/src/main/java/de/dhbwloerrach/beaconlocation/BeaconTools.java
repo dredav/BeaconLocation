@@ -23,26 +23,19 @@ import java.util.Collection;
 public class BeaconTools implements BeaconConsumer {
     Region mRegion = new Region("Region", null, null, null);
     BeaconManager beaconManager;
-    MainActivity context;
-    ArrayList beacons;
+    Context context;
+    IBeaconListView listView;
 
-    public BeaconTools(MainActivity context){
+    public BeaconTools(Context context, IBeaconListView listView){
         this.context = context;
+        this.listView = listView;
         beaconManager = BeaconManager.getInstanceForApplication(this.context);
         beaconManager.getBeaconParsers().add(new BeaconParser().setBeaconLayout("m:2-3=0215,i:4-19,i:20-21,i:22-23,p:24-24"));
         beaconManager.bind(this);
     }
 
-    private ArrayList GetBeacons(){
-        return beacons;
-    }
-
-    private Beacon GetBeacon(String uuid){
-        return null;
-    }
-
-    private Beacon GetBeacon(Integer major, Integer minor){
-        return null;
+    public BeaconTools(MainActivity context){
+        this(context, context);
     }
 
     @Override
@@ -59,14 +52,12 @@ public class BeaconTools implements BeaconConsumer {
             e.printStackTrace();
         }
 
-        BeaconNotifier notifier = new BeaconNotifier(this.context);
+        BeaconNotifier notifier = new BeaconNotifier(this.listView);
         beaconManager.setRangeNotifier(notifier);
-        beaconManager.setMonitorNotifier(notifier);
 
         try {
             //Start Monitoring
             beaconManager.startRangingBeaconsInRegion(mRegion);
-            beaconManager.startMonitoringBeaconsInRegion(mRegion);
         } catch (RemoteException e) {
             e.printStackTrace();
         }

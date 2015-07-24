@@ -12,7 +12,7 @@ import java.util.Objects;
 /**
  * Created by Lukas on 20.07.2015.
  */
-public class BeaconNotifier implements RangeNotifier, MonitorNotifier {
+public class BeaconNotifier implements RangeNotifier {
 
     private ArrayList<de.dhbwloerrach.beaconlocation.Beacon> beaconList = new ArrayList<>();
     IBeaconListView listView;
@@ -54,20 +54,5 @@ public class BeaconNotifier implements RangeNotifier, MonitorNotifier {
             }
         }
         return null;
-    }
-
-    @Override
-    public void didEnterRegion(Region region) {
-
-    }
-
-    @Override
-    public void didExitRegion(Region region) {
-
-    }
-
-    @Override
-    public void didDetermineStateForRegion(int i, Region region) {
-
     }
 }
