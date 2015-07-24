@@ -133,4 +133,9 @@ public class Beacon {
         this.machineId = machineId;
         return this;
     }
+
+    @Override
+    public String toString() {
+        return this.getUuid() + " " + this.getMajor() + " " + this.getMinor();
+    }
 }
