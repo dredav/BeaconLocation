@@ -1,4 +1,4 @@
-package de.dhbwloerrach.beaconlocation;
+package de.dhbwloerrach.beaconlocation.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,9 +8,11 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import java.text.DecimalFormat;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Comparator;
+
+import de.dhbwloerrach.beaconlocation.R;
+import de.dhbwloerrach.beaconlocation.models.Beacon;
+import de.dhbwloerrach.beaconlocation.models.BeaconList;
 
 /**
  * Created by Lukas on 22.07.2015.

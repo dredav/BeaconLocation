@@ -1,4 +1,4 @@
-package de.dhbwloerrach.beaconlocation;
+package de.dhbwloerrach.beaconlocation.models;
 
 import java.util.Date;
 

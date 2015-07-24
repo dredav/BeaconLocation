@@ -1,4 +1,4 @@
-package de.dhbwloerrach.beaconlocation;
+package de.dhbwloerrach.beaconlocation.models;
 
 /**
  * Created by Salvo on 23.07.2015.

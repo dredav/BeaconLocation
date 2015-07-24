@@ -1,10 +1,8 @@
-package de.dhbwloerrach.beaconlocation;
+package de.dhbwloerrach.beaconlocation.models;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Date;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Lukas on 23.07.2015.

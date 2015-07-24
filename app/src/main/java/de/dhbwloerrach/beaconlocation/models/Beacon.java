@@ -1,7 +1,5 @@
-package de.dhbwloerrach.beaconlocation;
+package de.dhbwloerrach.beaconlocation.models;
 
-import java.security.Timestamp;
-import java.util.ArrayList;
 import java.util.Date;
 
 /**

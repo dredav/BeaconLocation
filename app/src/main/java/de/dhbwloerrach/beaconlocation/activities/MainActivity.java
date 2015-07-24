@@ -1,13 +1,19 @@
-package de.dhbwloerrach.beaconlocation;
+package de.dhbwloerrach.beaconlocation.activities;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+
+import de.dhbwloerrach.beaconlocation.models.Beacon;
+import de.dhbwloerrach.beaconlocation.adapters.BeaconAdapter;
+import de.dhbwloerrach.beaconlocation.models.BeaconList;
+import de.dhbwloerrach.beaconlocation.bluetooth.BeaconTools;
+import de.dhbwloerrach.beaconlocation.bluetooth.IBeaconListView;
+import de.dhbwloerrach.beaconlocation.R;
 
 
 public class MainActivity extends Activity implements IBeaconListView {
