@@ -4,10 +4,15 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+
+import java.util.ArrayList;
 
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements IBeaconListView {
     private BeaconTools beaconTools;
+    private BeaconAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -15,6 +20,10 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         beaconTools = new BeaconTools(this);
+        adapter = new BeaconAdapter(this);
+
+        ListView listView = (ListView) findViewById(R.id.listView);
+        listView.setAdapter(adapter);
     }
 
     @Override
@@ -43,5 +52,21 @@ public class MainActivity extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void RefreshList(final ArrayList<Beacon> beacons) {
+        BeaconList beaconList = new BeaconList();
+        beaconList.addAll(beacons);
+        final BeaconList filteredBeacons = beaconList.filterByLast(5);
+
+        this.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                adapter.clearItems();
+                adapter.addItems(filteredBeacons);
+                adapter.notifyDataSetChanged();
+            }
+        });
     }
 }

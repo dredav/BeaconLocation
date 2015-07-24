@@ -21,27 +21,27 @@ import java.util.Collection;
  * Created by alirei on 20.07.2015.
  */
 public class BeaconTools implements BeaconConsumer {
-    public static Region mRegion = new Region("Server", Identifier.parse("Here is my UUID"), null, null);
+    Region mRegion = new Region("Region", null, null, null);
     BeaconManager beaconManager;
-    Context context;
+    MainActivity context;
     ArrayList beacons;
 
-    public BeaconTools(Context context){
+    public BeaconTools(MainActivity context){
         this.context = context;
         beaconManager = BeaconManager.getInstanceForApplication(this.context);
         beaconManager.getBeaconParsers().add(new BeaconParser().setBeaconLayout("m:2-3=0215,i:4-19,i:20-21,i:22-23,p:24-24"));
         beaconManager.bind(this);
     }
 
-    public ArrayList GetBeacons(){
+    private ArrayList GetBeacons(){
         return beacons;
     }
 
-    public Beacon GetBeacon(String uuid){
+    private Beacon GetBeacon(String uuid){
         return null;
     }
 
-    public Beacon GetBeacon(Integer major, Integer minor){
+    private Beacon GetBeacon(Integer major, Integer minor){
         return null;
     }
 
@@ -59,12 +59,13 @@ public class BeaconTools implements BeaconConsumer {
             e.printStackTrace();
         }
 
-        BeaconNotifier notifier = new BeaconNotifier(this.beacons);
+        BeaconNotifier notifier = new BeaconNotifier(this.context);
         beaconManager.setRangeNotifier(notifier);
         beaconManager.setMonitorNotifier(notifier);
 
         try {
             //Start Monitoring
+            beaconManager.startRangingBeaconsInRegion(mRegion);
             beaconManager.startMonitoringBeaconsInRegion(mRegion);
         } catch (RemoteException e) {
             e.printStackTrace();
