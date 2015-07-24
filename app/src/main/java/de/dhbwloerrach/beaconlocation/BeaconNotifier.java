@@ -28,8 +28,8 @@ public class BeaconNotifier implements RangeNotifier, MonitorNotifier {
             if(existing == null) {
                 existing = new de.dhbwloerrach.beaconlocation.Beacon();
                 existing.setUuid(beacon.getId1().toString())
-                        .setMajor(beacon.getId2().toString())
-                        .setMinor(beacon.getId3().toString())
+                        .setMajor(beacon.getId2().toInt())
+                        .setMinor(beacon.getId3().toInt())
                         .setBluetoothName(beacon.getBluetoothName())
                         .setBluetoothAddress(beacon.getBluetoothAddress());
                 if (existing.getBluetoothName() == null || existing.getBluetoothName().isEmpty()){

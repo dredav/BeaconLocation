@@ -78,14 +78,14 @@ public class BeaconAdapter extends ArrayAdapter<Beacon> {
         TextView valueViewBluetoothAddress = (TextView) rowView.findViewById(R.id.bluetoothaddress);
 
         // 4. Set the text for textView
-        valueViewMinor.setText(beacons.get(position).getMinor());
-        valueViewDistance.setText(distanceFormat.format(beacons.get(position).getDistance()));
         valueViewUuid.setText(beacons.get(position).getUuid());
+        valueViewMinor.setText(beacons.get(position).getMinor().toString());
+        valueViewMajor.setText(beacons.get(position).getMajor().toString());
+        valueViewDistance.setText(distanceFormat.format(beacons.get(position).getDistance()));
         valueViewBluetoothName.setText(beacons.get(position).getBluetoothName());
         valueViewTxpower.setText(beacons.get(position).getTxpower().toString());
         valueViewRssi.setText(beacons.get(position).getRssi().toString());
-        valueViewMajor.setText(beacons.get(position).getMajor());
-        valueViewBluetoothAddress.setText(beacons.get(position).getBluetoothAddress().toString());
+        valueViewBluetoothAddress.setText(beacons.get(position).getBluetoothAddress());
 
         // 5. retrn rowView
         return rowView;
