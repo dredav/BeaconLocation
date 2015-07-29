@@ -47,3 +47,7 @@ before_script:
 script:
   - android list target
   - ./gradlew connectedAndroidTest
+
+notifications:
+  email:
+    - david@md-web-solutions.de
