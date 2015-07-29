@@ -6,6 +6,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
 
+import com.mikepenz.materialdrawer.DrawerBuilder;
+
 import java.util.ArrayList;
 
 import de.dhbwloerrach.beaconlocation.models.Beacon;
@@ -24,6 +26,15 @@ public class MainActivity extends Activity implements IBeaconListView {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        new DrawerBuilder()
+                .withActivity(this)
+                .withTranslucentStatusBar(true)
+                .withActionBarDrawerToggle(true)
+                .addDrawerItems(
+                        //pass your items here
+                )
+                .build();
 
         beaconTools = new BeaconTools(this);
         adapter = new BeaconAdapter(this);
