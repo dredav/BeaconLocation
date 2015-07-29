@@ -1,14 +1,16 @@
-package de.dhbwloerrach.beaconlocation;
+package de.dhbwloerrach.beaconlocation.database;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.net.Uri;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import de.dhbwloerrach.beaconlocation.models.Beacon;
+import de.dhbwloerrach.beaconlocation.models.Machine;
 
 /**
  * Created by Salvo on 23.07.2015.

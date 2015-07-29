@@ -1,7 +1,5 @@
-package de.dhbwloerrach.beaconlocation;
+package de.dhbwloerrach.beaconlocation.models;
 
-import java.security.Timestamp;
-import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -132,5 +130,10 @@ public class Beacon {
     public Beacon setMachineId(Integer machineId) {
         this.machineId = machineId;
         return this;
+    }
+
+    @Override
+    public String toString() {
+        return this.getUuid() + " " + this.getMajor() + " " + this.getMinor();
     }
 }

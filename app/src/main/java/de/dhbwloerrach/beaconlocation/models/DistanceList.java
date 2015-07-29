@@ -1,6 +1,5 @@
-package de.dhbwloerrach.beaconlocation;
+package de.dhbwloerrach.beaconlocation.models;
 
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
