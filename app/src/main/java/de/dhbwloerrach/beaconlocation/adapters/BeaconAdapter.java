@@ -29,12 +29,12 @@ public class BeaconAdapter extends ArrayAdapter<Beacon> {
 
     public void addItem(Beacon item) {
         beacons.add(item);
-        beacons.SortByDistance();
+        beacons.SortByMinor();
     }
 
     public void addItems(Collection<Beacon> items) {
         beacons.addAll(items);
-        beacons.SortByDistance();
+        beacons.SortByMinor();
     }
 
     public void clearItems() {
@@ -71,23 +71,12 @@ public class BeaconAdapter extends ArrayAdapter<Beacon> {
 
         // 3. Get the two text view from the rowView
         TextView valueViewMinor = (TextView) rowView.findViewById(R.id.minor);
-        TextView valueViewDistance = (TextView) rowView.findViewById(R.id.distance);
-        TextView valueViewUuid = (TextView) rowView.findViewById(R.id.uuid);
-        TextView valueViewBluetoothName = (TextView) rowView.findViewById(R.id.bluetoothname);
-        TextView valueViewTxpower = (TextView) rowView.findViewById(R.id.txpower);
         TextView valueViewRssi = (TextView) rowView.findViewById(R.id.rssi);
-        TextView valueViewMajor = (TextView) rowView.findViewById(R.id.major);
-        TextView valueViewBluetoothAddress = (TextView) rowView.findViewById(R.id.bluetoothaddress);
+
 
         // 4. Set the text for textView
-        valueViewUuid.setText(beacons.get(position).getUuid());
         valueViewMinor.setText(beacons.get(position).getMinor().toString());
-        valueViewMajor.setText(beacons.get(position).getMajor().toString());
-        valueViewDistance.setText(distanceFormat.format(beacons.get(position).getDistance()));
-        valueViewBluetoothName.setText(beacons.get(position).getBluetoothName());
-        valueViewTxpower.setText(beacons.get(position).getTxpower().toString());
         valueViewRssi.setText(beacons.get(position).getRssi().toString());
-        valueViewBluetoothAddress.setText(beacons.get(position).getBluetoothAddress());
 
         // 5. retrn rowView
         return rowView;

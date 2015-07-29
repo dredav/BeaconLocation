@@ -35,5 +35,23 @@ public class BeaconList extends ArrayList<Beacon> {
         });
         return this;
     }
+
+    public BeaconList SortByMinor() {
+        Collections.sort(this, new Comparator<Beacon>() {
+            @Override
+            public int compare(Beacon lhs, Beacon rhs) {
+                double tempDiff = lhs.getMinor() - rhs.getMinor();
+                if (tempDiff == 0) {
+                    return 0;
+                }
+                if (tempDiff < 0) {
+                    return -1;
+                } else {
+                    return 1;
+                }
+            }
+        });
+        return this;
+    }
 }
 
