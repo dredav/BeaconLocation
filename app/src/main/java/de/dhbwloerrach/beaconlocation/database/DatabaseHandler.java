@@ -86,15 +86,16 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         Cursor cursor = db.query(TABLE_MACHINE, new String[]{KEY_MACHINE_ID, KEY_MACHINE_NAME}, KEY_MACHINE_ID + "=?", new String[]{String.valueOf(id)}, null, null, null, null);
 
-        if (cursor != null)
+        Machine machine = new Machine();
+
+        if (cursor != null) {
             cursor.moveToFirst();
 
-        Machine machine = new Machine();
-        machine.seIid(Integer.parseInt(cursor.getString(0)));
-        machine.setName(cursor.getString(1));
-
+            machine.seIid(Integer.parseInt(cursor.getString(0)));
+            machine.setName(cursor.getString(1));
+            cursor.close();
+        }
         db.close();
-        cursor.close();
         return machine;
     }
 
@@ -103,20 +104,21 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public Beacon getBeacon(int id) {
         SQLiteDatabase db = getReadableDatabase();
 
-        Cursor cursor = db.query(TABLE_BEACON, new String[] { KEY_BEACON_ID, KEY_BEACON_MINOR, KEY_BEACON_MAJOR, KEY_BEACON_UUID }, KEY_BEACON_ID + "=?", new String[] { String.valueOf(id) }, null, null, null, null );
-
-        if (cursor != null)
-            cursor.moveToFirst();
+        Cursor cursor = db.query(TABLE_BEACON, new String[]{KEY_BEACON_ID, KEY_BEACON_MINOR, KEY_BEACON_MAJOR, KEY_BEACON_UUID}, KEY_BEACON_ID + "=?", new String[]{String.valueOf(id)}, null, null, null, null);
 
         Beacon beacon = new Beacon();
-        beacon.setId(Integer.parseInt(cursor.getString(0)));
-        beacon.setMinor(Integer.parseInt(cursor.getString(1)));
-        beacon.setMajor(Integer.parseInt(cursor.getString(2)));
-        beacon.setUuid(cursor.getString(3));
-       beacon.setMachineId(Integer.parseInt(cursor.getString(4)));
 
+        if (cursor != null) {
+            cursor.moveToFirst();
+
+            beacon.setId(Integer.parseInt(cursor.getString(0)));
+            beacon.setMinor(Integer.parseInt(cursor.getString(1)));
+            beacon.setMajor(Integer.parseInt(cursor.getString(2)));
+            beacon.setUuid(cursor.getString(3));
+            beacon.setMachineId(Integer.parseInt(cursor.getString(4)));
+            cursor.close();
+        }
         db.close();
-        cursor.close();
         return beacon;
     }
 
@@ -170,7 +172,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 
     public List<Machine> getAllMachines() {
-        List<Machine> machines = new ArrayList<Machine>();
+        List<Machine> machines = new ArrayList<>();
 
         SQLiteDatabase db = getWritableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_MACHINE, null);
@@ -188,9 +190,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.close();
         return machines;
     }
-
+    //andere Liste ausgeben
     public List<Beacon> getAllBeacons() {
-        List<Beacon> beacons = new ArrayList<Beacon>();
+        List<Beacon> beacons = new ArrayList<>();
 
         SQLiteDatabase db = getWritableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_BEACON, null);
