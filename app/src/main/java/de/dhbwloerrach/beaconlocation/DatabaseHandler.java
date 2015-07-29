@@ -191,7 +191,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         List<Beacon> beacons = new ArrayList<Beacon>();
 
         SQLiteDatabase db = getWritableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_MACHINE, null);
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_BEACON, null);
 
         if (cursor.moveToFirst()) {
             do {
