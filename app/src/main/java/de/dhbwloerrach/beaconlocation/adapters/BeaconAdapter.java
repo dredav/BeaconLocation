@@ -53,7 +53,7 @@ public class BeaconAdapter extends ArrayAdapter<Beacon> {
 
     @Override
     public int getPosition(Beacon beacon) {
-        return super.getPosition(beacon);
+        return beacons.indexOf(beacon);
     }
 
     @Override

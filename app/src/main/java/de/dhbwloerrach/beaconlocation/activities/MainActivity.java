@@ -3,13 +3,19 @@ package de.dhbwloerrach.beaconlocation.activities;
 import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewGroup;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.mikepenz.materialdrawer.DrawerBuilder;
+import com.mikepenz.materialdrawer.model.DividerDrawerItem;
+import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
+import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
+import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,10 +41,12 @@ public class MainActivity extends Activity implements IBeaconListView {
 
         new DrawerBuilder()
                 .withActivity(this)
-                .withTranslucentStatusBar(true)
+                .withTranslucentStatusBar(false)
                 .withActionBarDrawerToggle(true)
                 .addDrawerItems(
-                        //pass your items here
+                        new PrimaryDrawerItem().withName("Test").withDescription("aaaa"),
+                        new SecondaryDrawerItem().withName("asdf"),
+                        new DividerDrawerItem()
                 )
                 .build();
 
