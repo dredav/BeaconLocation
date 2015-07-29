@@ -2,96 +2,16 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
+    android:paddingBottom="10dp"
+    android:paddingTop="10dp"
     >
 
     <TextView
-        android:id="@+id/bluetoothname"
+        android:id="@+id/minor_label"
+        android:text="Blukii"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="30sp"
-        android:paddingLeft="5dp"
-        android:textColor="#000000">
-        >
-    </TextView>
-
-    <TextView
-        android:id="@+id/bluetoothaddress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/bluetoothname"
-        android:textSize="12sp"
-        android:paddingLeft="5dp"
-        android:textColor="#005"
-        >
-    </TextView>
-
-    <TextView
-        android:id="@+id/rssi"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/bluetoothaddress"
-        android:layout_below="@+id/bluetoothname"
-        android:textSize="12sp"
-        android:paddingLeft="5dp"
-        android:textColor="#005"
-        >
-    </TextView>
-
-    <TextView
-        android:id="@+id/uuid_label"
-        android:text="UUID:"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/bluetoothaddress"
-        android:textSize="12sp"
-        android:paddingLeft="5dp"
-        android:textColor="#005"
-        >
-    </TextView>
-
-    <TextView
-        android:id="@+id/uuid"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/uuid_label"
-        android:layout_below="@+id/bluetoothaddress"
-        android:textSize="12sp"
-        android:paddingLeft="5dp"
-        android:textColor="#005"
-        >
-    </TextView>
-
-    <TextView
-        android:id="@+id/major_label"
-        android:text="MAJOR:"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/uuid_label"
-        android:textSize="12sp"
-        android:paddingLeft="5dp"
-        android:textColor="#005"
-        >
-    </TextView>
-
-    <TextView
-        android:id="@+id/major"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/major_label"
-        android:layout_below="@+id/uuid"
-        android:textSize="12sp"
-        android:paddingLeft="5dp"
-        android:textColor="#005"
-        >
-    </TextView>
-
-    <TextView
-        android:id="@+id/minor_label"
-        android:text="MINOR:"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/major_label"
-        android:textSize="12sp"
         android:paddingLeft="5dp"
         android:textColor="#005"
         >
@@ -102,62 +22,34 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/minor_label"
-        android:layout_below="@+id/major"
-        android:textSize="12sp"
+        android:textSize="30sp"
         android:paddingLeft="5dp"
         android:textColor="#005"
         >
     </TextView>
 
     <TextView
-        android:id="@+id/txpower_label"
-        android:text="TX POWER:"
+        android:id="@+id/rssi_label"
+        android:text="Signalstärke:"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/minor_label"
-        android:textSize="12sp"
+        android:textSize="20sp"
         android:paddingLeft="5dp"
         android:textColor="#005"
         >
     </TextView>
 
     <TextView
-        android:id="@+id/txpower"
+        android:id="@+id/rssi"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/txpower_label"
         android:layout_below="@+id/minor"
-        android:textSize="12sp"
+        android:layout_toRightOf="@+id/rssi_label"
+        android:textSize="20sp"
         android:paddingLeft="5dp"
         android:textColor="#005"
         >
     </TextView>
-
-
-    <TextView
-        android:id="@+id/distance_label"
-        android:text="DISTANCE:"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/txpower_label"
-        android:textSize="12sp"
-        android:paddingLeft="5dp"
-        android:textColor="#005"
-        >
-    </TextView>
-
-    <TextView
-        android:id="@+id/distance"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/distance_label"
-        android:layout_below="@+id/txpower"
-        android:textSize="12sp"
-        android:paddingLeft="5dp"
-        android:textColor="#005"
-        >
-    </TextView>
-
-
 
 </RelativeLayout>
