@@ -63,7 +63,5 @@ public class BeaconList extends ArrayList<Beacon> {
                 SortByRSSI();
                 break;
         }
-
     }
 }
-
