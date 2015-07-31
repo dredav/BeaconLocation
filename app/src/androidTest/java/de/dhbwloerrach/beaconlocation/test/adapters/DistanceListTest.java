@@ -38,7 +38,7 @@ public class DistanceListTest extends AndroidTestCase {
     }
 
     public void testGetLast() throws Exception {
-        assertTrue(true);
+        assertTrue(false);
     }
 
     public void testAverageDistance() throws Exception {
