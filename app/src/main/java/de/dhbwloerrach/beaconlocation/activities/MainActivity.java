@@ -74,6 +74,8 @@ public class MainActivity extends Activity implements IBeaconListView {
                     selectedBeacons.add(beacon);
                     view.setBackgroundColor(0xFF8db6cd);
                 }
+                actionBarMenu.getItem(0).setEnabled(!updatePaused);
+                actionBarMenu.getItem(1).setEnabled(updatePaused);
             }
         });
         listView.setAdapter(adapter);
@@ -91,6 +93,7 @@ public class MainActivity extends Activity implements IBeaconListView {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         actionBarMenu = menu;
         setSortTitle();
+        menu.getItem(1).setEnabled(false);
         //return super.onCreateOptionsMenu(menu);
         return true;
     }
@@ -134,8 +137,7 @@ public class MainActivity extends Activity implements IBeaconListView {
         MenuItem item = actionBarMenu.findItem(R.id.action_sort);
         if(adapter.getFilterTyp()== FilterTyp.Minor){
             item.setTitle(R.string.rssi);
-        }
-        else {
+        } else {
             item.setTitle(R.string.minor);
         }
     }
@@ -183,5 +185,4 @@ public class MainActivity extends Activity implements IBeaconListView {
         dialog.show();
 
     }
-
 }
