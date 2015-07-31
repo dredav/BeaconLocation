@@ -29,10 +29,6 @@ public class BeaconTools implements BeaconConsumer {
         beaconManager.bind(this);
     }
 
-    public BeaconTools(MainActivity context){
-        this(context, context);
-    }
-
     @Override
     public void onBeaconServiceConnect() {
         try {
