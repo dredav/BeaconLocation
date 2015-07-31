@@ -1,8 +1,6 @@
 package de.dhbwloerrach.beaconlocation.activities;
 
-import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Fragment;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;

@@ -1,7 +1,9 @@
 package de.dhbwloerrach.beaconlocation.bluetooth;
 
-import org.altbeacon.beacon.*;
 import org.altbeacon.beacon.Beacon;
+import org.altbeacon.beacon.Identifier;
+import org.altbeacon.beacon.RangeNotifier;
+import org.altbeacon.beacon.Region;
 
 import java.util.ArrayList;
 import java.util.Collection;

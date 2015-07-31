@@ -1,7 +1,5 @@
 package de.dhbwloerrach.beaconlocation.activities;
 
-import android.app.Activity;
-import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;

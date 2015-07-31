@@ -10,8 +10,6 @@ import org.altbeacon.beacon.BeaconManager;
 import org.altbeacon.beacon.BeaconParser;
 import org.altbeacon.beacon.Region;
 
-import de.dhbwloerrach.beaconlocation.activities.MainActivity;
-
 /**
  * Created by alirei on 20.07.2015.
  */

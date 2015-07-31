@@ -12,8 +12,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import de.dhbwloerrach.beaconlocation.R;
-import de.dhbwloerrach.beaconlocation.models.Beacon;
-import de.dhbwloerrach.beaconlocation.models.BeaconList;
 import de.dhbwloerrach.beaconlocation.models.Machine;
 
 /**
