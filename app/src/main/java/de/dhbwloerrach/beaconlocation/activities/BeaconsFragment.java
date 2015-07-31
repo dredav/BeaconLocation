@@ -1,5 +1,6 @@
 package de.dhbwloerrach.beaconlocation.activities;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.DialogInterface;
@@ -31,6 +32,7 @@ public class BeaconsFragment extends Fragment implements IBeaconListView, IFragm
     private Boolean updatePaused = false;
     private ArrayList<Beacon> selectedBeacons = new ArrayList<>();
     private Menu actionBarMenu;
+    private Activity activity;
 
     @Nullable
     @Override
@@ -38,15 +40,17 @@ public class BeaconsFragment extends Fragment implements IBeaconListView, IFragm
         return inflater.inflate(R.layout.fragment_beacons, container, false);
     }
 
+    private boolean initialized = false;
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        adapter = new BeaconAdapter(this.getActivity());
+        if(!initialized){
+            initializeFragment();
+            initialized = true;
+        }
 
-        ((MainActivity) this.getActivity()).getCommons().startMonitoring(this);
-
-        ListView listView = (ListView) this.getActivity().findViewById(R.id.listView);
+        ListView listView = (ListView) activity.findViewById(R.id.listView);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -70,6 +74,14 @@ public class BeaconsFragment extends Fragment implements IBeaconListView, IFragm
         });
         listView.setAdapter(adapter);
     }
+
+    @Override
+    public void initializeFragment() {
+        adapter = new BeaconAdapter(activity);
+
+        ((MainActivity) activity).getCommons().startMonitoring(this);
+    }
+
     public void setSortTitle() {
 
         MenuItem item = actionBarMenu.findItem(R.id.action_sort);
@@ -87,7 +99,7 @@ public class BeaconsFragment extends Fragment implements IBeaconListView, IFragm
             beaconList.addAll(beacons);
             final BeaconList filteredBeacons = beaconList.filterByLast(5);
 
-            this.getActivity().runOnUiThread(new Runnable() {
+            activity.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
                     adapter.clearItems();
@@ -144,7 +156,7 @@ public class BeaconsFragment extends Fragment implements IBeaconListView, IFragm
 
 
     public void buildDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this.getActivity());
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
 
         builder.setTitle(R.string.dialog_title);
 
@@ -166,5 +178,11 @@ public class BeaconsFragment extends Fragment implements IBeaconListView, IFragm
         // Create the AlertDialog
         AlertDialog dialog = builder.create();
         dialog.show();
+    }
+
+    @Override
+    public IFragment setActivity(Activity activity) {
+        this.activity = activity;
+        return this;
     }
 }

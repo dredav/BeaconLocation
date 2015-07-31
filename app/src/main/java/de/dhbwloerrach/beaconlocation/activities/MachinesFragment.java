@@ -1,5 +1,6 @@
 package de.dhbwloerrach.beaconlocation.activities;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -15,6 +16,8 @@ import de.dhbwloerrach.beaconlocation.R;
  * Created by Lukas on 31.07.2015.
  */
 public class MachinesFragment extends Fragment implements IFragment {
+    private Activity activity;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -34,5 +37,16 @@ public class MachinesFragment extends Fragment implements IFragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         return false;
+    }
+
+    @Override
+    public IFragment setActivity(Activity activity) {
+        this.activity = activity;
+        return this;
+    }
+
+    @Override
+    public void initializeFragment() {
+
     }
 }
