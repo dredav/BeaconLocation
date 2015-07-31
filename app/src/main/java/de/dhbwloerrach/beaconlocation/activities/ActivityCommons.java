@@ -76,7 +76,7 @@ public class ActivityCommons implements Drawer.OnDrawerItemClickListener {
                 .withTranslucentStatusBar(false)
                 .withActionBarDrawerToggle(true)
                 .addDrawerItems(
-                        new PrimaryDrawerItem().withTag(FragmentType.BEACON_SEARCH).withName(R.string.menu_beacon).withDescription(R.string.menu_beaconDescription),
+                        new PrimaryDrawerItem().withTag(FragmentType.BEACON_SEARCH).withName(R.string.menu_beaconView).withDescription(R.string.menu_beaconViewDescription),
                         new DividerDrawerItem(),
                         new SecondaryDrawerItem().withTag(FragmentType.MACHINE_VIEW).withName(R.string.menu_machineView)
                 )
