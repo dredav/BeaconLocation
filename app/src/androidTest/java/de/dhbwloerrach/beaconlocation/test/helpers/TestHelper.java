@@ -43,13 +43,13 @@ public class TestHelper {
         return beacons;
     }
 
-    private int createRandom(int min, int max)
+    public int createRandom(int min, int max)
     {
         int range = Math.abs(max - min) + 1;
         return (int)(Math.random() * range) + (min <= max ? min : max);
     }
 
-    private double createRandom(double min, double max)
+    public double createRandom(double min, double max)
     {
         Random random = new Random();
         return min + (max - min) * random.nextDouble();
