@@ -19,6 +19,10 @@ public class Beacon {
     private Integer minor;
     private Integer id;
     private Integer machineId;
+    private Boolean front_left;
+    private Boolean front_right;
+    private Boolean back_left;
+    private Boolean back_right;
 
     public String getUuid() {
         return uuid;
@@ -139,6 +143,42 @@ public class Beacon {
 
     public Beacon setMachineId(Integer machineId) {
         this.machineId = machineId;
+        return this;
+    }
+
+    public Boolean getFront_left() {
+        return front_left;
+    }
+
+    public Beacon setFront_left(Boolean bool) {
+        this.front_left = bool;
+        return this;
+    }
+
+    public Boolean getFront_right() {
+        return front_right;
+    }
+
+    public Beacon setFront_right(Boolean bool) {
+        this.front_right = bool;
+        return this;
+    }
+
+    public Boolean getBack_left() {
+        return back_left;
+    }
+
+    public Beacon setBack_left(Boolean bool) {
+        this.back_left = bool;
+        return this;
+    }
+
+    public Boolean getBack_right() {
+        return back_right;
+    }
+
+    public Beacon setBack_right(Boolean bool) {
+        this.back_right = bool;
         return this;
     }
 
