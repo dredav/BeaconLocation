@@ -46,8 +46,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL("INSERT INTO " + TABLE_MACHINE + "(" + KEY_MACHINE_ID + ", " + KEY_MACHINE_NAME + ") VALUES (1, 'TestMaschine')");
         db.execSQL("INSERT INTO " + TABLE_MACHINE + "(" + KEY_MACHINE_ID + ", " + KEY_MACHINE_NAME + ") VALUES (2, 'Vorlesung')");
 
-        db.execSQL("INSERT INTO " + TABLE_BEACON +  "(" + KEY_BEACON_ID + ", " + KEY_BEACON_MINOR + ", "+ KEY_BEACON_MAJOR + ", " + KEY_BEACON_UUID +") VALUES (1, 510, 0, NULL, '01234567-89AB-CDEF-0123-000000000001')");
-        db.execSQL("INSERT INTO " + TABLE_BEACON + "(" + KEY_BEACON_ID + ", " + KEY_BEACON_MINOR + ", " + KEY_BEACON_MAJOR + ", " + KEY_BEACON_UUID + ") VALUES(2, 511, 0, NULL, '01234567-89AB-CDEF-0123-000000000001')");
+        db.execSQL("INSERT INTO " + TABLE_BEACON +  "(" + KEY_BEACON_ID + ", " + KEY_BEACON_MINOR + ", "+ KEY_BEACON_MAJOR + ", " + KEY_BEACON_UUID +") VALUES (1, 510, 0, '01234567-89AB-CDEF-0123-000000000001')");
+        db.execSQL("INSERT INTO " + TABLE_BEACON + "(" + KEY_BEACON_ID + ", " + KEY_BEACON_MINOR + ", " + KEY_BEACON_MAJOR + ", " + KEY_BEACON_UUID + ") VALUES(2, 511, 0, '01234567-89AB-CDEF-0123-000000000001')");
     }
 
     @Override

@@ -7,21 +7,9 @@
     >
 
     <TextView
-        android:id="@+id/name_label"
-        android:text="Name: "
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="30sp"
-        android:paddingLeft="5dp"
-        android:textColor="#005"
-        >
-    </TextView>
-
-    <TextView
         android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/name_label"
         android:textSize="30sp"
         android:paddingLeft="5dp"
         android:textColor="#005"
