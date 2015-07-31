@@ -53,16 +53,16 @@ public class MainActivity extends Activity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        return commons.getCurrentFragment().onCreateOptionsMenu(menu);
+        commons.setMenu(menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        return commons.getCurrentFragment().onOptionsItemSelected(item);
+        return commons.menuHandler(item);
     }
 
     public ActivityCommons getCommons() {
         return commons;
     }
-    
 }

@@ -32,7 +32,7 @@ public class ActivityCommons implements Drawer.OnDrawerItemClickListener {
     private Drawer drawer;
     private BeaconsFragment beaconsFragment;
     private MachinesFragment machinesFragment;
-    private BaseFragment currentFragment;
+    private BaseFragment fragment;
     private AddNewMachineFragement addNewMachineFragement;
 
     public ActivityCommons(MainActivity context) {
@@ -41,11 +41,17 @@ public class ActivityCommons implements Drawer.OnDrawerItemClickListener {
 
     public ActivityCommons setMenu(Menu menu) {
         this.menu = menu;
+
+        if(fragment != null) {
+            menu.clear();
+            fragment.createActionBarMenu(menu);
+        }
+
         return this;
     }
 
     public boolean menuHandler(MenuItem item) {
-        return currentFragment.handleMenuClick(item.getItemId());
+        return fragment.handleMenuClick(item.getItemId());
     }
 
     @Override
@@ -57,19 +63,17 @@ public class ActivityCommons implements Drawer.OnDrawerItemClickListener {
     }
 
     public void switchFragment(FragmentType type) {
-        switchFragment(type, new Bundle());
+        switchFragment(type, null);
     }
 
     public void switchFragment(FragmentType type, Bundle bundle) {
         FragmentManager fragmentManager = context.getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-        BaseFragment fragment = null;
         switch (type) {
             case BEACON_SEARCH:
                 if (beaconsFragment == null) {
                     beaconsFragment = new BeaconsFragment();
-                    beaconsFragment.setActivity(context);
                 }
 
                 fragment = beaconsFragment;
@@ -78,7 +82,6 @@ public class ActivityCommons implements Drawer.OnDrawerItemClickListener {
             case MACHINE_VIEW:
                 if (machinesFragment == null) {
                     machinesFragment = new MachinesFragment();
-                    machinesFragment.setActivity(context);
                 }
 
                 fragment = machinesFragment;
@@ -87,7 +90,6 @@ public class ActivityCommons implements Drawer.OnDrawerItemClickListener {
             case ADD_MACHINE:
                 if (addNewMachineFragement == null) {
                     addNewMachineFragement = new AddNewMachineFragement();
-                    addNewMachineFragement.setActivity(context);
                 }
 
                 fragment = addNewMachineFragement;
@@ -104,11 +106,11 @@ public class ActivityCommons implements Drawer.OnDrawerItemClickListener {
         }
 
         if(menu != null) {
+            menu.clear();
             fragment.createActionBarMenu(menu);
         }
 
         fragmentTransaction.replace(R.id.mainView, fragment);
-        currentFragment = (fragment instanceof IFragment) ? (IFragment)fragment : null;
         fragmentTransaction.commit();
     }
 

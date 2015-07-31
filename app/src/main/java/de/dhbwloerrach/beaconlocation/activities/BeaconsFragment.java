@@ -27,12 +27,11 @@ import de.dhbwloerrach.beaconlocation.models.FilterTyp;
 /**
  * Created by Lukas on 31.07.2015.
  */
-public class BeaconsFragment extends Fragment implements IBeaconListView, IFragment{
+public class BeaconsFragment extends BaseFragment implements IBeaconListView {
     private BeaconAdapter adapter;
     private Boolean updatePaused = false;
     private ArrayList<Beacon> selectedBeacons = new ArrayList<>();
-    private Menu actionBarMenu;
-    private Activity activity;
+    private Menu menu;
 
     @Nullable
     @Override
@@ -40,13 +39,13 @@ public class BeaconsFragment extends Fragment implements IBeaconListView, IFragm
         return inflater.inflate(R.layout.fragment_beacons, container, false);
     }
 
-    private boolean initialized = false;
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         if(!initialized){
-            initializeFragment();
+            adapter = new BeaconAdapter(activity);
+            activity.getCommons().startMonitoring(this);
             initialized = true;
         }
 
@@ -68,24 +67,18 @@ public class BeaconsFragment extends Fragment implements IBeaconListView, IFragm
                     selectedBeacons.add(beacon);
                     view.setBackgroundColor(0xFF8db6cd);
                 }
-                actionBarMenu.getItem(0).setEnabled(!updatePaused);
-                actionBarMenu.getItem(1).setEnabled(updatePaused);
+
+                menu.getItem(0).setEnabled(!updatePaused);
+                menu.getItem(1).setEnabled(updatePaused);
             }
         });
+
         listView.setAdapter(adapter);
     }
 
-    @Override
-    public void initializeFragment() {
-        adapter = new BeaconAdapter(activity);
-
-        ((MainActivity) activity).getCommons().startMonitoring(this);
-    }
-
     public void setSortTitle() {
-
-        MenuItem item = actionBarMenu.findItem(R.id.action_sort);
-        if(adapter.getFilterTyp()== FilterTyp.Minor){
+        MenuItem item = menu.findItem(R.id.action_sort);
+        if (adapter.getFilterTyp()== FilterTyp.Minor) {
             item.setTitle(R.string.rssi);
         } else {
             item.setTitle(R.string.minor);
@@ -110,57 +103,10 @@ public class BeaconsFragment extends Fragment implements IBeaconListView, IFragm
         }
     }
 
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getActivity().getMenuInflater().inflate(R.menu.menu_main, menu);
-        actionBarMenu = menu;
-        setSortTitle();
-        menu.getItem(1).setEnabled(false);
-        //return super.onCreateOptionsMenu(menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.add_beacon) {
-            if (updatePaused == true) {
-                buildDialog();
-            }
-            return true;
-        }
-        else if (id == R.id.action_sort){
-
-            FilterTyp filterTyp;
-
-            if(adapter.getFilterTyp()== FilterTyp.Minor){
-                filterTyp = FilterTyp.RSSI;
-            }
-
-            else {
-                filterTyp = FilterTyp.Minor;
-            }
-
-            adapter.setFilterTyp(filterTyp);
-            setSortTitle();
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-
     public void buildDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-
         builder.setTitle(R.string.dialog_title);
 
-        // Add the buttons
         builder.setPositiveButton(R.string.addToMachine, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 // User clicked OK button
@@ -169,20 +115,49 @@ public class BeaconsFragment extends Fragment implements IBeaconListView, IFragm
 
         builder.setNegativeButton(R.string.createNewMachine, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                ((MainActivity) activity).getCommons().switchFragment(ActivityCommons.FragmentType.ADD_MACHINE);
+                activity.getCommons().switchFragment(ActivityCommons.FragmentType.ADD_MACHINE);
             }
         });
 
-        // Set other dialog properties
-
-        // Create the AlertDialog
         AlertDialog dialog = builder.create();
         dialog.show();
     }
 
     @Override
-    public IFragment setActivity(Activity activity) {
-        this.activity = activity;
-        return this;
+    protected void createActionBarMenu(Menu menu) {
+        this.menu = menu;
+
+        activity.getMenuInflater().inflate(R.menu.menu_main, menu);
+        setSortTitle();
+
+        menu.getItem(1).setEnabled(false);
+    }
+
+    @Override
+    protected boolean handleMenuClick(int itemId) {
+        switch (itemId) {
+            case R.id.add_beacon:
+                if (updatePaused) {
+                    buildDialog();
+                }
+                break;
+
+            case R.id.action_sort:
+                FilterTyp filterTyp;
+                if (adapter.getFilterTyp() == FilterTyp.Minor) {
+                    filterTyp = FilterTyp.RSSI;
+                } else {
+                    filterTyp = FilterTyp.Minor;
+                }
+
+                adapter.setFilterTyp(filterTyp);
+                setSortTitle();
+                break;
+
+            default:
+                return false;
+        }
+
+        return true;
     }
 }

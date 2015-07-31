@@ -17,8 +17,7 @@ import de.dhbwloerrach.beaconlocation.models.Beacon;
 /**
  * Created by alirei on 31.07.2015.
  */
-public class AddNewMachineFragement extends Fragment implements IFragment{
-    private Activity activity;
+public class AddNewMachineFragement extends BaseFragment {
     private ArrayList<Beacon> selectedBeacons = new ArrayList<>();
     private ActivityCommons commons;
 
@@ -27,15 +26,10 @@ public class AddNewMachineFragement extends Fragment implements IFragment{
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        return false;
-    }
-
-    @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        commons = ((MainActivity) this.getActivity()).getCommons();
-        final Button button = (Button) this.getActivity().findViewById(R.id.button_cancel);
+        commons = activity.getCommons();
+        final Button button = (Button) activity.findViewById(R.id.button_cancel);
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 commons.switchFragment(ActivityCommons.FragmentType.BEACON_SEARCH);
@@ -45,13 +39,12 @@ public class AddNewMachineFragement extends Fragment implements IFragment{
     }
 
     @Override
-    public IFragment setActivity(Activity activity) {
-        this.activity = activity;
-        return this;
+    protected void createActionBarMenu(Menu menu) {
+        //
     }
 
     @Override
-    public void initializeFragment() {
-
+    protected boolean handleMenuClick(int itemId) {
+        return true;
     }
 }
