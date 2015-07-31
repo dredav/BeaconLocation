@@ -169,7 +169,7 @@ public class BeaconsFragment extends Fragment implements IBeaconListView, IFragm
 
         builder.setNegativeButton(R.string.createNewMachine, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                // User clicked OK button
+                ((MainActivity) activity).getCommons().switchFragment(ActivityCommons.FragmentType.ADD_MACHINE);
             }
         });
 

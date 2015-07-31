@@ -28,6 +28,7 @@ public class ActivityCommons implements Drawer.OnDrawerItemClickListener {
     private BeaconsFragment beaconsFragment;
     private MachinesFragment machinesFragment;
     private IFragment currentFragment;
+    private AddNewMachineFragement addNewMachineFragement;
 
     public ActivityCommons(Activity context){
         this.context = context;
@@ -41,7 +42,7 @@ public class ActivityCommons implements Drawer.OnDrawerItemClickListener {
         return true;
     }
 
-    private void switchFragment(FragmentType type) {
+    public void switchFragment(FragmentType type) {
         FragmentManager fragmentManager = context.getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
@@ -64,6 +65,16 @@ public class ActivityCommons implements Drawer.OnDrawerItemClickListener {
 
                 fragmentTransaction.replace(R.id.mainView, machinesFragment);
                 currentFragment = machinesFragment;
+                break;
+
+            case ADD_MACHINE:
+                if (addNewMachineFragement == null) {
+                    addNewMachineFragement = new AddNewMachineFragement();
+                    addNewMachineFragement.setActivity(context);
+                }
+
+                fragmentTransaction.replace(R.id.mainView, addNewMachineFragement);
+                currentFragment = addNewMachineFragement;
                 break;
         }
 
@@ -102,5 +113,6 @@ public class ActivityCommons implements Drawer.OnDrawerItemClickListener {
     {
         BEACON_SEARCH,
         MACHINE_VIEW,
+        ADD_MACHINE,
     }
 }
