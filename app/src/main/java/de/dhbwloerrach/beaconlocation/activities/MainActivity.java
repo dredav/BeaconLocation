@@ -26,6 +26,7 @@ import de.dhbwloerrach.beaconlocation.models.BeaconList;
 import de.dhbwloerrach.beaconlocation.bluetooth.BeaconTools;
 import de.dhbwloerrach.beaconlocation.bluetooth.IBeaconListView;
 import de.dhbwloerrach.beaconlocation.R;
+import de.dhbwloerrach.beaconlocation.models.FilterTyp;
 
 
 public class MainActivity extends Activity implements IBeaconListView {
@@ -33,6 +34,7 @@ public class MainActivity extends Activity implements IBeaconListView {
     private BeaconAdapter adapter;
     private Boolean updatePaused = false;
     private ArrayList<Beacon> selectedBeacons = new ArrayList<>();
+    private Menu actionBarMenu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +88,9 @@ public class MainActivity extends Activity implements IBeaconListView {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
+        actionBarMenu = menu;
+        setSortTitle();
+        //return super.onCreateOptionsMenu(menu);
         return true;
     }
 
@@ -100,8 +105,38 @@ public class MainActivity extends Activity implements IBeaconListView {
         if (id == R.id.action_settings) {
             return true;
         }
+        else if (id == R.id.action_sort){
+
+            FilterTyp filterTyp;
+
+            if(adapter.getFilterTyp()== FilterTyp.Minor){
+                filterTyp = FilterTyp.RSSI;
+            }
+
+            else {
+                filterTyp = FilterTyp.Minor;
+            }
+
+            adapter.setFilterTyp(filterTyp);
+            setSortTitle();
+            return true;
+        }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void setSortTitle() {
+
+        MenuItem item = actionBarMenu.findItem(R.id.action_sort);
+        String actionBarTitel = "Sort: ";
+        if(adapter.getFilterTyp()== FilterTyp.Minor){
+            actionBarTitel += "RSSI";
+        }
+
+        else {
+            actionBarTitel += "Minor";
+        }
+        item.setTitle(actionBarTitel);
     }
 
     @Override
