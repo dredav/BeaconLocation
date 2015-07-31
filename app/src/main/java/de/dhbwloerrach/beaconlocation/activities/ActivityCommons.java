@@ -35,30 +35,32 @@ public class ActivityCommons implements Drawer.OnDrawerItemClickListener {
 
     @Override
     public boolean onItemClick(AdapterView<?> adapterView, View view, int i, long l, IDrawerItem iDrawerItem) {
-        int identifier = iDrawerItem.getIdentifier();
-        switchFragment(identifier);
+        switchFragment((FragmentType) iDrawerItem.getTag());
 
         drawer.closeDrawer();
         return true;
     }
 
-    private void switchFragment(int identifier) {
+    private void switchFragment(FragmentType type) {
         FragmentManager fragmentManager = context.getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        switch (identifier) {
-            case 0:
+
+        switch (type) {
+            case BEACON_SEARCH:
                 if(beaconsFragment == null)
                     beaconsFragment = new BeaconsFragment();
                 fragmentTransaction.replace(R.id.mainView, beaconsFragment);
                 currentFragment = beaconsFragment;
                 break;
-            case 1:
+
+            case MACHINE_VIEW:
                 if(machinesFragment == null)
                     machinesFragment = new MachinesFragment();
                 fragmentTransaction.replace(R.id.mainView, machinesFragment);
                 currentFragment = machinesFragment;
                 break;
         }
+
         fragmentTransaction.commit();
     }
 
@@ -68,14 +70,14 @@ public class ActivityCommons implements Drawer.OnDrawerItemClickListener {
                 .withTranslucentStatusBar(false)
                 .withActionBarDrawerToggle(true)
                 .addDrawerItems(
-                        new PrimaryDrawerItem().withIdentifier(0).withName("Beacons").withDescription("zu Maschine kombinieren"),
+                        new PrimaryDrawerItem().withTag(FragmentType.BEACON_SEARCH).withName(R.string.menu_beacon).withDescription(R.string.menu_beaconDescription),
                         new DividerDrawerItem(),
-                        new SecondaryDrawerItem().withIdentifier(1).withName("Maschinen")
+                        new SecondaryDrawerItem().withTag(FragmentType.MACHINE_VIEW).withName(R.string.menu_machineView)
                 )
                 .withOnDrawerItemClickListener(this)
                 .build();
 
-        switchFragment(0);
+        switchFragment(FragmentType.BEACON_SEARCH);
     }
 
     public IFragment getCurrentFragment() {
@@ -88,5 +90,11 @@ public class ActivityCommons implements Drawer.OnDrawerItemClickListener {
 
     public void unbind(){
         beaconTools.unbind();
+    }
+
+    public enum FragmentType
+    {
+        BEACON_SEARCH,
+        MACHINE_VIEW,
     }
 }
