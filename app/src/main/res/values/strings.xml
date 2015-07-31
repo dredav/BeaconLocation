@@ -1,6 +1,10 @@
-<resources>
-    <string name="app_name">BeaconLocation</string>
+    <resources>
+        <string name="app_name">BeaconLocation</string>
 
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
+        <string name="hello_world">Hello world!</string>
+        <string name="action_settings">Settings</string>
+        <string name="addToMachine">Add to Machine</string>
+        <string name="createNewMachine">Create new Machine</string>
+        <string name="cancel">Cancel</string>
+        <string name="dialog_title">Beacon Options</string>
 </resources>
