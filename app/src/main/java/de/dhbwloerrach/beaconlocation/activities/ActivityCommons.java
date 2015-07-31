@@ -1,10 +1,7 @@
 package de.dhbwloerrach.beaconlocation.activities;
 
-import android.app.Activity;
-import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -33,7 +30,7 @@ public class ActivityCommons implements Drawer.OnDrawerItemClickListener {
     private BeaconsFragment beaconsFragment;
     private MachinesFragment machinesFragment;
     private BaseFragment fragment;
-    private AddNewMachineFragement addNewMachineFragement;
+    private AddNewMachineFragment addNewMachineFragment;
 
     public ActivityCommons(MainActivity context) {
         this.context = context;
@@ -88,11 +85,11 @@ public class ActivityCommons implements Drawer.OnDrawerItemClickListener {
                 break;
 
             case ADD_MACHINE:
-                if (addNewMachineFragement == null) {
-                    addNewMachineFragement = new AddNewMachineFragement();
+                if (addNewMachineFragment == null) {
+                    addNewMachineFragment = new AddNewMachineFragment();
                 }
 
-                fragment = addNewMachineFragement;
+                fragment = addNewMachineFragment;
                 break;
         }
 

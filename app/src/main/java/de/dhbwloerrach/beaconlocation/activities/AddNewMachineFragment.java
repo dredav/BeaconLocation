@@ -17,7 +17,7 @@ import de.dhbwloerrach.beaconlocation.models.Beacon;
 /**
  * Created by alirei on 31.07.2015.
  */
-public class AddNewMachineFragement extends BaseFragment {
+public class AddNewMachineFragment extends BaseFragment {
     private ArrayList<Beacon> selectedBeacons = new ArrayList<>();
     private ActivityCommons commons;
 
