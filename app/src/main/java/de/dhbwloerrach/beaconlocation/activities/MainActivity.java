@@ -132,15 +132,12 @@ public class MainActivity extends Activity implements IBeaconListView {
     public void setSortTitle() {
 
         MenuItem item = actionBarMenu.findItem(R.id.action_sort);
-        String actionBarTitel = "Sort: ";
         if(adapter.getFilterTyp()== FilterTyp.Minor){
-            actionBarTitel += "RSSI";
+            item.setTitle(R.string.rssi);
         }
-
         else {
-            actionBarTitel += "Minor";
+            item.setTitle(R.string.minor);
         }
-        item.setTitle(actionBarTitel);
     }
 
     @Override

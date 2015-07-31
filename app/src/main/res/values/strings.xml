@@ -7,4 +7,7 @@
         <string name="createNewMachine">Create new Machine</string>
         <string name="cancel">Cancel</string>
         <string name="dialog_title">Beacon Options</string>
+        <string name="rssi">Sort: RSSI</string>
+        <string name="minor">Sort: Minor</string>
+
 </resources>
