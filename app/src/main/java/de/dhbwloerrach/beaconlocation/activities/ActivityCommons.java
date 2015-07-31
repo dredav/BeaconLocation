@@ -47,15 +47,21 @@ public class ActivityCommons implements Drawer.OnDrawerItemClickListener {
 
         switch (type) {
             case BEACON_SEARCH:
-                if(beaconsFragment == null)
+                if (beaconsFragment == null) {
                     beaconsFragment = new BeaconsFragment();
+                    beaconsFragment.setActivity(context);
+                }
+
                 fragmentTransaction.replace(R.id.mainView, beaconsFragment);
                 currentFragment = beaconsFragment;
                 break;
 
             case MACHINE_VIEW:
-                if(machinesFragment == null)
+                if (machinesFragment == null) {
                     machinesFragment = new MachinesFragment();
+                    machinesFragment.setActivity(context);
+                }
+
                 fragmentTransaction.replace(R.id.mainView, machinesFragment);
                 currentFragment = machinesFragment;
                 break;
