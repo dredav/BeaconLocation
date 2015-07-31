@@ -13,6 +13,7 @@ import java.util.Collection;
 import de.dhbwloerrach.beaconlocation.R;
 import de.dhbwloerrach.beaconlocation.models.Beacon;
 import de.dhbwloerrach.beaconlocation.models.BeaconList;
+import de.dhbwloerrach.beaconlocation.models.FilterTyp;
 
 /**
  * Created by Lukas on 22.07.2015.
@@ -21,20 +22,30 @@ public class BeaconAdapter extends ArrayAdapter<Beacon> {
     private final Context context;
     private BeaconList beacons = new BeaconList();
     private DecimalFormat distanceFormat = new DecimalFormat("#m");
+    private FilterTyp filterTyp = FilterTyp.Minor;
 
     public BeaconAdapter(Context context) {
         super(context, R.layout.listitem_beacon);
         this.context = context;
     }
 
+    public FilterTyp getFilterTyp() {
+        return filterTyp;
+    }
+
+    public BeaconAdapter setFilterTyp(FilterTyp filterTyp) {
+        this.filterTyp = filterTyp;
+        return this;
+    }
+
     public void addItem(Beacon item) {
         beacons.add(item);
-        beacons.SortByMinor();
+        beacons.Sort(filterTyp);
     }
 
     public void addItems(Collection<Beacon> items) {
         beacons.addAll(items);
-        beacons.SortByMinor();
+        beacons.Sort(filterTyp);
     }
 
     public void clearItems() {
