@@ -11,6 +11,7 @@ public class Beacon {
     private String bluetoothName;
     private Integer txpower;
     private Integer rssi;
+    private RssiList rssis = new RssiList();
     private String bluetoothAddress;
     private DistanceList distances = new DistanceList();
     private Date lastSeen;
@@ -84,6 +85,7 @@ public class Beacon {
 
     public Beacon setRssi(Integer rssi) {
         this.rssi = rssi;
+        this.rssis.add(new TimedRssi(rssi));
         return this;
     }
 
@@ -97,7 +99,11 @@ public class Beacon {
     }
 
     public boolean hasDistanceIn(int seconds) {
-        return this.distances.getLast(seconds).size() > 0;
+        return !this.distances.getLast(seconds).isEmpty();
+    }
+
+    public boolean hasRssiIn(int seconds) {
+        return !this.rssis.getLast(seconds).isEmpty();
     }
 
     public double getAverageDistance(int seconds) {
@@ -107,6 +113,10 @@ public class Beacon {
         else {
             return this.getDistance();
         }
+    }
+
+    public RssiList getRssis(int seconds) {
+        return this.rssis.getLast(seconds);
     }
 
     public Date getLastSeen() {
