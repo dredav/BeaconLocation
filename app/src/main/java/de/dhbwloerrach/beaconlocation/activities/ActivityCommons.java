@@ -6,6 +6,8 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 
@@ -24,23 +26,33 @@ import de.dhbwloerrach.beaconlocation.bluetooth.IBeaconListView;
  * Created by Lukas on 31.07.2015.
  */
 public class ActivityCommons implements Drawer.OnDrawerItemClickListener {
-    private Activity context;
+    private Menu menu;
+    private MainActivity context;
     private BeaconTools beaconTools;
     private Drawer drawer;
     private BeaconsFragment beaconsFragment;
     private MachinesFragment machinesFragment;
-    private IFragment currentFragment;
+    private BaseFragment currentFragment;
     private AddNewMachineFragement addNewMachineFragement;
 
-    public ActivityCommons(Activity context){
+    public ActivityCommons(MainActivity context) {
         this.context = context;
+    }
+
+    public ActivityCommons setMenu(Menu menu) {
+        this.menu = menu;
+        return this;
+    }
+
+    public boolean menuHandler(MenuItem item) {
+        return currentFragment.handleMenuClick(item.getItemId());
     }
 
     @Override
     public boolean onItemClick(AdapterView<?> adapterView, View view, int i, long l, IDrawerItem iDrawerItem) {
         switchFragment((FragmentType) iDrawerItem.getTag());
-
         drawer.closeDrawer();
+
         return true;
     }
 
@@ -52,7 +64,7 @@ public class ActivityCommons implements Drawer.OnDrawerItemClickListener {
         FragmentManager fragmentManager = context.getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-        Fragment fragment = null;
+        BaseFragment fragment = null;
         switch (type) {
             case BEACON_SEARCH:
                 if (beaconsFragment == null) {
@@ -86,8 +98,13 @@ public class ActivityCommons implements Drawer.OnDrawerItemClickListener {
             return;
         }
 
+        fragment.setActivity(context);
         if(bundle != null) {
             fragment.setArguments(bundle);
+        }
+
+        if(menu != null) {
+            fragment.createActionBarMenu(menu);
         }
 
         fragmentTransaction.replace(R.id.mainView, fragment);
@@ -108,10 +125,6 @@ public class ActivityCommons implements Drawer.OnDrawerItemClickListener {
                 .build();
 
         switchFragment(FragmentType.BEACON_SEARCH);
-    }
-
-    public IFragment getCurrentFragment() {
-        return currentFragment;
     }
 
     public void startMonitoring(IBeaconListView view){
