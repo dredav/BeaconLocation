@@ -18,11 +18,11 @@ public class BeaconList extends ArrayList<Beacon> {
         return result;
     }
 
-    public BeaconList SortByDistance() {
+    public BeaconList SortByRSSI() {
         Collections.sort(this, new Comparator<Beacon>() {
             @Override
             public int compare(Beacon lhs, Beacon rhs) {
-                double tempDiff = lhs.getDistance() - rhs.getDistance();
+                double tempDiff = lhs.getRssi() - rhs.getRssi();
                 if (tempDiff == 0) {
                     return 0;
                 }
@@ -34,6 +34,36 @@ public class BeaconList extends ArrayList<Beacon> {
             }
         });
         return this;
+    }
+
+    public BeaconList SortByMinor() {
+        Collections.sort(this, new Comparator<Beacon>() {
+            @Override
+            public int compare(Beacon lhs, Beacon rhs) {
+                double tempDiff = lhs.getMinor() - rhs.getMinor();
+                if (tempDiff == 0) {
+                    return 0;
+                }
+                if (tempDiff < 0) {
+                    return -1;
+                } else {
+                    return 1;
+                }
+            }
+        });
+        return this;
+    }
+
+    public void Sort(FilterTyp filterTyp){
+        switch (filterTyp){
+            case Minor:
+                SortByMinor();
+                break;
+            case RSSI:
+                SortByRSSI();
+                break;
+        }
+
     }
 }
 
