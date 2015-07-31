@@ -1,9 +1,11 @@
 package de.dhbwloerrach.beaconlocation.activities;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 
@@ -28,6 +30,7 @@ public class ActivityCommons implements Drawer.OnDrawerItemClickListener {
     private BeaconsFragment beaconsFragment;
     private MachinesFragment machinesFragment;
     private IFragment currentFragment;
+    private AddNewMachineFragement addNewMachineFragement;
 
     public ActivityCommons(Activity context){
         this.context = context;
@@ -41,10 +44,15 @@ public class ActivityCommons implements Drawer.OnDrawerItemClickListener {
         return true;
     }
 
-    private void switchFragment(FragmentType type) {
+    public void switchFragment(FragmentType type) {
+        switchFragment(type, new Bundle());
+    }
+
+    public void switchFragment(FragmentType type, Bundle bundle) {
         FragmentManager fragmentManager = context.getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
+        Fragment fragment = null;
         switch (type) {
             case BEACON_SEARCH:
                 if (beaconsFragment == null) {
@@ -52,8 +60,7 @@ public class ActivityCommons implements Drawer.OnDrawerItemClickListener {
                     beaconsFragment.setActivity(context);
                 }
 
-                fragmentTransaction.replace(R.id.mainView, beaconsFragment);
-                currentFragment = beaconsFragment;
+                fragment = beaconsFragment;
                 break;
 
             case MACHINE_VIEW:
@@ -62,11 +69,28 @@ public class ActivityCommons implements Drawer.OnDrawerItemClickListener {
                     machinesFragment.setActivity(context);
                 }
 
-                fragmentTransaction.replace(R.id.mainView, machinesFragment);
-                currentFragment = machinesFragment;
+                fragment = machinesFragment;
+                break;
+
+            case ADD_MACHINE:
+                if (addNewMachineFragement == null) {
+                    addNewMachineFragement = new AddNewMachineFragement();
+                    addNewMachineFragement.setActivity(context);
+                }
+
+                fragment = addNewMachineFragement;
                 break;
         }
 
+        if(fragment == null) {
+            return;
+        }
+
+        if(bundle != null) {
+            fragment.setArguments(bundle);
+        }
+
+        fragmentTransaction.replace(R.id.mainView, fragment);
         fragmentTransaction.commit();
     }
 
@@ -102,5 +126,6 @@ public class ActivityCommons implements Drawer.OnDrawerItemClickListener {
     {
         BEACON_SEARCH,
         MACHINE_VIEW,
+        ADD_MACHINE,
     }
 }
