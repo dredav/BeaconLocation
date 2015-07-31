@@ -27,7 +27,7 @@ public class ActivityCommons implements Drawer.OnDrawerItemClickListener {
     private Drawer drawer;
     private BeaconsFragment beaconsFragment;
     private MachinesFragment machinesFragment;
-
+    private IFragment currentFragment;
 
     public ActivityCommons(Activity context){
         this.context = context;
@@ -50,11 +50,13 @@ public class ActivityCommons implements Drawer.OnDrawerItemClickListener {
                 if(beaconsFragment == null)
                     beaconsFragment = new BeaconsFragment();
                 fragmentTransaction.replace(R.id.mainView, beaconsFragment);
+                currentFragment = beaconsFragment;
                 break;
             case 1:
                 if(machinesFragment == null)
                     machinesFragment = new MachinesFragment();
                 fragmentTransaction.replace(R.id.mainView, machinesFragment);
+                currentFragment = machinesFragment;
                 break;
         }
         fragmentTransaction.commit();
@@ -74,6 +76,10 @@ public class ActivityCommons implements Drawer.OnDrawerItemClickListener {
                 .build();
 
         switchFragment(0);
+    }
+
+    public IFragment getCurrentFragment() {
+        return currentFragment;
     }
 
     public void startMonitoring(IBeaconListView view){
