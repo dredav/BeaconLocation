@@ -91,6 +91,7 @@ public class ActivityCommons implements Drawer.OnDrawerItemClickListener {
         }
 
         fragmentTransaction.replace(R.id.mainView, fragment);
+        currentFragment = (fragment instanceof IFragment) ? (IFragment)fragment : null;
         fragmentTransaction.commit();
     }
 
