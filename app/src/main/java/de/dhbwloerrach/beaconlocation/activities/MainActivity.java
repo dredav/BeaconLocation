@@ -1,6 +1,8 @@
 package de.dhbwloerrach.beaconlocation.activities;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -59,17 +61,16 @@ public class MainActivity extends Activity implements IBeaconListView {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                updatePaused=true;
+                updatePaused = true;
                 ListView listView = (ListView) parent;
                 Beacon beacon = (Beacon) listView.getAdapter().getItem(position);
-                if (selectedBeacons.contains(beacon)){
+                if (selectedBeacons.contains(beacon)) {
                     selectedBeacons.remove(beacon);
                     view.setBackgroundColor(Color.TRANSPARENT);
-                    if (selectedBeacons.isEmpty()){
-                        updatePaused=false;
+                    if (selectedBeacons.isEmpty()) {
+                        updatePaused = false;
                     }
-                }
-                else{
+                } else {
                     selectedBeacons.add(beacon);
                     view.setBackgroundColor(0xFF8db6cd);
                 }
@@ -102,7 +103,10 @@ public class MainActivity extends Activity implements IBeaconListView {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.add_beacon) {
+            if (updatePaused == true) {
+                buildDialog();
+            }
             return true;
         }
         else if (id == R.id.action_sort){
@@ -156,4 +160,31 @@ public class MainActivity extends Activity implements IBeaconListView {
             });
         }
     }
+
+    public void buildDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setTitle(R.string.dialog_title);
+
+        // Add the buttons
+        builder.setPositiveButton(R.string.addToMachine, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                // User clicked OK button
+            }
+        });
+
+        builder.setNegativeButton(R.string.createNewMachine, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                // User clicked OK button
+            }
+        });
+
+        // Set other dialog properties
+
+        // Create the AlertDialog
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
+    }
+
 }
