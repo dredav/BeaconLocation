@@ -7,10 +7,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 
 import java.util.ArrayList;
 
 import de.dhbwloerrach.beaconlocation.R;
+import de.dhbwloerrach.beaconlocation.adapters.BeaconAdapter;
 import de.dhbwloerrach.beaconlocation.database.DatabaseHandler;
 import de.dhbwloerrach.beaconlocation.models.Beacon;
 import de.dhbwloerrach.beaconlocation.models.Machine;
@@ -31,6 +33,16 @@ public class AddNewMachineFragment extends BaseFragment {
         super.onViewCreated(view, savedInstanceState);
         commons = activity.getCommons();
         selectedBeacons = getArguments().getParcelableArrayList("selectedBeacons");
+
+
+        BeaconAdapter adapter = new BeaconAdapter(activity);
+        ListView beaconList = (ListView) activity.findViewById(R.id.beaconList);
+        for (Beacon beacon : selectedBeacons){
+            adapter.addItem(beacon);
+        }
+        beaconList.setAdapter(adapter);
+
+
         final Button cancelButton = (Button) activity.findViewById(R.id.button_cancel);
         cancelButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -48,16 +60,14 @@ public class AddNewMachineFragment extends BaseFragment {
                 newMachine.setName(textField.getText().toString());
                 // Maschine in DB eintragen
                 DatabaseHandler databaseHandler = new DatabaseHandler(activity);
-                databaseHandler.createMachine(newMachine);
-                // Maschinen ID auslesen
-                Integer machineID;
-
+                Integer machineID = databaseHandler.createMachine(newMachine);
                 // Beacons prüfen, ob sie bereits in der DB vorliegen und einrtagen
                 for (Beacon beacon: selectedBeacons){
                     Beacon databaseBeacon = databaseHandler.getBeacon(beacon.getMinor(), beacon.getMajor(), beacon.getUuid());
                     beacon.setMachineId(machineID);
                     if (databaseBeacon != null){
                         databaseHandler.createBeacon(beacon);
+                        //WARNUNG FEHLT
                     }
                     else{
                         // WARNUNG fehlt
