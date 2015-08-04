@@ -1,9 +1,10 @@
 package de.dhbwloerrach.beaconlocation.activities;
 
-import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.content.Intent;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 
@@ -22,43 +23,99 @@ import de.dhbwloerrach.beaconlocation.bluetooth.IBeaconListView;
  * Created by Lukas on 31.07.2015.
  */
 public class ActivityCommons implements Drawer.OnDrawerItemClickListener {
-    private Activity context;
+    private Menu menu;
+    private MainActivity context;
     private BeaconTools beaconTools;
     private Drawer drawer;
     private BeaconsFragment beaconsFragment;
     private MachinesFragment machinesFragment;
-    private IFragment currentFragment;
+    private BaseFragment fragment;
+    private AddNewMachineFragment addNewMachineFragment;
+    private AddManualMachineFragment addManualMachineFragment;
 
-    public ActivityCommons(Activity context){
+    public ActivityCommons(MainActivity context) {
         this.context = context;
+    }
+
+    public ActivityCommons setMenu(Menu menu) {
+        this.menu = menu;
+
+        if(fragment != null) {
+            menu.clear();
+            fragment.createActionBarMenu(menu);
+        }
+
+        return this;
+    }
+
+    public boolean menuHandler(MenuItem item) {
+        return fragment.handleMenuClick(item.getItemId());
     }
 
     @Override
     public boolean onItemClick(AdapterView<?> adapterView, View view, int i, long l, IDrawerItem iDrawerItem) {
-        int identifier = iDrawerItem.getIdentifier();
-        switchFragment(identifier);
-
+        switchFragment((FragmentType) iDrawerItem.getTag());
         drawer.closeDrawer();
+
         return true;
     }
 
-    private void switchFragment(int identifier) {
+    public void switchFragment(FragmentType type) {
+        switchFragment(type, null);
+    }
+
+    public void switchFragment(FragmentType type, Bundle bundle) {
         FragmentManager fragmentManager = context.getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        switch (identifier) {
-            case 0:
-                if(beaconsFragment == null)
+
+        switch (type) {
+            case BEACON_SEARCH:
+                if (beaconsFragment == null) {
                     beaconsFragment = new BeaconsFragment();
-                fragmentTransaction.replace(R.id.mainView, beaconsFragment);
-                currentFragment = beaconsFragment;
+                }
+
+                fragment = beaconsFragment;
                 break;
-            case 1:
-                if(machinesFragment == null)
+
+            case MACHINE_VIEW:
+                if (machinesFragment == null) {
                     machinesFragment = new MachinesFragment();
-                fragmentTransaction.replace(R.id.mainView, machinesFragment);
-                currentFragment = machinesFragment;
+                }
+
+                fragment = machinesFragment;
+                break;
+
+            case ADD_MACHINE:
+                if (addNewMachineFragment == null) {
+                    addNewMachineFragment = new AddNewMachineFragment();
+                }
+
+                fragment = addNewMachineFragment;
+                break;
+            case ADD_MACHINE_MANUAL:
+                if(addManualMachineFragment == null) {
+                    addManualMachineFragment = new AddManualMachineFragment();
+                }
+
+                fragment = addManualMachineFragment;
                 break;
         }
+
+        if(fragment == null) {
+            return;
+        }
+
+        fragment.setActivity(context);
+        if(bundle != null) {
+            fragment.setArguments(bundle);
+        }
+
+        if(menu != null) {
+            menu.clear();
+            fragment.createActionBarMenu(menu);
+        }
+
+        fragmentTransaction.replace(R.id.mainView, fragment);
         fragmentTransaction.commit();
     }
 
@@ -68,18 +125,14 @@ public class ActivityCommons implements Drawer.OnDrawerItemClickListener {
                 .withTranslucentStatusBar(false)
                 .withActionBarDrawerToggle(true)
                 .addDrawerItems(
-                        new PrimaryDrawerItem().withIdentifier(0).withName("Beacons").withDescription("zu Maschine kombinieren"),
+                        new PrimaryDrawerItem().withTag(FragmentType.BEACON_SEARCH).withName(R.string.menu_beaconView).withDescription(R.string.menu_beaconViewDescription),
                         new DividerDrawerItem(),
-                        new SecondaryDrawerItem().withIdentifier(1).withName("Maschinen")
+                        new SecondaryDrawerItem().withTag(FragmentType.MACHINE_VIEW).withName(R.string.menu_machineView)
                 )
                 .withOnDrawerItemClickListener(this)
                 .build();
 
-        switchFragment(0);
-    }
-
-    public IFragment getCurrentFragment() {
-        return currentFragment;
+        switchFragment(FragmentType.BEACON_SEARCH);
     }
 
     public void startMonitoring(IBeaconListView view){
@@ -88,5 +141,13 @@ public class ActivityCommons implements Drawer.OnDrawerItemClickListener {
 
     public void unbind(){
         beaconTools.unbind();
+    }
+
+    public enum FragmentType
+    {
+        BEACON_SEARCH,
+        MACHINE_VIEW,
+        ADD_MACHINE,
+        ADD_MACHINE_MANUAL,
     }
 }
