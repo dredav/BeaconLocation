@@ -58,7 +58,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void createBeacon(Beacon beacon) {
+    public int createBeacon(Beacon beacon) {
         SQLiteDatabase db = getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -74,9 +74,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         db.insert(TABLE_BEACON, null, values);
         db.close();
+
+        Beacon beac = getBeacon(beacon.getMinor(), beacon.getMajor(), beacon.getUuid());
+
+        return beac.getId();
     }
 
-    public void createMachine(Machine machine) {
+    public int createMachine(Machine machine) {
         SQLiteDatabase db = getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -85,6 +89,18 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         db.insert(TABLE_MACHINE, null, values);
         db.close();
+
+        SQLiteDatabase dbRead = getWritableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_MACHINE, null);
+
+        int id = 0;
+
+        if (cursor.moveToLast()) {
+            id = Integer.parseInt(cursor.getString(0));
+            cursor.close();
+            db.close();
+        }
+        return id;
     }
 
     public Machine getMachine(int id) {
