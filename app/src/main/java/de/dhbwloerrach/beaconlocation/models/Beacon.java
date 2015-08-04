@@ -1,11 +1,14 @@
 package de.dhbwloerrach.beaconlocation.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.Date;
 
 /**
  * Created by alirei on 20.07.2015.
  */
-public class Beacon {
+public class Beacon implements Parcelable{
     private String uuid;
     private double distance;
     private String bluetoothName;
@@ -23,6 +26,16 @@ public class Beacon {
     private Boolean front_right;
     private Boolean back_left;
     private Boolean back_right;
+
+    public Beacon(){
+
+    }
+
+    private Beacon(Parcel in){
+        uuid = in.readString();
+        major = in.readInt();
+        minor = in.readInt();
+    }
 
     public String getUuid() {
         return uuid;
@@ -186,4 +199,26 @@ public class Beacon {
     public String toString() {
         return this.getUuid() + " " + this.getMajor() + " " + this.getMinor();
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(uuid);
+        dest.writeInt(major);
+        dest.writeInt(minor);
+    }
+
+    public static final Parcelable.Creator<Beacon> CREATOR = new Parcelable.Creator<Beacon>() {
+        public Beacon createFromParcel(Parcel in) {
+            return new Beacon(in);
+        }
+
+        public Beacon[] newArray(int size) {
+            return new Beacon[size];
+        }
+    };
 }

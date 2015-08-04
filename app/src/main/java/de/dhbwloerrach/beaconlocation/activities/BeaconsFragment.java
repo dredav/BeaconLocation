@@ -114,9 +114,9 @@ public class BeaconsFragment extends BaseFragment implements IBeaconListView {
         builder.setNegativeButton(R.string.createNewMachine, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 Bundle bundle = new Bundle();
-                activity.getCommons().switchFragment(ActivityCommons.FragmentType.ADD_MACHINE);
+                bundle.putParcelableArrayList("selectedBeacons", selectedBeacons);
+                activity.getCommons().switchFragment(ActivityCommons.FragmentType.ADD_MACHINE, bundle);
 
-                //TODO
             }
         });
 

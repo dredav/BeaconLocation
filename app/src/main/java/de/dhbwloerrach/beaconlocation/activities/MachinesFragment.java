@@ -9,15 +9,19 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import java.util.ArrayList;
+
 import de.dhbwloerrach.beaconlocation.R;
 import de.dhbwloerrach.beaconlocation.adapters.MachineAdapter;
 import de.dhbwloerrach.beaconlocation.database.DatabaseHandler;
+import de.dhbwloerrach.beaconlocation.models.Beacon;
 
 /**
  * Created by Lukas on 31.07.2015.
  */
 public class MachinesFragment extends BaseFragment {
     private MachineAdapter adapter;
+    private ArrayList<Beacon> selectedBeacons = new ArrayList<>();
 
     @Nullable
     @Override
@@ -34,6 +38,8 @@ public class MachinesFragment extends BaseFragment {
             adapter.addItems(new DatabaseHandler(activity).getAllMachines());
             initialized = true;
         }
+
+        selectedBeacons = getArguments().getParcelableArrayList("selectedBeacons");
 
         ListView listView = (ListView) activity.findViewById(R.id.listView2);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
