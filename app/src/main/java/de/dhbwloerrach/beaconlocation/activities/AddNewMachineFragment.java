@@ -1,5 +1,7 @@
 package de.dhbwloerrach.beaconlocation.activities;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -59,19 +61,34 @@ public class AddNewMachineFragment extends BaseFragment {
                 Machine newMachine = new Machine();
                 newMachine.setName(textField.getText().toString());
                 // Maschine in DB eintragen
-                DatabaseHandler databaseHandler = new DatabaseHandler(activity);
+                final DatabaseHandler databaseHandler = new DatabaseHandler(activity);
                 Integer machineID = databaseHandler.createMachine(newMachine);
                 // Beacons prüfen, ob sie bereits in der DB vorliegen und einrtagen
-                for (Beacon beacon: selectedBeacons){
+                for (final Beacon beacon: selectedBeacons){
                     Beacon databaseBeacon = databaseHandler.getBeacon(beacon.getMinor(), beacon.getMajor(), beacon.getUuid());
                     beacon.setMachineId(machineID);
                     if (databaseBeacon != null){
                         databaseHandler.createBeacon(beacon);
-                        //WARNUNG FEHLT
+
                     }
                     else{
-                        // WARNUNG fehlt
-                        databaseHandler.updateBeacon(beacon);
+                        new AlertDialog.Builder(activity)
+                                .setTitle("Overwrite Entry")
+                                .setMessage("A Beacon is already part of a machine. Are you sure you want to overwrite this entry?")
+                                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        databaseHandler.updateBeacon(beacon);
+                                    }
+                                })
+                                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        commons.switchFragment(ActivityCommons.FragmentType.BEACON_SEARCH);
+                                    }
+                                })
+                                .setIcon(android.R.drawable.ic_dialog_alert)
+                                .show();
+
                     }
                 }
 

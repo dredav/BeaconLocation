@@ -14,4 +14,7 @@
         <string name="menu_beaconViewDescription">zu Maschine kombinieren</string>
         <string name="menu_machineView">Maschinen</string>
 
+        <string name="yes">Yes</string>
+        <string name="no">No</string>
+
 </resources>
