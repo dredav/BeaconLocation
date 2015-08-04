@@ -50,11 +50,6 @@ public class MachinesFragment extends BaseFragment {
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
-    }
-
-    @Override
     protected void createActionBarMenu(Menu menu) {
         activity.getMenuInflater().inflate(R.menu.menu_machines, menu);
     }
