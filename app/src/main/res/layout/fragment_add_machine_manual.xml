@@ -31,7 +31,7 @@
                 android:layout_marginTop="10dp"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Minor IDs:"
-                android:id="@+id/minor1_label" />
+                android:id="@+id/minor_label" />
 
             <LinearLayout
                 android:orientation="vertical"

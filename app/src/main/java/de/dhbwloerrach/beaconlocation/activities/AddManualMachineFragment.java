@@ -51,13 +51,14 @@ public class AddManualMachineFragment extends BaseFragment {
     protected boolean handleMenuClick(int itemId) {
         switch (itemId) {
             case R.id.add_beacon:
-                TextView textView = new TextView(activity);
-                minors.add(textView);
-                final LinearLayout layout = (LinearLayout)activity.findViewById(R.id.minors);
-                layout.addView(textView);
                 activity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                        LinearLayout layout = (LinearLayout)activity.findViewById(R.id.minors);
+                        TextView textView = new TextView(activity);
+                        minors.add(textView);
+                        layout.addView(textView);
+                        layout.setWillNotDraw(false);
                         layout.invalidate();
                     }
                 });
