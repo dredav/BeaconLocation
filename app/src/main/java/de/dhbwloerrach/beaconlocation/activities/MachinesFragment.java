@@ -21,7 +21,6 @@ import de.dhbwloerrach.beaconlocation.models.Beacon;
  */
 public class MachinesFragment extends BaseFragment {
     private MachineAdapter adapter;
-    private ArrayList<Beacon> selectedBeacons = new ArrayList<>();
 
     @Nullable
     @Override
@@ -38,8 +37,6 @@ public class MachinesFragment extends BaseFragment {
             adapter.addItems(new DatabaseHandler(activity).getAllMachines());
             initialized = true;
         }
-
-        selectedBeacons = getArguments().getParcelableArrayList("selectedBeacons");
 
         ListView listView = (ListView) activity.findViewById(R.id.listView2);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

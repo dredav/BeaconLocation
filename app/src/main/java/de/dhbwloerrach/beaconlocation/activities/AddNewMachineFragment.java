@@ -27,6 +27,7 @@ public class AddNewMachineFragment extends BaseFragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         commons = activity.getCommons();
+        selectedBeacons = getArguments().getParcelableArrayList("selectedBeacons");
         final Button button = (Button) activity.findViewById(R.id.button_cancel);
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
