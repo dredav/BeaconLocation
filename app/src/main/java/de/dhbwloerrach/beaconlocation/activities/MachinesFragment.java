@@ -63,7 +63,8 @@ public class MachinesFragment extends BaseFragment {
     protected boolean handleMenuClick(int itemId) {
         switch (itemId) {
             case R.id.add_machine:
-                // TODO : go to view #6
+                // go to view #6
+                activity.getCommons().switchFragment(ActivityCommons.FragmentType.ADD_MACHINE_MANUAL);
                 break;
 
             default:

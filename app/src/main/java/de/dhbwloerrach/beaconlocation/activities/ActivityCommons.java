@@ -31,6 +31,7 @@ public class ActivityCommons implements Drawer.OnDrawerItemClickListener {
     private MachinesFragment machinesFragment;
     private BaseFragment fragment;
     private AddNewMachineFragment addNewMachineFragment;
+    private AddManualMachineFragment addManualMachineFragment;
 
     public ActivityCommons(MainActivity context) {
         this.context = context;
@@ -91,6 +92,13 @@ public class ActivityCommons implements Drawer.OnDrawerItemClickListener {
 
                 fragment = addNewMachineFragment;
                 break;
+            case ADD_MACHINE_MANUAL:
+                if(addManualMachineFragment == null) {
+                    addManualMachineFragment = new AddManualMachineFragment();
+                }
+
+                fragment = addManualMachineFragment;
+                break;
         }
 
         if(fragment == null) {
@@ -140,5 +148,6 @@ public class ActivityCommons implements Drawer.OnDrawerItemClickListener {
         BEACON_SEARCH,
         MACHINE_VIEW,
         ADD_MACHINE,
+        ADD_MACHINE_MANUAL,
     }
 }
