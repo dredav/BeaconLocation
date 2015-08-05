@@ -91,14 +91,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.close();
 
         SQLiteDatabase dbRead = getWritableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_MACHINE, null);
+        Cursor cursor = dbRead.rawQuery("SELECT * FROM " + TABLE_MACHINE, null);
 
         int id = 0;
 
         if (cursor.moveToLast()) {
             id = Integer.parseInt(cursor.getString(0));
             cursor.close();
-            db.close();
+            dbRead.close();
         }
         return id;
     }

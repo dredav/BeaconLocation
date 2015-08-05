@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:weightSum="1">
+    android:weightSum="1"
+    android:id="@+id/test">
 
     <LinearLayout
         android:orientation="horizontal"
@@ -29,13 +30,14 @@
         android:layout_width="wrap_content"
         android:layout_height="163dp"
         android:id="@+id/beaconList"
-        android:layout_weight="0.82" />
+        android:layout_weight="0.90" />
+
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0.08">
+        android:layout_marginBottom="0dp">
 
         <Button
             android:layout_width="wrap_content"
@@ -47,8 +49,8 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Commit"
-            android:id="@+id/button_commit"
+            android:text="Create"
+            android:id="@+id/button_create"
             android:layout_weight="0.05" />
     </LinearLayout>
 
