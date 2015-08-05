@@ -1,25 +1,19 @@
 package de.dhbwloerrach.beaconlocation.activities;
 
-import android.app.Fragment;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
-import android.view.Menu;import android.view.ViewGroup.LayoutParams;
-
-
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
 import de.dhbwloerrach.beaconlocation.R;
-import de.dhbwloerrach.beaconlocation.adapters.MachineAdapter;
 import de.dhbwloerrach.beaconlocation.database.DatabaseHandler;
 import de.dhbwloerrach.beaconlocation.models.Beacon;
 import de.dhbwloerrach.beaconlocation.models.Machine;
