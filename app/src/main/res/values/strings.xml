@@ -17,4 +17,7 @@
         <string name="yes">Yes</string>
         <string name="no">No</string>
 
+        <string name="bluetoothDisabledCaption">Bluetooth is disabled</string>
+        <string name="bluetoothDisabledMessage">This application need bluetooth. We can activate bluetooth for you.</string>
+        <string name="activate">Activate</string>
 </resources>
