@@ -9,6 +9,7 @@
         <string name="dialog_title">Beacon Options</string>
         <string name="rssi">Sort: RSSI</string>
         <string name="minor">Sort: Minor</string>
+        <string name="minorId">Minor Id</string>
 
         <string name="menu_beaconView">Beacons</string>
         <string name="menu_beaconViewDescription">zu Maschine kombinieren</string>
@@ -17,4 +18,7 @@
         <string name="yes">Yes</string>
         <string name="no">No</string>
 
+        <string name="bluetoothDisabledCaption">Bluetooth is disabled</string>
+        <string name="bluetoothDisabledMessage">This application need bluetooth. We can activate bluetooth for you.</string>
+        <string name="activate">Activate</string>
 </resources>

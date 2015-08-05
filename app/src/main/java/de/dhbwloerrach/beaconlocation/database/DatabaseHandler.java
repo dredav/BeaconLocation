@@ -270,4 +270,32 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             return null;
         }
     }
+    public List<Beacon> getAllBeaconsByMachine(int machineId) {
+        List<Beacon> beacons = new ArrayList<>();
+
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.query(TABLE_BEACON, new String[]{KEY_BEACON_ID, KEY_BEACON_MINOR, KEY_BEACON_MAJOR, KEY_BEACON_UUID, KEY_BEACON_MACHINEID, KEY_BEACON_FRONT_LEFT, KEY_BEACON_FRONT_RIGHT, KEY_BEACON_BACK_LEFT, KEY_BEACON_BACK_RIGHT}, KEY_BEACON_MACHINEID + "=?", new String[]{String.valueOf(machineId)}, null, null, null, null);
+
+
+        if (cursor.moveToFirst()) {
+            do {
+                Beacon beacon = new Beacon();
+                beacon.setId(Integer.parseInt(cursor.getString(0)));
+                beacon.setMinor(Integer.parseInt(cursor.getString(1)));
+                beacon.setMajor(Integer.parseInt(cursor.getString(2)));
+                beacon.setUuid(cursor.getString(3));
+                beacon.setMachineId(Integer.parseInt(cursor.getString(4)));
+                beacon.setFront_left(Boolean.parseBoolean(cursor.getString(5)));
+                beacon.setFront_right(Boolean.parseBoolean(cursor.getString(6)));
+                beacon.setBack_left(Boolean.parseBoolean(cursor.getString(7)));
+                beacon.setBack_right(Boolean.parseBoolean(cursor.getString(8)));
+                beacons.add(beacon);
+            }
+            while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        return beacons;
+    }
+
 }

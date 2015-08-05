@@ -31,14 +31,13 @@
                 android:layout_marginTop="10dp"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Minor IDs:"
-                android:id="@+id/minor1_label" />
+                android:id="@+id/minor_label" />
 
             <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
+                android:id="@+id/minors"
                 android:layout_height="wrap_content"
-                android:id="@+id/minors">
-            </LinearLayout>
+                android:orientation="vertical" />
 
         </TableRow>
     </TableLayout>

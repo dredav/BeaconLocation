@@ -1,6 +1,9 @@
 package de.dhbwloerrach.beaconlocation.activities;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.bluetooth.BluetoothAdapter;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,6 +18,8 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        checkBluetoothState();
 
         commons = new ActivityCommons(this);
         commons.createDrawer();
@@ -39,5 +44,30 @@ public class MainActivity extends Activity {
 
     public ActivityCommons getCommons() {
         return commons;
+    }
+
+    public void checkBluetoothState() {
+        BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        if (mBluetoothAdapter == null) {
+            return;
+        }
+        if (mBluetoothAdapter.isEnabled()) {
+            return;
+        }
+
+        new AlertDialog.Builder(this)
+                .setTitle(R.string.bluetoothDisabledCaption)
+                .setMessage(R.string.bluetoothDisabledMessage)
+                .setPositiveButton(R.string.activate, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+                        if (!mBluetoothAdapter.isEnabled()) {
+                            mBluetoothAdapter.enable();
+                        }
+                    }
+                })
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
     }
 }

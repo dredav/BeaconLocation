@@ -9,12 +9,9 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import java.util.ArrayList;
-
 import de.dhbwloerrach.beaconlocation.R;
 import de.dhbwloerrach.beaconlocation.adapters.MachineAdapter;
 import de.dhbwloerrach.beaconlocation.database.DatabaseHandler;
-import de.dhbwloerrach.beaconlocation.models.Beacon;
 
 /**
  * Created by Lukas on 31.07.2015.

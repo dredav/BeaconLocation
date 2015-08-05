@@ -60,20 +60,18 @@ public class AddNewMachineFragment extends BaseFragment {
             public void onClick(View v) {
                 // Textfeld auslesen
                 final EditText textField = (EditText) activity.findViewById(R.id.editText);
-                // Wenn Texfeld nicht leet ist
-                if (textField.getText() != null && !textField.getText().toString().isEmpty()) {
-                    // databashandler erstellen
-                    final DatabaseHandler databaseHandler = new DatabaseHandler(activity);
-                    // Beacons prüfen, ob sie bereits in der DB vorliegen
-                    String allOverwriteBeacons = "";
-                    for (Beacon beacon : selectedBeacons) {
-                        if (!checkBecaoninDB(beacon, databaseHandler)) {
-                            continue;
-                        }
-                        else {
-                            allOverwriteBeacons += beacon.getMinor().toString() + " ";
-                        }
-                    }
+                // Maschine erstellen
+                Machine newMachine = new Machine();
+                newMachine.setName(textField.getText().toString());
+                // Maschine in DB eintragen
+                final DatabaseHandler databaseHandler = new DatabaseHandler(activity);
+                Integer machineID = databaseHandler.createMachine(newMachine);
+                // Beacons prüfen, ob sie bereits in der DB vorliegen und einrtagen
+                for (final Beacon beacon: selectedBeacons){
+                    Beacon databaseBeacon = databaseHandler.getBeacon(beacon.getMinor(), beacon.getMajor(), beacon.getUuid());
+                    beacon.setMachineId(machineID);
+                    if (databaseBeacon != null){
+                        databaseHandler.createBeacon(beacon);
 
                     if(allOverwriteBeacons.isEmpty()) {
                         writeChangesToDB(textField, databaseHandler);
