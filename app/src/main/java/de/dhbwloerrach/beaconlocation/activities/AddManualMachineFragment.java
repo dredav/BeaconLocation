@@ -1,10 +1,13 @@
 package de.dhbwloerrach.beaconlocation.activities;
 
 import android.app.Fragment;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
-import android.view.Menu;
+import android.view.Menu;import android.view.ViewGroup.LayoutParams;
+
+
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -25,7 +28,7 @@ import de.dhbwloerrach.beaconlocation.models.Machine;
  * Created by Lukas on 04.08.2015.
  */
 public class AddManualMachineFragment extends BaseFragment {
-    ArrayList<TextView> minors = new ArrayList<>();
+    ArrayList<EditText> dynamicMinorIds = new ArrayList<>();
 
     @Nullable
     @Override
@@ -47,6 +50,18 @@ public class AddManualMachineFragment extends BaseFragment {
         activity.getMenuInflater().inflate(R.menu.menu_newmachine, menu);
     }
 
+    protected void addBeaconInputField() {
+        LinearLayout layout = (LinearLayout) activity.findViewById(R.id.minors);
+
+        EditText editText = new EditText(activity);
+        editText.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+        editText.setHint(R.string.minorId);
+        editText.setId(9500 + dynamicMinorIds.size());
+
+        dynamicMinorIds.add(editText);
+        layout.addView(editText);
+    }
+
     @Override
     protected boolean handleMenuClick(int itemId) {
         switch (itemId) {
@@ -54,24 +69,20 @@ public class AddManualMachineFragment extends BaseFragment {
                 activity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        LinearLayout layout = (LinearLayout)activity.findViewById(R.id.minors);
-                        TextView textView = new TextView(activity);
-                        minors.add(textView);
-                        layout.addView(textView);
-                        layout.setWillNotDraw(false);
-                        layout.invalidate();
+                        addBeaconInputField();
                     }
                 });
                 return true;
+
             case R.id.save_machine:
                 // save machine to database
                 DatabaseHandler databaseHandler = new DatabaseHandler(activity);
 
-                TextView editText = (TextView)getActivity().findViewById(R.id.editText);
+                TextView editText = (TextView) activity.findViewById(R.id.editText);
                 Machine machine = new Machine().setName(editText.getText().toString());
                 databaseHandler.createMachine(machine);
 
-                for(TextView minor : minors){
+                for(EditText minor : dynamicMinorIds){
                     int minorId = Integer.parseInt(minor.getText().toString());
                     // TODO : get beacons with all major and uuid
                     Beacon beacon = databaseHandler.getBeacon(minorId, 0, "");
