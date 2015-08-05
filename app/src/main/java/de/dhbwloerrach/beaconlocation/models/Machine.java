@@ -1,9 +1,12 @@
 package de.dhbwloerrach.beaconlocation.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by Salvo on 23.07.2015.
  */
-public class Machine {
+public class Machine implements Parcelable {
 
 
     private String name;
@@ -31,6 +34,14 @@ public class Machine {
     }
 
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
 
-
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(name);
+    }
 }

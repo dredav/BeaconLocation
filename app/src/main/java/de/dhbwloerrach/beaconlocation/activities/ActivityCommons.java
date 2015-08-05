@@ -27,11 +27,13 @@ public class ActivityCommons implements Drawer.OnDrawerItemClickListener {
     private MainActivity context;
     private BeaconTools beaconTools;
     private Drawer drawer;
+    private BaseFragment fragment;
+
     private BeaconsFragment beaconsFragment;
     private MachinesFragment machinesFragment;
-    private BaseFragment fragment;
     private AddNewMachineFragment addNewMachineFragment;
     private AddManualMachineFragment addManualMachineFragment;
+    private MachineFragment machineFragment;
 
     public ActivityCommons(MainActivity context) {
         this.context = context;
@@ -77,7 +79,7 @@ public class ActivityCommons implements Drawer.OnDrawerItemClickListener {
                 fragment = beaconsFragment;
                 break;
 
-            case MACHINE_VIEW:
+            case MACHINES_VIEW:
                 if (machinesFragment == null) {
                     machinesFragment = new MachinesFragment();
                 }
@@ -98,6 +100,13 @@ public class ActivityCommons implements Drawer.OnDrawerItemClickListener {
                 }
 
                 fragment = addManualMachineFragment;
+                break;
+            case MACHINE:
+                if(machineFragment==null){
+                    machineFragment = new MachineFragment();
+                }
+
+                fragment = machineFragment;
                 break;
         }
 
@@ -127,7 +136,7 @@ public class ActivityCommons implements Drawer.OnDrawerItemClickListener {
                 .addDrawerItems(
                         new PrimaryDrawerItem().withTag(FragmentType.BEACON_SEARCH).withName(R.string.menu_beaconView).withDescription(R.string.menu_beaconViewDescription),
                         new DividerDrawerItem(),
-                        new SecondaryDrawerItem().withTag(FragmentType.MACHINE_VIEW).withName(R.string.menu_machineView)
+                        new SecondaryDrawerItem().withTag(FragmentType.MACHINES_VIEW).withName(R.string.menu_machineView)
                 )
                 .withOnDrawerItemClickListener(this)
                 .build();
@@ -136,7 +145,10 @@ public class ActivityCommons implements Drawer.OnDrawerItemClickListener {
     }
 
     public void startMonitoring(IBeaconListView view){
-        beaconTools = new BeaconTools(context, view);
+        //if(beaconTools == null)
+            beaconTools = new BeaconTools(context, view);
+        //else
+            //beaconTools.addView(view);
     }
 
     public void unbind(){
@@ -146,8 +158,9 @@ public class ActivityCommons implements Drawer.OnDrawerItemClickListener {
     public enum FragmentType
     {
         BEACON_SEARCH,
-        MACHINE_VIEW,
+        MACHINES_VIEW,
         ADD_MACHINE,
         ADD_MACHINE_MANUAL,
+        MACHINE,
     }
 }

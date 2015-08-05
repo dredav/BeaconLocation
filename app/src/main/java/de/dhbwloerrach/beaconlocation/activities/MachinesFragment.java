@@ -9,12 +9,10 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import java.util.ArrayList;
-
 import de.dhbwloerrach.beaconlocation.R;
 import de.dhbwloerrach.beaconlocation.adapters.MachineAdapter;
 import de.dhbwloerrach.beaconlocation.database.DatabaseHandler;
-import de.dhbwloerrach.beaconlocation.models.Beacon;
+import de.dhbwloerrach.beaconlocation.models.Machine;
 
 /**
  * Created by Lukas on 31.07.2015.
@@ -38,11 +36,14 @@ public class MachinesFragment extends BaseFragment {
             initialized = true;
         }
 
-        ListView listView = (ListView) activity.findViewById(R.id.listView2);
+        final ListView listView = (ListView) activity.findViewById(R.id.listView2);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // TODO : go to view #5
+                // go to view #5
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("machine", (Machine)listView.getItemAtPosition(position));
+                activity.getCommons().switchFragment(ActivityCommons.FragmentType.MACHINE, bundle);
             }
         });
 
