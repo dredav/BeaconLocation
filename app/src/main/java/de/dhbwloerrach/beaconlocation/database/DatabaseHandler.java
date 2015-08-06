@@ -91,14 +91,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.close();
 
         SQLiteDatabase dbRead = getWritableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_MACHINE, null);
+        Cursor cursor = dbRead.rawQuery("SELECT * FROM " + TABLE_MACHINE, null);
 
         int id = 0;
 
         if (cursor.moveToLast()) {
             id = Integer.parseInt(cursor.getString(0));
             cursor.close();
-            db.close();
+            dbRead.close();
         }
         return id;
     }
@@ -296,6 +296,25 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         cursor.close();
         db.close();
         return beacons;
+    }
+
+    public Machine getMachine(String name) {
+        SQLiteDatabase db = getReadableDatabase();
+
+        Cursor cursor = db.query(TABLE_MACHINE, new String[]{KEY_MACHINE_ID, KEY_MACHINE_NAME}, KEY_MACHINE_NAME + "=?", new String[]{String.valueOf(name)}, null, null, null, null);
+
+        if (cursor != null) {
+            if(cursor.moveToFirst()) {
+                Machine machine = new Machine();
+                machine.seIid(Integer.parseInt(cursor.getString(0)));
+                machine.setName(cursor.getString(1));
+                cursor.close();
+                db.close();
+                return machine;
+            }
+        }
+        db.close();
+        return null;
     }
 
 }
