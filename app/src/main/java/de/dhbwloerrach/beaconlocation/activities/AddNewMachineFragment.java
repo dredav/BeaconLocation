@@ -74,10 +74,16 @@ public class AddNewMachineFragment extends BaseFragment {
 
                         String allOverwriteBeacons = "";
                         for (Beacon beacon : selectedBeacons) {
+
                             if (!checkBecaoninDB(beacon, databaseHandler)) {
                                 continue;
                             }
-                            allOverwriteBeacons += beacon.getMinor().toString() + " ";
+                            if (selectedBeacons.indexOf(beacon) <= selectedBeacons.size()-1){
+                                allOverwriteBeacons += beacon.getMinor().toString() + ", ";
+                            }
+                            else {
+                                allOverwriteBeacons += beacon.getMinor().toString() + " ";
+                            }
                         }
 
                         if (allOverwriteBeacons.isEmpty()) {
