@@ -52,6 +52,15 @@ public class MachineFragment extends BaseFragment implements IBeaconListView {
         DatabaseHandler databaseHandler = new DatabaseHandler(activity);
         machineBeacons = databaseHandler.getAllBeaconsByMachine(machine.getId());
 
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                adapter.clearItems();
+                adapter.addItems(machineBeacons);
+                adapter.notifyDataSetChanged();
+            }
+        });
+
         TextView textView = (TextView) activity.findViewById(R.id.name);
         textView.setText(machine.getName());
 
