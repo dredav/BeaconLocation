@@ -270,8 +270,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             return null;
         }
     }
-    public List<Beacon> getAllBeaconsByMachine(int machineId) {
-        List<Beacon> beacons = new ArrayList<>();
+    public ArrayList<Beacon> getAllBeaconsByMachine(int machineId) {
+        ArrayList<Beacon> beacons = new ArrayList<>();
 
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.query(TABLE_BEACON, new String[]{KEY_BEACON_ID, KEY_BEACON_MINOR, KEY_BEACON_MAJOR, KEY_BEACON_UUID, KEY_BEACON_MACHINEID, KEY_BEACON_FRONT_LEFT, KEY_BEACON_FRONT_RIGHT, KEY_BEACON_BACK_LEFT, KEY_BEACON_BACK_RIGHT}, KEY_BEACON_MACHINEID + "=?", new String[]{String.valueOf(machineId)}, null, null, null, null);
