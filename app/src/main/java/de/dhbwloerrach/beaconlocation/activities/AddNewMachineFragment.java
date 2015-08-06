@@ -52,47 +52,94 @@ public class AddNewMachineFragment extends BaseFragment {
 
             }
         });
-        final Button CommitButton = (Button) activity.findViewById(R.id.button_commit);
+        final Button CommitButton = (Button) activity.findViewById(R.id.button_create);
         CommitButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // Textfeld auslesen
                 final EditText textField = (EditText) activity.findViewById(R.id.editText);
-                // Maschine erstellen
-                Machine newMachine = new Machine();
-                newMachine.setName(textField.getText().toString());
-                // Maschine in DB eintragen
-                final DatabaseHandler databaseHandler = new DatabaseHandler(activity);
-                Integer machineID = databaseHandler.createMachine(newMachine);
-                // Beacons prüfen, ob sie bereits in der DB vorliegen und einrtagen
-                for (final Beacon beacon: selectedBeacons){
-                    Beacon databaseBeacon = databaseHandler.getBeacon(beacon.getMinor(), beacon.getMajor(), beacon.getUuid());
-                    beacon.setMachineId(machineID);
-                    if (databaseBeacon != null){
-                        databaseHandler.createBeacon(beacon);
+                // Wenn Texfeld nicht leet ist
+                if (textField.getText() != null && !textField.getText().toString().isEmpty()) {
+                    // databashandler erstellen
+                    final DatabaseHandler databaseHandler = new DatabaseHandler(activity);
 
-                    }
-                    else{
+                    if (checkMachineinDB(textField.getText().toString(), databaseHandler)){
                         new AlertDialog.Builder(activity)
-                                .setTitle("Overwrite Entry")
-                                .setMessage("A Beacon is already part of a machine. Are you sure you want to overwrite this entry?")
-                                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        databaseHandler.updateBeacon(beacon);
-                                    }
-                                })
-                                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        commons.switchFragment(ActivityCommons.FragmentType.BEACON_SEARCH);
-                                    }
-                                })
+                                .setTitle(R.string.alert_title_warning)
+                                .setMessage(R.string.alert_message_name)
                                 .setIcon(android.R.drawable.ic_dialog_alert)
                                 .show();
+                    }
+                    else {
 
+                        String allOverwriteBeacons = "";
+                        for (Beacon beacon : selectedBeacons) {
+                            if (!checkBecaoninDB(beacon, databaseHandler)) {
+                                continue;
+                            }
+                            allOverwriteBeacons += beacon.getMinor().toString() + " ";
+                        }
+
+                        if (allOverwriteBeacons.isEmpty()) {
+                            writeChangesToDB(textField, databaseHandler);
+                        } else {
+                            new AlertDialog.Builder(activity)
+                                    .setTitle(R.string.alert_title_warning)
+                                    .setMessage("The Beacon " + allOverwriteBeacons + "is already part of a machine. Are you sure you want to overwrite this entry?")
+                                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            writeChangesToDB(textField, databaseHandler);
+                                        }
+                                    })
+                                    .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            commons.switchFragment(ActivityCommons.FragmentType.BEACON_SEARCH);
+                                        }
+                                    })
+                                    .setIcon(android.R.drawable.ic_dialog_alert)
+                                    .show();
+                        }
+                    }
+                }
+                else {
+                    new AlertDialog.Builder(activity)
+                            .setTitle(R.string.alert_title_warning)
+                            .setMessage(R.string.alert_message_enterName)
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .show();
+                }
+            }
+
+            protected boolean checkBecaoninDB (Beacon beacon, DatabaseHandler databaseHandler){
+                Beacon databaseBeacon = databaseHandler.getBeacon(beacon.getMinor(), beacon.getMajor(), beacon.getUuid());
+                return databaseBeacon != null;
+            }
+
+            protected boolean checkMachineinDB (String MachineName,DatabaseHandler databaseHandler){
+                // DB
+                return false;
+            }
+
+
+            protected void writeChangesToDB(EditText textField, DatabaseHandler databaseHandler) {
+                Machine newMachine = new Machine();
+                newMachine.setName(textField.getText().toString());
+                Integer machineID = databaseHandler.createMachine(newMachine);
+                for (Beacon beacon: selectedBeacons){
+                    beacon.setMachineId(machineID);
+                    if (checkBecaoninDB(beacon, databaseHandler)) {
+                        databaseHandler.updateBeacon(beacon);
+                    }
+                    else{
+                        databaseHandler.createBeacon(beacon);
                     }
                 }
 
-
+                new AlertDialog.Builder(activity)
+                        .setTitle(R.string.alert_title_sucess)
+                        .setMessage(R.string.alert_message_save)
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
             }
         });
     }

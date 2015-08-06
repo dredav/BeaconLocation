@@ -34,11 +34,10 @@
                 android:id="@+id/minor_label" />
 
             <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
+                android:id="@+id/minors"
                 android:layout_height="wrap_content"
-                android:id="@+id/minors">
-            </LinearLayout>
+                android:orientation="vertical" />
 
         </TableRow>
     </TableLayout>
