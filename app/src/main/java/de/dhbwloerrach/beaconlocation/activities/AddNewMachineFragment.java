@@ -88,6 +88,7 @@ public class AddNewMachineFragment extends BaseFragment {
 
                         if (allOverwriteBeacons.isEmpty()) {
                             writeChangesToDB(textField, databaseHandler);
+                            commons.switchFragment(ActivityCommons.FragmentType.BEACON_SEARCH);
                         } else {
                             new AlertDialog.Builder(activity)
                                     .setTitle(R.string.alert_title_warning)
@@ -96,6 +97,7 @@ public class AddNewMachineFragment extends BaseFragment {
                                         @Override
                                         public void onClick(DialogInterface dialog, int which) {
                                             writeChangesToDB(textField, databaseHandler);
+                                            commons.switchFragment(ActivityCommons.FragmentType.BEACON_SEARCH);
                                         }
                                     })
                                     .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
