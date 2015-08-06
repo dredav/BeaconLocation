@@ -125,8 +125,12 @@ public class AddNewMachineFragment extends BaseFragment {
             }
 
             protected boolean checkMachineinDB (String MachineName,DatabaseHandler databaseHandler){
-                // DB
-                return false;
+                if (databaseHandler.getMachine(MachineName)==null){
+                    return false;
+                }
+                else{
+                    return true;
+                }
             }
 
 
