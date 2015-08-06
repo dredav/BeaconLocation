@@ -61,42 +61,50 @@ public class AddNewMachineFragment extends BaseFragment {
                 if (textField.getText() != null && !textField.getText().toString().isEmpty()) {
                     // databashandler erstellen
                     final DatabaseHandler databaseHandler = new DatabaseHandler(activity);
-                    // Beacons prüfen, ob sie bereits in der DB vorliegen
-                    String allOverwriteBeacons = "";
-                    for (Beacon beacon : selectedBeacons) {
-                        if (!checkBecaoninDB(beacon, databaseHandler)) {
-                            continue;
-                        }
 
-                        allOverwriteBeacons += beacon.getMinor().toString() + " ";
-                    }
-
-                    if(allOverwriteBeacons.isEmpty()) {
-                        writeChangesToDB(textField, databaseHandler);
-                    }
-                    else {
+                    if (checkMachineinDB(textField.getText().toString(), databaseHandler)){
                         new AlertDialog.Builder(activity)
-                                .setTitle("Overwrite Entry")
-                                .setMessage("The Beacon " + allOverwriteBeacons + "is already part of a machine. Are you sure you want to overwrite this entry?")
-                                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        writeChangesToDB(textField, databaseHandler);
-                                    }
-                                })
-                                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        commons.switchFragment(ActivityCommons.FragmentType.BEACON_SEARCH);
-                                    }
-                                })
+                                .setTitle(R.string.alert_title_warning)
+                                .setMessage(R.string.alert_message_name)
                                 .setIcon(android.R.drawable.ic_dialog_alert)
                                 .show();
+                    }
+                    else {
+
+                        String allOverwriteBeacons = "";
+                        for (Beacon beacon : selectedBeacons) {
+                            if (!checkBecaoninDB(beacon, databaseHandler)) {
+                                continue;
+                            }
+                            allOverwriteBeacons += beacon.getMinor().toString() + " ";
+                        }
+
+                        if (allOverwriteBeacons.isEmpty()) {
+                            writeChangesToDB(textField, databaseHandler);
+                        } else {
+                            new AlertDialog.Builder(activity)
+                                    .setTitle(R.string.alert_title_warning)
+                                    .setMessage("The Beacon " + allOverwriteBeacons + "is already part of a machine. Are you sure you want to overwrite this entry?")
+                                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            writeChangesToDB(textField, databaseHandler);
+                                        }
+                                    })
+                                    .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            commons.switchFragment(ActivityCommons.FragmentType.BEACON_SEARCH);
+                                        }
+                                    })
+                                    .setIcon(android.R.drawable.ic_dialog_alert)
+                                    .show();
+                        }
                     }
                 }
                 else {
                     new AlertDialog.Builder(activity)
-                            .setTitle("Warning")
-                            .setMessage("Please enter a name for your machine")
+                            .setTitle(R.string.alert_title_warning)
+                            .setMessage(R.string.alert_message_enterName)
                             .setIcon(android.R.drawable.ic_dialog_alert)
                             .show();
                 }
@@ -106,6 +114,12 @@ public class AddNewMachineFragment extends BaseFragment {
                 Beacon databaseBeacon = databaseHandler.getBeacon(beacon.getMinor(), beacon.getMajor(), beacon.getUuid());
                 return databaseBeacon != null;
             }
+
+            protected boolean checkMachineinDB (String MachineName,DatabaseHandler databaseHandler){
+                // DB
+                return false;
+            }
+
 
             protected void writeChangesToDB(EditText textField, DatabaseHandler databaseHandler) {
                 Machine newMachine = new Machine();
@@ -122,8 +136,8 @@ public class AddNewMachineFragment extends BaseFragment {
                 }
 
                 new AlertDialog.Builder(activity)
-                        .setTitle("Sucess")
-                        .setMessage("Your chnges have been saved to the database")
+                        .setTitle(R.string.alert_title_sucess)
+                        .setMessage(R.string.alert_message_save)
                         .setIcon(android.R.drawable.ic_dialog_alert)
                         .show();
             }
