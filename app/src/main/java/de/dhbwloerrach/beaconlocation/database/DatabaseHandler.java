@@ -298,4 +298,23 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return beacons;
     }
 
+    public Machine getMachine(String name) {
+        SQLiteDatabase db = getReadableDatabase();
+
+        Cursor cursor = db.query(TABLE_MACHINE, new String[]{KEY_MACHINE_ID, KEY_MACHINE_NAME}, KEY_MACHINE_NAME + "=?", new String[]{String.valueOf(name)}, null, null, null, null);
+
+        if (cursor != null) {
+            if(cursor.moveToFirst()) {
+                Machine machine = new Machine();
+                machine.seIid(Integer.parseInt(cursor.getString(0)));
+                machine.setName(cursor.getString(1));
+                cursor.close();
+                db.close();
+                return machine;
+            }
+        }
+        db.close();
+        return null;
+    }
+
 }
