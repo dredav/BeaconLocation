@@ -33,6 +33,7 @@ public class ActivityCommons implements Drawer.OnDrawerItemClickListener {
     private MachinesFragment machinesFragment;
     private AddNewMachineFragment addNewMachineFragment;
     private AddManualMachineFragment addManualMachineFragment;
+    private AddBeaconsToMachineFragment addBeaconsToMachineFragment;
     private MachineFragment machineFragment;
 
     public ActivityCommons(MainActivity context) {
@@ -101,6 +102,13 @@ public class ActivityCommons implements Drawer.OnDrawerItemClickListener {
 
                 fragment = addManualMachineFragment;
                 break;
+            case ADD_BEACON_TO_MACHINE:
+                if(addBeaconsToMachineFragment==null){
+                    addBeaconsToMachineFragment = new AddBeaconsToMachineFragment();
+                }
+
+                fragment = addBeaconsToMachineFragment;
+                break;
             case MACHINE:
                 if(machineFragment==null){
                     machineFragment = new MachineFragment();
@@ -161,6 +169,7 @@ public class ActivityCommons implements Drawer.OnDrawerItemClickListener {
         MACHINES_VIEW,
         ADD_MACHINE,
         ADD_MACHINE_MANUAL,
+        ADD_BEACON_TO_MACHINE,
         MACHINE,
     }
 }

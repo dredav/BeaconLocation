@@ -43,6 +43,7 @@ public class MachinesFragment extends BaseFragment {
                 // go to view #5
                 Bundle bundle = new Bundle();
                 bundle.putParcelable("machine", (Machine)listView.getItemAtPosition(position));
+                // got to AddBeaconsToMachineFragement if selected Beacons notEmpty?
                 activity.getCommons().switchFragment(ActivityCommons.FragmentType.MACHINE, bundle);
             }
         });

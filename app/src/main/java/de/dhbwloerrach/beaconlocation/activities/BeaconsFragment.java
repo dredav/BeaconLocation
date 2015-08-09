@@ -107,7 +107,10 @@ public class BeaconsFragment extends BaseFragment implements IBeaconListView {
 
         builder.setPositiveButton(R.string.addToMachine, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                // User clicked OK button
+                Bundle bundle = new Bundle();
+                bundle.putParcelableArrayList("selectedBeacons", selectedBeacons);
+                activity.getCommons().switchFragment(ActivityCommons.FragmentType.MACHINES_VIEW, bundle);
+
             }
         });
 
@@ -123,6 +126,7 @@ public class BeaconsFragment extends BaseFragment implements IBeaconListView {
         AlertDialog dialog = builder.create();
         dialog.show();
     }
+
 
     @Override
     protected void createActionBarMenu(Menu menu) {
