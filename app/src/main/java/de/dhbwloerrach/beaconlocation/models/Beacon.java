@@ -5,6 +5,8 @@ import android.os.Parcelable;
 
 import java.util.Date;
 
+import de.dhbwloerrach.beaconlocation.database.DatabaseHandler;
+
 /**
  * Created by alirei on 20.07.2015.
  */
@@ -242,4 +244,9 @@ public class Beacon implements Parcelable{
             return new Beacon[size];
         }
     };
+
+    public boolean checkBecaoninDB (Beacon beacon, DatabaseHandler databaseHandler){
+        Beacon databaseBeacon = databaseHandler.getBeacon(beacon.getMinor(), beacon.getMajor(), beacon.getUuid());
+        return databaseBeacon != null;
+    }
 }

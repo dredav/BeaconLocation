@@ -1,16 +1,21 @@
 package de.dhbwloerrach.beaconlocation.activities;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 
 import java.util.ArrayList;
 
 import de.dhbwloerrach.beaconlocation.R;
+import de.dhbwloerrach.beaconlocation.adapters.MachineAdapter;
 import de.dhbwloerrach.beaconlocation.database.DatabaseHandler;
 import de.dhbwloerrach.beaconlocation.models.Beacon;
 import de.dhbwloerrach.beaconlocation.models.Machine;
@@ -22,37 +27,59 @@ public class AddBeaconsToMachineFragment extends BaseFragment{
     private ArrayList<Beacon> selectedBeacons = new ArrayList<>();
     private Machine machine;
     private ActivityCommons commons;
+    private MachineAdapter adapter;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_add_beacons_to_machine, container, false);
+        return inflater.inflate(R.layout.fragment_machines, container, false);
     }
 
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         commons = activity.getCommons();
-        selectedBeacons = getArguments().getParcelableArrayList("selectedBeacons");
-        machine = getArguments().getParcelable("machine");
 
-        final Button cancelButton = (Button) activity.findViewById(R.id.button_cancel);
-        cancelButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                commons.switchFragment(ActivityCommons.FragmentType.BEACON_SEARCH);
+        if (!initialized) {
+            adapter = new MachineAdapter(activity);
+            adapter.addItems(new DatabaseHandler(activity).getAllMachines());
+            initialized = true;
+        }
 
+        final ListView listView = (ListView) activity.findViewById(R.id.listView2);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                new AlertDialog.Builder(activity)
+                        .setTitle(R.string.alert_title_warning)
+                        .setMessage("Are you sure that you want to add the selected beacons to the machine?")
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                selectedBeacons = getArguments().getParcelableArrayList("selectedBeacons");
+                                machine = getArguments().getParcelable("machine");
+                                DatabaseHandler databaseHandler = new DatabaseHandler(activity);
+                                for (Beacon beacon: selectedBeacons) {
+                                    beacon.setMachineId(machine.getId());
+                                    if (!beacon.checkBecaoninDB(beacon, databaseHandler)){
+                                        databaseHandler.createBeacon(beacon);
+                                    }
+                                    else {
+                                        databaseHandler.updateBeacon(beacon);
+                                    }
+                                }
+                                commons.switchFragment(ActivityCommons.FragmentType.BEACON_SEARCH);
+                                }}
+                            )
+                        .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                commons.switchFragment(ActivityCommons.FragmentType.BEACON_SEARCH);
+                            }
+                        })
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
             }
         });
-        final Button CommitButton = (Button) activity.findViewById(R.id.button_create);
-        CommitButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                DatabaseHandler databaseHandler = new DatabaseHandler(activity);
-                for (Beacon beacon: selectedBeacons){
-                    beacon.setMachineId(machine.getId());
-                    databaseHandler.updateBeacon(beacon);
-                    // prüfen, ob noch nicht in DB Methode aus AddNewMachineFragment klauen
-                }
 
+        listView.setAdapter(adapter);
 
-            }
-        });
     }
 
 

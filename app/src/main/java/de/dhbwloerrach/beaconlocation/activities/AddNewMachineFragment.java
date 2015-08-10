@@ -62,8 +62,8 @@ public class AddNewMachineFragment extends BaseFragment {
                 if (textField.getText() != null && !textField.getText().toString().isEmpty()) {
                     // databashandler erstellen
                     final DatabaseHandler databaseHandler = new DatabaseHandler(activity);
-
-                    if (checkMachineinDB(textField.getText().toString(), databaseHandler)){
+                    Machine newMachine = new Machine();
+                    if (newMachine.checkMachineinDB(textField.getText().toString(), databaseHandler)){
                         new AlertDialog.Builder(activity)
                                 .setTitle(R.string.alert_title_warning)
                                 .setMessage(R.string.alert_message_name)
@@ -75,7 +75,7 @@ public class AddNewMachineFragment extends BaseFragment {
                         String allOverwriteBeacons = "";
                         for (Beacon beacon : selectedBeacons) {
 
-                            if (!checkBecaoninDB(beacon, databaseHandler)) {
+                            if (!beacon.checkBecaoninDB(beacon, databaseHandler)) {
                                 continue;
                             }
                             if (selectedBeacons.indexOf(beacon) <= selectedBeacons.size()-1){
@@ -119,20 +119,6 @@ public class AddNewMachineFragment extends BaseFragment {
                 }
             }
 
-            protected boolean checkBecaoninDB (Beacon beacon, DatabaseHandler databaseHandler){
-                Beacon databaseBeacon = databaseHandler.getBeacon(beacon.getMinor(), beacon.getMajor(), beacon.getUuid());
-                return databaseBeacon != null;
-            }
-
-            protected boolean checkMachineinDB (String MachineName,DatabaseHandler databaseHandler){
-                if (databaseHandler.getMachine(MachineName)==null){
-                    return false;
-                }
-                else{
-                    return true;
-                }
-            }
-
 
             protected void writeChangesToDB(EditText textField, DatabaseHandler databaseHandler) {
                 Machine newMachine = new Machine();
@@ -140,7 +126,7 @@ public class AddNewMachineFragment extends BaseFragment {
                 Integer machineID = databaseHandler.createMachine(newMachine);
                 for (Beacon beacon: selectedBeacons){
                     beacon.setMachineId(machineID);
-                    if (checkBecaoninDB(beacon, databaseHandler)) {
+                    if (beacon.checkBecaoninDB(beacon, databaseHandler)) {
                         databaseHandler.updateBeacon(beacon);
                     }
                     else{

@@ -3,6 +3,8 @@ package de.dhbwloerrach.beaconlocation.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import de.dhbwloerrach.beaconlocation.database.DatabaseHandler;
+
 /**
  * Created by Salvo on 23.07.2015.
  */
@@ -43,5 +45,14 @@ public class Machine implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(id);
         dest.writeString(name);
+    }
+
+    public boolean checkMachineinDB (String MachineName,DatabaseHandler databaseHandler){
+        if (databaseHandler.getMachine(MachineName)==null){
+            return false;
+        }
+        else{
+            return true;
+        }
     }
 }
