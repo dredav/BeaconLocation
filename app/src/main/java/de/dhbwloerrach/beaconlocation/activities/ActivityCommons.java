@@ -70,9 +70,10 @@ public class ActivityCommons implements Drawer.OnDrawerItemClickListener {
     public void switchFragment(FragmentType type, Bundle bundle) {
         FragmentManager fragmentManager = context.getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        BaseFragment lastFragment = fragment;
 
-        if(fragment != null) {
-            fragment.disconnectView();
+        if(lastFragment != null) {
+            lastFragment.disconnectView();
         }
 
         switch (type) {
@@ -137,6 +138,9 @@ public class ActivityCommons implements Drawer.OnDrawerItemClickListener {
         }
 
         fragmentTransaction.replace(R.id.mainView, fragment);
+        if (lastFragment != null) {
+            fragmentTransaction.addToBackStack(null);
+        }
         fragmentTransaction.commit();
     }
 
@@ -154,6 +158,10 @@ public class ActivityCommons implements Drawer.OnDrawerItemClickListener {
                 .build();
 
         switchFragment(FragmentType.BEACON_SEARCH);
+    }
+
+    public Drawer getDrawer() {
+        return drawer;
     }
 
     public void startMonitoring(IBeaconListView view) {

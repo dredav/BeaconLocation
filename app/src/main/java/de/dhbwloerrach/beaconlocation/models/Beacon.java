@@ -11,7 +11,7 @@ import de.dhbwloerrach.beaconlocation.database.DatabaseHandler;
  * Created by alirei on 20.07.2015.
  */
 public class Beacon implements Parcelable{
-    private String uuid;
+    private String uuid = "";
     private double distance;
     private String bluetoothName;
     private int txpower;
@@ -20,17 +20,16 @@ public class Beacon implements Parcelable{
     private String bluetoothAddress;
     private DistanceList distances = new DistanceList();
     private Date lastSeen;
-    private Integer major;
-    private Integer minor;
-    private Integer id;
-    private Integer machineId;
+    private Integer major = 0;
+    private Integer minor = 0;
+    private Integer id = 0;
+    private Integer machineId = 0;
     private Boolean front_left;
     private Boolean front_right;
     private Boolean back_left;
     private Boolean back_right;
 
     public Beacon(){
-
     }
 
     private Beacon(Parcel in){
@@ -248,7 +247,7 @@ public class Beacon implements Parcelable{
     };
 
     public boolean checkBecaoninDB (Beacon beacon, DatabaseHandler databaseHandler){
-        Beacon databaseBeacon = databaseHandler.getBeacon(beacon.getMinor(), beacon.getMajor(), beacon.getUuid());
+        Beacon databaseBeacon = databaseHandler.getBeacon(beacon.getMinor()); //, beacon.getMajor(), beacon.getUuid()
         return databaseBeacon != null;
     }
 }

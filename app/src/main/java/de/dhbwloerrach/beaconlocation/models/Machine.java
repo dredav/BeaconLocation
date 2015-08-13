@@ -19,7 +19,7 @@ public class Machine implements Parcelable {
         return id;
     }
 
-    public Machine seIid(Integer id) {
+    public Machine setId(Integer id) {
         this.id = id;
         return this;
 

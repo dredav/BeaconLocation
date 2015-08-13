@@ -46,8 +46,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL("INSERT INTO " + TABLE_MACHINE + "(" + KEY_MACHINE_ID + ", " + KEY_MACHINE_NAME + ") VALUES (1, 'TestMaschine')");
         db.execSQL("INSERT INTO " + TABLE_MACHINE + "(" + KEY_MACHINE_ID + ", " + KEY_MACHINE_NAME + ") VALUES (2, 'Vorlesung')");
 
-        db.execSQL("INSERT INTO " + TABLE_BEACON +  "(" + KEY_BEACON_ID + ", " + KEY_BEACON_MINOR + ", "+ KEY_BEACON_MAJOR + ", " + KEY_BEACON_UUID +") VALUES (1, 510, 0, '01234567-89AB-CDEF-0123-000000000001')");
-        db.execSQL("INSERT INTO " + TABLE_BEACON + "(" + KEY_BEACON_ID + ", " + KEY_BEACON_MINOR + ", " + KEY_BEACON_MAJOR + ", " + KEY_BEACON_UUID + ") VALUES(2, 511, 0, '01234567-89AB-CDEF-0123-000000000001')");
+        db.execSQL("INSERT INTO " + TABLE_BEACON +  "(" + KEY_BEACON_ID + ", " + KEY_BEACON_MINOR + ", "+ KEY_BEACON_MAJOR + ", " + KEY_BEACON_UUID + ", "+ KEY_BEACON_MACHINEID + ") VALUES (1, 510, 0, '01234567-89AB-CDEF-0123-000000000001', 1)");
+        db.execSQL("INSERT INTO " + TABLE_BEACON + "(" + KEY_BEACON_ID + ", " + KEY_BEACON_MINOR + ", " + KEY_BEACON_MAJOR + ", " + KEY_BEACON_UUID + ", "+ KEY_BEACON_MACHINEID + ") VALUES (2, 511, 0, '01234567-89AB-CDEF-0123-000000000001', 1)");
     }
 
     @Override
@@ -108,12 +108,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         Cursor cursor = db.query(TABLE_MACHINE, new String[]{KEY_MACHINE_ID, KEY_MACHINE_NAME}, KEY_MACHINE_ID + "=?", new String[]{String.valueOf(id)}, null, null, null, null);
 
-        Machine machine = new Machine();
+        Machine machine = null;
 
         if (cursor != null) {
             if(cursor.moveToFirst()) {
 
-                machine.seIid(Integer.parseInt(cursor.getString(0)));
+                machine = new Machine();
+                machine.setId(Integer.parseInt(cursor.getString(0)));
                 machine.setName(cursor.getString(1));
                 cursor.close();
             }
@@ -127,11 +128,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         Cursor cursor = db.query(TABLE_BEACON, new String[]{KEY_BEACON_ID, KEY_BEACON_MINOR, KEY_BEACON_MAJOR, KEY_BEACON_UUID, KEY_BEACON_MACHINEID, KEY_BEACON_FRONT_LEFT, KEY_BEACON_FRONT_RIGHT, KEY_BEACON_BACK_LEFT, KEY_BEACON_BACK_RIGHT}, KEY_BEACON_MINOR + "=?", new String[]{String.valueOf(minor)}, null, null, null, null);
 
-        Beacon beacon = new Beacon();
-
+        Beacon beacon = null;
         if (cursor != null) {
             if(cursor.moveToFirst()) {
 
+                beacon = new Beacon();
                 beacon.setId(Integer.parseInt(cursor.getString(0)));
                 beacon.setMinor(Integer.parseInt(cursor.getString(1)));
                 beacon.setMajor(Integer.parseInt(cursor.getString(2)));
@@ -202,7 +203,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             do {
                 Machine machine = new Machine();
-                machine.seIid(Integer.parseInt(cursor.getString(0)));
+                machine.setId(Integer.parseInt(cursor.getString(0)));
                 machine.setName(cursor.getString(1));
                 machines.add(machine);
             }
@@ -245,11 +246,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         Cursor cursor = db.query(TABLE_BEACON, new String[]{KEY_BEACON_ID, KEY_BEACON_MINOR, KEY_BEACON_MAJOR, KEY_BEACON_UUID, KEY_BEACON_MACHINEID, KEY_BEACON_FRONT_LEFT, KEY_BEACON_FRONT_RIGHT, KEY_BEACON_BACK_LEFT, KEY_BEACON_BACK_RIGHT}, KEY_BEACON_MINOR + "=? AND " + KEY_BEACON_MAJOR + "=? AND " + KEY_BEACON_UUID + "=?", new String[]{String.valueOf(minor), String.valueOf(major), uuid}, null, null, null, null);
 
-        Beacon beacon = new Beacon();
+        Beacon beacon;
 
         if (cursor != null) {
             if(cursor.moveToFirst()) {
 
+                beacon = new Beacon();
                 beacon.setId(Integer.parseInt(cursor.getString(0)));
                 beacon.setMinor(Integer.parseInt(cursor.getString(1)));
                 beacon.setMajor(Integer.parseInt(cursor.getString(2)));
@@ -306,7 +308,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         if (cursor != null) {
             if(cursor.moveToFirst()) {
                 Machine machine = new Machine();
-                machine.seIid(Integer.parseInt(cursor.getString(0)));
+                machine.setId(Integer.parseInt(cursor.getString(0)));
                 machine.setName(cursor.getString(1));
                 cursor.close();
                 db.close();
