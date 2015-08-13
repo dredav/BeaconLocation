@@ -32,9 +32,11 @@ public class MachinesFragment extends BaseFragment {
 
         if (!initialized) {
             adapter = new MachineAdapter(activity);
-            adapter.addItems(new DatabaseHandler(activity).getAllMachines());
             initialized = true;
         }
+
+        adapter.clearItems();
+        adapter.addItems(new DatabaseHandler(activity).getAllMachines());
 
         final ListView listView = (ListView) activity.findViewById(R.id.listView2);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

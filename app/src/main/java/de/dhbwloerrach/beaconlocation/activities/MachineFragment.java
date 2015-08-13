@@ -31,6 +31,7 @@ public class MachineFragment extends BaseFragment implements IBeaconListView {
     protected ArrayList<Beacon> selectedBeacons = new ArrayList<>();
     protected Menu menu;
     protected ArrayList<Beacon> machineBeacons;
+    protected Machine machine;
 
     @Nullable
     @Override
@@ -48,8 +49,8 @@ public class MachineFragment extends BaseFragment implements IBeaconListView {
         }
 
         activity.getCommons().startMonitoring(this);
+        machine = getArguments().getParcelable("machine");
 
-        Machine machine = getArguments().getParcelable("machine");
         DatabaseHandler databaseHandler = new DatabaseHandler(activity);
         machineBeacons = databaseHandler.getAllBeaconsByMachine(machine.getId());
 
@@ -101,6 +102,20 @@ public class MachineFragment extends BaseFragment implements IBeaconListView {
 
     @Override
     protected boolean handleMenuClick(int itemId) {
+        switch (itemId){
+            case R.id.add_beacon:
+                activity.getCommons().switchFragment(ActivityCommons.FragmentType.BEACON_SEARCH);
+                return true;
+            case R.id.delete_machine:
+                DatabaseHandler databaseHandler = new DatabaseHandler(activity);
+                for (Beacon beacon : machineBeacons) {
+                    databaseHandler.deleteBeacon(beacon);
+                }
+                databaseHandler.deleteMachine(machine);
+                activity.getCommons().switchFragment(ActivityCommons.FragmentType.BEACON_SEARCH);
+                return true;
+
+        }
         return false;
     }
 
