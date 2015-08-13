@@ -19,11 +19,11 @@ public class BeaconTools implements BeaconConsumer {
     Region mRegion = new Region("Region", null, null, null);
     BeaconManager beaconManager;
     Context context;
-    ArrayList<IBeaconListView> listViews = new ArrayList<>();
+    ArrayList<IBeaconListView> beaconListViews = new ArrayList<>();
 
     public BeaconTools(Context context, IBeaconListView listView){
         this.context = context;
-        this.listViews.add(listView);
+        this.beaconListViews.add(listView);
         beaconManager = BeaconManager.getInstanceForApplication(this.context);
         beaconManager.getBeaconParsers().add(new BeaconParser().setBeaconLayout("m:2-3=0215,i:4-19,i:20-21,i:22-23,p:24-24"));
         beaconManager.bind(this);
@@ -43,7 +43,7 @@ public class BeaconTools implements BeaconConsumer {
             e.printStackTrace();
         }
 
-        BeaconNotifier notifier = new BeaconNotifier(this.listViews);
+        BeaconNotifier notifier = new BeaconNotifier(this);
         beaconManager.setRangeNotifier(notifier);
 
         try {
@@ -52,6 +52,10 @@ public class BeaconTools implements BeaconConsumer {
         } catch (RemoteException e) {
             e.printStackTrace();
         }
+    }
+
+    public ArrayList<IBeaconListView> getBeaconListViews() {
+        return beaconListViews;
     }
 
     @Override
@@ -75,6 +79,10 @@ public class BeaconTools implements BeaconConsumer {
     }
 
     public void addView(IBeaconListView view) {
-        this.listViews.add(view);
+        beaconListViews.add(view);
+    }
+
+    public void removeView(IBeaconListView view) {
+        beaconListViews.remove(view);
     }
 }

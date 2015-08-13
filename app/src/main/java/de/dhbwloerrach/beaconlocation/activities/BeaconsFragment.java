@@ -186,6 +186,6 @@ public class BeaconsFragment extends BaseFragment implements IBeaconListView {
 
     @Override
     protected void disconnectView() {
-        //
+        activity.getCommons().stopMonitoring(this);
     }
 }

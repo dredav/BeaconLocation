@@ -156,11 +156,20 @@ public class ActivityCommons implements Drawer.OnDrawerItemClickListener {
         switchFragment(FragmentType.BEACON_SEARCH);
     }
 
-    public void startMonitoring(IBeaconListView view){
-        if(beaconTools == null)
+    public void startMonitoring(IBeaconListView view) {
+        if (beaconTools == null) {
             beaconTools = new BeaconTools(context, view);
-        else
+        } else {
             beaconTools.addView(view);
+        }
+    }
+
+    public void stopMonitoring(IBeaconListView view) {
+        if(beaconTools == null) {
+            return;
+        }
+
+        beaconTools.removeView(view);
     }
 
     public void unbind(){

@@ -1,5 +1,7 @@
 package de.dhbwloerrach.beaconlocation.bluetooth;
 
+import android.util.Log;
+
 import org.altbeacon.beacon.Beacon;
 import org.altbeacon.beacon.Identifier;
 import org.altbeacon.beacon.RangeNotifier;
@@ -14,12 +16,11 @@ import java.util.Objects;
  * Created by Lukas on 20.07.2015.
  */
 public class BeaconNotifier implements RangeNotifier {
+    protected ArrayList<de.dhbwloerrach.beaconlocation.models.Beacon> beaconList = new ArrayList<>();
+    protected BeaconTools beaconTools;
 
-    private ArrayList<de.dhbwloerrach.beaconlocation.models.Beacon> beaconList = new ArrayList<>();
-    ArrayList<IBeaconListView> listViews;
-
-    public BeaconNotifier(ArrayList<IBeaconListView> listView){
-        this.listViews = listView;
+    public BeaconNotifier(BeaconTools beaconTools){
+        this.beaconTools = beaconTools;
     }
 
     @Override
@@ -35,18 +36,24 @@ public class BeaconNotifier implements RangeNotifier {
                             .setMinor(beacon.getId3().toInt())
                             .setBluetoothName(beacon.getBluetoothName())
                             .setBluetoothAddress(beacon.getBluetoothAddress());
+
                     if (existing.getBluetoothName() == null || existing.getBluetoothName().isEmpty()) {
                         existing.setBluetoothName("iBeacon/AltBeacon");
                     }
+
                     beaconList.add(existing);
                 }
             }
+
             existing.setDistance(beacon.getDistance())
                     .setTxpower(beacon.getTxPower())
                     .setRssi(beacon.getRssi())
                     .setLastSeen(new Date());
         }
-        for(IBeaconListView listView : listViews){
+
+        Log.e("COUNTER", beaconTools.getBeaconListViews().size() + "");
+
+        for (IBeaconListView listView : beaconTools.getBeaconListViews()) {
             listView.RefreshList(beaconList);
         }
     }
