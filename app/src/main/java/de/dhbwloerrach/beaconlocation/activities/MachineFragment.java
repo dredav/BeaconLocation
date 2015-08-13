@@ -104,7 +104,9 @@ public class MachineFragment extends BaseFragment implements IBeaconListView {
     protected boolean handleMenuClick(int itemId) {
         switch (itemId){
             case R.id.add_beacon:
-                activity.getCommons().switchFragment(ActivityCommons.FragmentType.BEACON_SEARCH);
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("oldMachine", machine);
+                activity.getCommons().switchFragment(ActivityCommons.FragmentType.BEACON_SEARCH, bundle);
                 return true;
             case R.id.delete_machine:
                 DatabaseHandler databaseHandler = new DatabaseHandler(activity);
