@@ -120,7 +120,6 @@ public class AddNewMachineFragment extends BaseFragment {
                 }
             }
 
-
             protected void writeChangesToDB(EditText textField, DatabaseHandler databaseHandler) {
                 Machine newMachine = new Machine();
                 newMachine.setName(textField.getText().toString());
@@ -152,5 +151,10 @@ public class AddNewMachineFragment extends BaseFragment {
     @Override
     protected boolean handleMenuClick(int itemId) {
         return true;
+    }
+
+    @Override
+    protected void disconnectView() {
+        //
     }
 }

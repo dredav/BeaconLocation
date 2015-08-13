@@ -95,4 +95,9 @@ public class AddManualMachineFragment extends BaseFragment {
                 return false;
         }
     }
+
+    @Override
+    protected void disconnectView() {
+        //
+    }
 }

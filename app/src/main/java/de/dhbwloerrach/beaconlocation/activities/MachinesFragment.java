@@ -72,4 +72,9 @@ public class MachinesFragment extends BaseFragment {
 
         return true;
     }
+
+    @Override
+    protected void disconnectView() {
+        //
+    }
 }
