@@ -109,7 +109,7 @@ public class BeaconsFragment extends BaseFragment implements IBeaconListView {
             public void onClick(DialogInterface dialog, int id) {
                 Bundle bundle = new Bundle();
                 bundle.putParcelableArrayList("selectedBeacons", selectedBeacons);
-                activity.getCommons().switchFragment(ActivityCommons.FragmentType.MACHINES_VIEW, bundle);
+                activity.getCommons().switchFragment(ActivityCommons.FragmentType.ADD_BEACON_TO_MACHINE, bundle);
 
             }
         });

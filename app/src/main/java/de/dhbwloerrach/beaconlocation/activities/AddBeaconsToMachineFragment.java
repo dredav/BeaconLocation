@@ -46,7 +46,7 @@ public class AddBeaconsToMachineFragment extends BaseFragment{
         final ListView listView = (ListView) activity.findViewById(R.id.listView2);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemClick(AdapterView<?> parent, final View view, final int position, long id) {
                 new AlertDialog.Builder(activity)
                         .setTitle(R.string.alert_title_warning)
                         .setMessage("Are you sure that you want to add the selected beacons to the machine?")
@@ -54,7 +54,7 @@ public class AddBeaconsToMachineFragment extends BaseFragment{
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 selectedBeacons = getArguments().getParcelableArrayList("selectedBeacons");
-                                machine = getArguments().getParcelable("machine");
+                                machine = adapter.getItem(position);
                                 DatabaseHandler databaseHandler = new DatabaseHandler(activity);
                                 for (Beacon beacon: selectedBeacons) {
                                     beacon.setMachineId(machine.getId());
