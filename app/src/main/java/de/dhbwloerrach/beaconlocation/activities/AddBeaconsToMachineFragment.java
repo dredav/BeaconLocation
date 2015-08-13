@@ -18,12 +18,13 @@ import de.dhbwloerrach.beaconlocation.R;
 import de.dhbwloerrach.beaconlocation.adapters.MachineAdapter;
 import de.dhbwloerrach.beaconlocation.database.DatabaseHandler;
 import de.dhbwloerrach.beaconlocation.models.Beacon;
+import de.dhbwloerrach.beaconlocation.models.Delegate;
 import de.dhbwloerrach.beaconlocation.models.Machine;
 
 /**
  * Created by alirei on 09.08.2015.
  */
-public class AddBeaconsToMachineFragment extends BaseFragment {
+public class AddBeaconsToMachineFragment extends AddMachineBaseFragment {
     private ArrayList<Beacon> selectedBeacons = new ArrayList<>();
     private Machine machine;
     private ActivityCommons commons;
@@ -55,30 +56,23 @@ public class AddBeaconsToMachineFragment extends BaseFragment {
                             public void onClick(DialogInterface dialog, int which) {
                                 selectedBeacons = getArguments().getParcelableArrayList("selectedBeacons");
                                 machine = adapter.getItem(position);
-                                DatabaseHandler databaseHandler = new DatabaseHandler(activity);
-                                for (Beacon beacon: selectedBeacons) {
-                                    beacon.setMachineId(machine.getId());
-                                    if (!beacon.checkBecaoninDB(beacon, databaseHandler)){
-                                        databaseHandler.createBeacon(beacon);
+                                final DatabaseHandler databaseHandler = new DatabaseHandler(activity);
+
+                                final int machineId = machine.getId();
+                                Delegate action = new Delegate() {
+                                    @Override
+                                    public void execute() {
+                                        insertBeacons(databaseHandler, selectedBeacons, machineId);
+                                        commons.switchFragment(ActivityCommons.FragmentType.BEACON_SEARCH);
                                     }
-                                    else {
-                                        Beacon databaseBeacon = new Beacon();
-                                        databaseBeacon = databaseHandler.getBeacon(beacon.getMinor(), beacon.getMajor(), beacon.getUuid());
-                                        beacon.setId(databaseBeacon.getId());
-                                        databaseHandler.updateBeacon(beacon);
-                                    }
+                                };
+
+                                if(checkBeacons(selectedBeacons, databaseHandler, action)) {
+                                    action.execute();
                                 }
-                                new AlertDialog.Builder(activity)
-                                        .setTitle(R.string.alert_title_sucess)
-                                        .setMessage(R.string.alert_message_save)
-                                        .setIcon(android.R.drawable.ic_dialog_alert)
-                                        .show();
-                                commons.switchFragment(ActivityCommons.FragmentType.BEACON_SEARCH);
-                                }}
-                            )
+                            }})
                         .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                                commons.switchFragment(ActivityCommons.FragmentType.BEACON_SEARCH);
                             }
                         })
                         .setIcon(android.R.drawable.ic_dialog_alert)

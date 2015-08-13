@@ -9,20 +9,18 @@ import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 
 import de.dhbwloerrach.beaconlocation.R;
 import de.dhbwloerrach.beaconlocation.database.DatabaseHandler;
 import de.dhbwloerrach.beaconlocation.models.Beacon;
-import de.dhbwloerrach.beaconlocation.models.Machine;
 
 /**
  * Created by Lukas on 04.08.2015.
  */
 public class AddManualMachineFragment extends AddMachineBaseFragment {
-    ArrayList<EditText> dynamicMinorIds = new ArrayList<>();
+    ArrayList<EditText> dynamicMinorIds;
 
     @Nullable
     @Override
@@ -37,6 +35,8 @@ public class AddManualMachineFragment extends AddMachineBaseFragment {
         if (!initialized) {
             initialized = true;
         }
+
+        dynamicMinorIds = new ArrayList<>();
     }
 
     @Override
