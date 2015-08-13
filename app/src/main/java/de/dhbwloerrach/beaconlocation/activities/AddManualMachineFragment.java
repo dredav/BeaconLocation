@@ -21,7 +21,7 @@ import de.dhbwloerrach.beaconlocation.models.Machine;
 /**
  * Created by Lukas on 04.08.2015.
  */
-public class AddManualMachineFragment extends BaseFragment {
+public class AddManualMachineFragment extends AddMachineBaseFragment {
     ArrayList<EditText> dynamicMinorIds = new ArrayList<>();
 
     @Nullable
@@ -72,24 +72,19 @@ public class AddManualMachineFragment extends BaseFragment {
                 // save machine to database
                 DatabaseHandler databaseHandler = new DatabaseHandler(activity);
 
-                TextView editText = (TextView) activity.findViewById(R.id.editText);
-                Machine machine = new Machine().setName(editText.getText().toString());
-                databaseHandler.createMachine(machine);
+                EditText editText = (EditText) activity.findViewById(R.id.editText);
 
+                ArrayList<Beacon> beacons = new ArrayList<>();
                 for(EditText minor : dynamicMinorIds){
                     int minorId = Integer.parseInt(minor.getText().toString());
-                    // TODO : get beacons with all major and uuid
-                    Beacon beacon = databaseHandler.getBeacon(minorId, 0, "");
-                    if(beacon != null) {
-                        beacon.setMachineId(machine.getId());
-                        databaseHandler.updateBeacon(beacon);
-                    } else {
+                    Beacon beacon = databaseHandler.getBeacon(minorId);
+                    if (beacon == null) {
                         beacon = new Beacon()
-                                .setMinor(minorId)
-                                .setMachineId(machine.getId());
-                        databaseHandler.createBeacon(beacon);
+                                .setMinor(minorId);
                     }
+                    beacons.add(beacon);
                 }
+                addMachine(editText, beacons, ActivityCommons.FragmentType.MACHINES_VIEW);
                 return true;
             default:
                 return false;
