@@ -16,10 +16,10 @@ import java.util.Objects;
 public class BeaconNotifier implements RangeNotifier {
 
     private ArrayList<de.dhbwloerrach.beaconlocation.models.Beacon> beaconList = new ArrayList<>();
-    IBeaconListView listView;
+    ArrayList<IBeaconListView> listViews;
 
-    public BeaconNotifier(IBeaconListView listView){
-        this.listView = listView;
+    public BeaconNotifier(ArrayList<IBeaconListView> listView){
+        this.listViews = listView;
     }
 
     @Override
@@ -46,7 +46,9 @@ public class BeaconNotifier implements RangeNotifier {
                     .setRssi(beacon.getRssi())
                     .setLastSeen(new Date());
         }
-        listView.RefreshList(beaconList);
+        for(IBeaconListView listView : listViews){
+            listView.RefreshList(beaconList);
+        }
     }
 
     private de.dhbwloerrach.beaconlocation.models.Beacon GetBeacon(Identifier uuid, Identifier major, Identifier minor){

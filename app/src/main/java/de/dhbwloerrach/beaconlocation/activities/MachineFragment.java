@@ -44,7 +44,7 @@ public class MachineFragment extends BaseFragment implements IBeaconListView {
 
         if(!initialized){
             adapter = new BeaconAdapter(activity);
-            //activity.getCommons().startMonitoring(this);
+            activity.getCommons().startMonitoring(this);
             initialized = true;
         }
 
@@ -106,16 +106,22 @@ public class MachineFragment extends BaseFragment implements IBeaconListView {
     @Override
     public void RefreshList(ArrayList<Beacon> beacons) {
         if (!updatePaused) {
+            BeaconList visibleBeacons = new BeaconList();
+            visibleBeacons.addAll(beacons);
+            BeaconList filteredBeacons = visibleBeacons.filterByLast(5);
+
             final BeaconList beaconList = new BeaconList();
-            BeaconList filteredBeacons = beaconList.filterByLast(5);
+
+            //add visible Beacons, which are part of the machine
             for(Beacon beacon : filteredBeacons) {
                 if(machineBeacons.contains(beacon)){
                     beaconList.add(beacon);
                 }
             }
 
+            //add Beacons, which are part of the machine and not visible
             for(Beacon beacon : machineBeacons){
-                if(filteredBeacons.contains(beacon)){
+                if(!beaconList.contains(beacon)){
                     beaconList.add(beacon);
                 }
             }

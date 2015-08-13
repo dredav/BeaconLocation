@@ -21,6 +21,7 @@ import de.dhbwloerrach.beaconlocation.bluetooth.IBeaconListView;
 import de.dhbwloerrach.beaconlocation.models.Beacon;
 import de.dhbwloerrach.beaconlocation.models.BeaconList;
 import de.dhbwloerrach.beaconlocation.models.FilterTyp;
+import de.dhbwloerrach.beaconlocation.models.RssiAverageType;
 
 /**
  * Created by Lukas on 31.07.2015.
@@ -159,6 +160,23 @@ public class BeaconsFragment extends BaseFragment implements IBeaconListView {
                 setSortTitle();
                 break;
 
+            case R.id.rssi_average:
+                RssiAverageType rssiAverageType;
+                switch (adapter.getRssiAverageType()) {
+                    case None:
+                        rssiAverageType = RssiAverageType.Average;
+                        break;
+                    case Average:
+                        rssiAverageType = RssiAverageType.SmoothedAverage;
+                        break;
+                    case SmoothedAverage:
+                        rssiAverageType = RssiAverageType.None;
+                        break;
+                    default:
+                        return false;
+                }
+                adapter.setRssiAverageType(rssiAverageType);
+                break;
             default:
                 return false;
         }

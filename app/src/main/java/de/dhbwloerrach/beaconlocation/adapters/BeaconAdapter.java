@@ -14,6 +14,7 @@ import de.dhbwloerrach.beaconlocation.R;
 import de.dhbwloerrach.beaconlocation.models.Beacon;
 import de.dhbwloerrach.beaconlocation.models.BeaconList;
 import de.dhbwloerrach.beaconlocation.models.FilterTyp;
+import de.dhbwloerrach.beaconlocation.models.RssiAverageType;
 
 /**
  * Created by Lukas on 22.07.2015.
@@ -22,7 +23,9 @@ public class BeaconAdapter extends ArrayAdapter<Beacon> {
     private final Context context;
     private BeaconList beacons = new BeaconList();
     private DecimalFormat distanceFormat = new DecimalFormat("#m");
+    private DecimalFormat rssiFormat = new DecimalFormat("#");
     private FilterTyp filterTyp = FilterTyp.Minor;
+    private RssiAverageType rssiAverageType = RssiAverageType.SmoothedAverage;
 
     public BeaconAdapter(Context context) {
         super(context, R.layout.listitem_beacon);
@@ -35,6 +38,15 @@ public class BeaconAdapter extends ArrayAdapter<Beacon> {
 
     public BeaconAdapter setFilterTyp(FilterTyp filterTyp) {
         this.filterTyp = filterTyp;
+        return this;
+    }
+
+    public RssiAverageType getRssiAverageType() {
+        return rssiAverageType;
+    }
+
+    public BeaconAdapter setRssiAverageType(RssiAverageType rssiAverageType) {
+        this.rssiAverageType = rssiAverageType;
         return this;
     }
 
@@ -87,7 +99,17 @@ public class BeaconAdapter extends ArrayAdapter<Beacon> {
 
         // 4. Set the text for textView
         valueViewMinor.setText(beacons.get(position).getMinor().toString());
-        valueViewRssi.setText(beacons.get(position).getRssi().toString());
+        switch (rssiAverageType){
+            case None:
+                valueViewRssi.setText(beacons.get(position).getRssi().toString());
+                break;
+            case Average:
+                valueViewRssi.setText(rssiFormat.format(beacons.get(position).getRssis(10).getAverage()));
+                break;
+            case SmoothedAverage:
+                valueViewRssi.setText(rssiFormat.format(beacons.get(position).getRssis(10).getSmoothAverage()));
+                break;
+        }
 
         // 5. retrn rowView
         return rowView;

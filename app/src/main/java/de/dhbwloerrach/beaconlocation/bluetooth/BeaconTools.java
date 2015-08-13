@@ -10,6 +10,8 @@ import org.altbeacon.beacon.BeaconManager;
 import org.altbeacon.beacon.BeaconParser;
 import org.altbeacon.beacon.Region;
 
+import java.util.ArrayList;
+
 /**
  * Created by alirei on 20.07.2015.
  */
@@ -17,11 +19,11 @@ public class BeaconTools implements BeaconConsumer {
     Region mRegion = new Region("Region", null, null, null);
     BeaconManager beaconManager;
     Context context;
-    IBeaconListView listView;
+    ArrayList<IBeaconListView> listViews = new ArrayList<>();
 
     public BeaconTools(Context context, IBeaconListView listView){
         this.context = context;
-        this.listView = listView;
+        this.listViews.add(listView);
         beaconManager = BeaconManager.getInstanceForApplication(this.context);
         beaconManager.getBeaconParsers().add(new BeaconParser().setBeaconLayout("m:2-3=0215,i:4-19,i:20-21,i:22-23,p:24-24"));
         beaconManager.bind(this);
@@ -41,7 +43,7 @@ public class BeaconTools implements BeaconConsumer {
             e.printStackTrace();
         }
 
-        BeaconNotifier notifier = new BeaconNotifier(this.listView);
+        BeaconNotifier notifier = new BeaconNotifier(this.listViews);
         beaconManager.setRangeNotifier(notifier);
 
         try {
@@ -70,5 +72,9 @@ public class BeaconTools implements BeaconConsumer {
     public void unbind()
     {
         beaconManager.unbind(this);
+    }
+
+    public void addView(IBeaconListView view) {
+        this.listViews.add(view);
     }
 }

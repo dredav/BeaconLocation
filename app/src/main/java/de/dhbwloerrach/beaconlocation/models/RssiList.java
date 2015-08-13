@@ -20,7 +20,10 @@ public class RssiList extends ArrayList<TimedRssi> {
         return result;
     }
 
-    public double getAverage() {
+    public Double getAverage() {
+        if(this.isEmpty())
+            return 0.0;
+
         double sum = 0;
         for (TimedRssi distance : this)
             sum += distance.getRssi();
@@ -28,7 +31,12 @@ public class RssiList extends ArrayList<TimedRssi> {
         return ((double) sum) / this.size();
     }
 
-    public double getSmoothAverage() {
+    public Double getSmoothAverage() {
+        if(this.isEmpty())
+            return 0.0;
+        if(this.size() < 3)
+            return this.getAverage();
+
         ArrayList<Integer> ordered = new ArrayList<>();
         for (TimedRssi rssi : this){
             ordered.add(rssi.getRssi());

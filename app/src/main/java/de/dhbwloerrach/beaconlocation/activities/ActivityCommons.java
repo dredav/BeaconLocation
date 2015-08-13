@@ -153,10 +153,10 @@ public class ActivityCommons implements Drawer.OnDrawerItemClickListener {
     }
 
     public void startMonitoring(IBeaconListView view){
-        //if(beaconTools == null)
+        if(beaconTools == null)
             beaconTools = new BeaconTools(context, view);
-        //else
-            //beaconTools.addView(view);
+        else
+            beaconTools.addView(view);
     }
 
     public void unbind(){
