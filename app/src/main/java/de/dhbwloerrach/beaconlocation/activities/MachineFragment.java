@@ -136,4 +136,9 @@ public class MachineFragment extends BaseFragment implements IBeaconListView {
             });
         }
     }
+
+    @Override
+    protected void disconnectView() {
+        //
+    }
 }

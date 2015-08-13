@@ -183,4 +183,9 @@ public class BeaconsFragment extends BaseFragment implements IBeaconListView {
 
         return true;
     }
+
+    @Override
+    protected void disconnectView() {
+        //
+    }
 }

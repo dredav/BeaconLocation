@@ -71,6 +71,10 @@ public class ActivityCommons implements Drawer.OnDrawerItemClickListener {
         FragmentManager fragmentManager = context.getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
+        if(fragment != null) {
+            fragment.disconnectView();
+        }
+
         switch (type) {
             case BEACON_SEARCH:
                 if (beaconsFragment == null) {
