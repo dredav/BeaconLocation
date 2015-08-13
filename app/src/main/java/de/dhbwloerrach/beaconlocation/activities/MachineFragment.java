@@ -80,6 +80,7 @@ public class MachineFragment extends BaseFragment implements IBeaconListView {
         });
 
         listView.setAdapter(adapter);
+        listView.setEmptyView(activity.findViewById(R.id.emptyList_machine));
     }
 
     protected void updateMenuButtons() {

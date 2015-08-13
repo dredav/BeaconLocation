@@ -6,7 +6,16 @@
     <ListView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/listView"
-        />
+        android:id="@+id/listView" />
+
+    <TextView
+        android:id="@+id/emptyList_beacons"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="center"
+        android:text="@string/emptyList_beacons"
+        android:textColor="#525252"
+        android:textSize="19.0sp"
+        android:visibility="gone" />
 
 </LinearLayout>

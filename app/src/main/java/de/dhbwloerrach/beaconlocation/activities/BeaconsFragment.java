@@ -77,6 +77,7 @@ public class BeaconsFragment extends AddMachineBaseFragment implements IBeaconLi
         });
 
         listView.setAdapter(adapter);
+        listView.setEmptyView(activity.findViewById(R.id.emptyList_beacons));
     }
 
     public void setSortTitle() {

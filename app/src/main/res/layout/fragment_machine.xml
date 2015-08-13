@@ -49,4 +49,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/beaconList"></ListView>
+
+    <TextView
+        android:id="@+id/emptyList_machine"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="center"
+        android:text="@string/emptyList_machine"
+        android:textColor="#525252"
+        android:textSize="19.0sp"
+        android:visibility="gone" />
 </LinearLayout>

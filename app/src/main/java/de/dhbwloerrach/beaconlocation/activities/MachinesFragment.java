@@ -51,6 +51,7 @@ public class MachinesFragment extends BaseFragment {
         });
 
         listView.setAdapter(adapter);
+        listView.setEmptyView(activity.findViewById(R.id.emptyList_machines));
     }
 
     @Override

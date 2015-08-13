@@ -39,6 +39,7 @@ public class AddNewMachineFragment extends AddMachineBaseFragment {
             adapter.addItem(beacon);
         }
         beaconList.setAdapter(adapter);
+        beaconList.setEmptyView(activity.findViewById(R.id.emptyList_add_machines));
 
 
         final Button cancelButton = (Button) activity.findViewById(R.id.button_cancel);

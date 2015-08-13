@@ -81,6 +81,7 @@ public class AddBeaconsToMachineFragment extends AddMachineBaseFragment {
         });
 
         listView.setAdapter(adapter);
+        listView.setEmptyView(activity.findViewById(R.id.emptyList_machines));
     }
 
     @Override

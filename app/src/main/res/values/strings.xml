@@ -30,7 +30,7 @@
 
         <!--Alert Titles-->
         <string name="alert_title_warning">Warning</string>
-        <string name="alert_title_sucess">Sucess</string>
+        <string name="alert_title_sucess">Success</string>
         <string name="alert_title_deleteMachine">Delete Machine</string>
         <string name="alert_title_deleteBeacon">Delete Beacon</string>
         <string name="bluetoothDisabledCaption">Bluetooth is disabled</string>
@@ -42,6 +42,12 @@
         <string name="alert_message_deleteMachine">Do you really want to delete the machine?</string>
         <string name="alert_message_deleteBeacon">Do you really want to delete the beacon %s?</string>
         <string name="bluetoothDisabledMessage">This application need bluetooth. We can activate bluetooth for you.</string>
+
+        <!-- Empty Lists -->
+        <string name="emptyList_beacons">I\'m empty and happy :)</string>
+        <string name="emptyList_add_machines">I\'m empty and happy :)</string>
+        <string name="emptyList_machine">I\'m empty and happy :)</string>
+        <string name="emptyList_machines">I\'m empty and happy :)</string>
 
         <!--Bitte ordnen!!!-->
         <string name="minorId">Minor Id</string>
