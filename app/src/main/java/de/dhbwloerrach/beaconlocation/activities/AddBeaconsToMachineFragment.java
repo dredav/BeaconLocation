@@ -62,9 +62,17 @@ public class AddBeaconsToMachineFragment extends BaseFragment{
                                         databaseHandler.createBeacon(beacon);
                                     }
                                     else {
+                                        Beacon databaseBeacon = new Beacon();
+                                        databaseBeacon = databaseHandler.getBeacon(beacon.getMinor(), beacon.getMajor(), beacon.getUuid());
+                                        beacon.setId(databaseBeacon.getId());
                                         databaseHandler.updateBeacon(beacon);
                                     }
                                 }
+                                new AlertDialog.Builder(activity)
+                                        .setTitle(R.string.alert_title_sucess)
+                                        .setMessage(R.string.alert_message_save)
+                                        .setIcon(android.R.drawable.ic_dialog_alert)
+                                        .show();
                                 commons.switchFragment(ActivityCommons.FragmentType.BEACON_SEARCH);
                                 }}
                             )

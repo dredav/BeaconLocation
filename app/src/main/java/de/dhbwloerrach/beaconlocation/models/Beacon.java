@@ -230,6 +230,7 @@ public class Beacon implements Parcelable{
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
         dest.writeString(uuid);
         dest.writeInt(major);
         dest.writeInt(minor);
