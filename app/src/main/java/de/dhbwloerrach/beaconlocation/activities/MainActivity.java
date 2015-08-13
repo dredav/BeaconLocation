@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -69,5 +70,20 @@ public class MainActivity extends Activity {
                 })
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(commons.getDrawer() == null || getFragmentManager().getBackStackEntryCount() <= 0) {
+            super.onBackPressed();
+            return;
+        }
+
+        Log.e("COUNTER", getFragmentManager().getBackStackEntryCount() + "");
+        if (commons.getDrawer().isDrawerOpen()) {
+            commons.getDrawer().closeDrawer();
+        } else if (getFragmentManager().getBackStackEntryCount() > 0) {
+            getFragmentManager().popBackStack();
+        }
     }
 }
