@@ -15,6 +15,8 @@ public abstract class BaseFragment extends Fragment {
 
     protected abstract boolean handleMenuClick(int itemId);
 
+    protected abstract void disconnectView();
+
     public BaseFragment setActivity(MainActivity activity) {
         this.activity = activity;
         return this;

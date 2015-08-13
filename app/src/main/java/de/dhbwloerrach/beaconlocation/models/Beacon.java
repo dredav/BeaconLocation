@@ -209,17 +209,18 @@ public class Beacon implements Parcelable{
 
         Beacon beacon = (Beacon) o;
 
-        if (!uuid.equals(beacon.uuid)) return false;
-        if (!major.equals(beacon.major)) return false;
+//        if (!uuid.equals(beacon.uuid)) return false;
+//        if (!major.equals(beacon.major)) return false;
         return minor.equals(beacon.minor);
 
     }
 
     @Override
     public int hashCode() {
-        int result = uuid.hashCode();
-        result = 31 * result + major.hashCode();
-        result = 31 * result + minor.hashCode();
+        //int result = uuid.hashCode();
+        //result = 31 * result + major.hashCode();
+        //result = 31 * result + minor.hashCode();
+        int result = minor.hashCode();
         return result;
     }
 

@@ -122,10 +122,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return machine;
     }
 
-    public Beacon getBeacon(int id) {
+    public Beacon getBeacon(int minor) {
         SQLiteDatabase db = getReadableDatabase();
 
-        Cursor cursor = db.query(TABLE_BEACON, new String[]{KEY_BEACON_ID, KEY_BEACON_MINOR, KEY_BEACON_MAJOR, KEY_BEACON_UUID, KEY_BEACON_MACHINEID, KEY_BEACON_FRONT_LEFT, KEY_BEACON_FRONT_RIGHT, KEY_BEACON_BACK_LEFT, KEY_BEACON_BACK_RIGHT}, KEY_BEACON_ID + "=?", new String[]{String.valueOf(id)}, null, null, null, null);
+        Cursor cursor = db.query(TABLE_BEACON, new String[]{KEY_BEACON_ID, KEY_BEACON_MINOR, KEY_BEACON_MAJOR, KEY_BEACON_UUID, KEY_BEACON_MACHINEID, KEY_BEACON_FRONT_LEFT, KEY_BEACON_FRONT_RIGHT, KEY_BEACON_BACK_LEFT, KEY_BEACON_BACK_RIGHT}, KEY_BEACON_MINOR + "=?", new String[]{String.valueOf(minor)}, null, null, null, null);
 
         Beacon beacon = new Beacon();
 

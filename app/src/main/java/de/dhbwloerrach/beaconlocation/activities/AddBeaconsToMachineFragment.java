@@ -23,7 +23,7 @@ import de.dhbwloerrach.beaconlocation.models.Machine;
 /**
  * Created by alirei on 09.08.2015.
  */
-public class AddBeaconsToMachineFragment extends BaseFragment{
+public class AddBeaconsToMachineFragment extends BaseFragment {
     private ArrayList<Beacon> selectedBeacons = new ArrayList<>();
     private Machine machine;
     private ActivityCommons commons;
@@ -87,17 +87,20 @@ public class AddBeaconsToMachineFragment extends BaseFragment{
         });
 
         listView.setAdapter(adapter);
-
     }
 
-
-        @Override
+    @Override
     protected void createActionBarMenu(Menu menu) {
-
+        //
     }
 
     @Override
     protected boolean handleMenuClick(int itemId) {
         return false;
+    }
+
+    @Override
+    protected void disconnectView() {
+        //
     }
 }
