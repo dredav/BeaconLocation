@@ -51,8 +51,6 @@ public class BeaconNotifier implements RangeNotifier {
                     .setLastSeen(new Date());
         }
 
-        Log.e("COUNTER", beaconTools.getBeaconListViews().size() + "");
-
         for (IBeaconListView listView : beaconTools.getBeaconListViews()) {
             listView.RefreshList(beaconList);
         }

@@ -26,11 +26,11 @@ import de.dhbwloerrach.beaconlocation.models.Machine;
  * Created by Lukas on 05.08.2015.
  */
 public class MachineFragment extends BaseFragment implements IBeaconListView {
-    BeaconAdapter adapter;
-    private Boolean updatePaused = false;
-    private ArrayList<Beacon> selectedBeacons = new ArrayList<>();
-    private Menu menu;
-    private ArrayList<Beacon> machineBeacons;
+    protected BeaconAdapter adapter;
+    protected Boolean updatePaused = false;
+    protected ArrayList<Beacon> selectedBeacons = new ArrayList<>();
+    protected Menu menu;
+    protected ArrayList<Beacon> machineBeacons;
 
     @Nullable
     @Override
@@ -42,11 +42,12 @@ public class MachineFragment extends BaseFragment implements IBeaconListView {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        if(!initialized){
+        if(!initialized) {
             adapter = new BeaconAdapter(activity);
-            activity.getCommons().startMonitoring(this);
             initialized = true;
         }
+
+        activity.getCommons().startMonitoring(this);
 
         Machine machine = getArguments().getParcelable("machine");
         DatabaseHandler databaseHandler = new DatabaseHandler(activity);

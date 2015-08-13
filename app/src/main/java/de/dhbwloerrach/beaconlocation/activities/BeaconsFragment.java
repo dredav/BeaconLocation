@@ -27,10 +27,10 @@ import de.dhbwloerrach.beaconlocation.models.RssiAverageType;
  * Created by Lukas on 31.07.2015.
  */
 public class BeaconsFragment extends BaseFragment implements IBeaconListView {
-    private BeaconAdapter adapter;
-    private Boolean updatePaused = false;
-    private ArrayList<Beacon> selectedBeacons = new ArrayList<>();
-    private Menu menu;
+    protected BeaconAdapter adapter;
+    protected Boolean updatePaused = false;
+    protected ArrayList<Beacon> selectedBeacons = new ArrayList<>();
+    protected Menu menu;
 
     @Nullable
     @Override
@@ -42,11 +42,12 @@ public class BeaconsFragment extends BaseFragment implements IBeaconListView {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        if(!initialized){
+        if(!initialized) {
             adapter = new BeaconAdapter(activity);
-            activity.getCommons().startMonitoring(this);
             initialized = true;
         }
+
+        activity.getCommons().startMonitoring(this);
 
         ListView listView = (ListView) activity.findViewById(R.id.listView);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
