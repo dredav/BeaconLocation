@@ -63,7 +63,8 @@ public class AddNewMachineFragment extends BaseFragment {
                     // databashandler erstellen
                     final DatabaseHandler databaseHandler = new DatabaseHandler(activity);
                     Machine newMachine = new Machine();
-                    if (newMachine.checkMachineinDB(textField.getText().toString(), databaseHandler)){
+                    newMachine.setName(textField.getText().toString());
+                    if (newMachine.checkMachineinDB(newMachine, databaseHandler)){
                         new AlertDialog.Builder(activity)
                                 .setTitle(R.string.alert_title_warning)
                                 .setMessage(R.string.alert_message_name)

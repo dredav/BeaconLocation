@@ -47,8 +47,8 @@ public class Machine implements Parcelable {
         dest.writeString(name);
     }
 
-    public boolean checkMachineinDB (String MachineName,DatabaseHandler databaseHandler){
-        if (databaseHandler.getMachine(MachineName)==null){
+    public boolean checkMachineinDB (Machine machine,DatabaseHandler databaseHandler){
+        if (databaseHandler.getMachine(machine.getName())==null){
             return false;
         }
         else{
