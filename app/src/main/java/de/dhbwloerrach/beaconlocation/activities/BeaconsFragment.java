@@ -18,9 +18,11 @@ import java.util.ArrayList;
 import de.dhbwloerrach.beaconlocation.R;
 import de.dhbwloerrach.beaconlocation.adapters.BeaconAdapter;
 import de.dhbwloerrach.beaconlocation.bluetooth.IBeaconListView;
+import de.dhbwloerrach.beaconlocation.database.DatabaseHandler;
 import de.dhbwloerrach.beaconlocation.models.Beacon;
 import de.dhbwloerrach.beaconlocation.models.BeaconList;
 import de.dhbwloerrach.beaconlocation.models.FilterTyp;
+import de.dhbwloerrach.beaconlocation.models.Machine;
 import de.dhbwloerrach.beaconlocation.models.RssiAverageType;
 
 /**
@@ -144,8 +146,29 @@ public class BeaconsFragment extends BaseFragment implements IBeaconListView {
     protected boolean handleMenuClick(int itemId) {
         switch (itemId) {
             case R.id.add_beacon:
+                Machine machine = getArguments().getParcelable("oldMachine");
                 if (updatePaused) {
-                    buildDialog();
+                    if (machine != null) {
+                        DatabaseHandler databaseHandler = new DatabaseHandler(activity);
+                        for (Beacon beacon: selectedBeacons) {
+                            beacon.setMachineId(machine.getId());
+                            if (beacon.checkBecaoninDB(beacon, databaseHandler) == true){
+                                databaseHandler.updateBeacon(beacon);
+                            }
+                            else{
+                                databaseHandler.createBeacon(beacon);
+                            }
+
+                        }
+                        new AlertDialog.Builder(activity)
+                                .setTitle(R.string.alert_title_sucess)
+                                .setMessage(R.string.alert_message_save)
+                                .setIcon(android.R.drawable.ic_dialog_alert)
+                                .show();
+                    }
+                    else {
+                        buildDialog();
+                    }
                 }
                 break;
 
