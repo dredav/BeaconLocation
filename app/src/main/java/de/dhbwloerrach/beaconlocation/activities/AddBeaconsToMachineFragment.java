@@ -50,7 +50,7 @@ public class AddBeaconsToMachineFragment extends BaseFragment{
                 new AlertDialog.Builder(activity)
                         .setTitle(R.string.alert_title_warning)
                         .setMessage("Are you sure that you want to add the selected beacons to the machine?")
-                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                        .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 selectedBeacons = getArguments().getParcelableArrayList("selectedBeacons");
@@ -68,7 +68,7 @@ public class AddBeaconsToMachineFragment extends BaseFragment{
                                 commons.switchFragment(ActivityCommons.FragmentType.BEACON_SEARCH);
                                 }}
                             )
-                        .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                        .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 commons.switchFragment(ActivityCommons.FragmentType.BEACON_SEARCH);
                             }
