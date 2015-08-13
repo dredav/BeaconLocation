@@ -2,4 +2,5 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@+id/add_beacon" android:title="@string/addBeacon" android:showAsAction="ifRoom"/>
     <item android:id="@+id/delete_machine" android:title="@string/delete" android:showAsAction="ifRoom"/>
+    <item android:id="@+id/delete_beacon" android:title="@string/deleteBeacon" android:showAsAction="ifRoom" android:visible="false" />
 </menu>

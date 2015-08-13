@@ -15,6 +15,7 @@
         <string name="delete">Delete</string>
         <string name="addMachine">Add machine</string>
         <string name="addBeacon">Add beacon</string>
+        <string name="deleteBeacon">Delete Beacon</string>
 
         <!--Dialog Buttons-->
         <string name="addToMachine">Add to Machine</string>
@@ -30,12 +31,16 @@
         <!--Alert Titles-->
         <string name="alert_title_warning">Warning</string>
         <string name="alert_title_sucess">Sucess</string>
+        <string name="alert_title_deleteMachine">Delete Machine</string>
+        <string name="alert_title_deleteBeacon">Delete Beacon</string>
         <string name="bluetoothDisabledCaption">Bluetooth is disabled</string>
 
         <!--Alert Messages-->
         <string name="alert_message_name">Name already in use. Please choose new name.</string>
         <string name="alert_message_enterName">Please enter a name for your machine.</string>
         <string name="alert_message_save">Your changes have been saved to the database</string>
+        <string name="alert_message_deleteMachine">Do you really want to delete the machine?</string>
+        <string name="alert_message_deleteBeacon">Do you really want to delete the beacon %s?</string>
         <string name="bluetoothDisabledMessage">This application need bluetooth. We can activate bluetooth for you.</string>
 
         <!--Bitte ordnen!!!-->
