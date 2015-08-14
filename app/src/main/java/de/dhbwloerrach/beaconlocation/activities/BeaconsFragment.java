@@ -216,6 +216,6 @@ public class BeaconsFragment extends AddMachineBaseFragment implements IBeaconLi
     @Override
     protected void disconnectView() {
         activity.getCommons().stopMonitoring(this);
-        selectedBeacons.clear();
+        selectedBeacons = new ArrayList<>();
     }
 }

@@ -108,7 +108,11 @@ public abstract class AddMachineBaseFragment extends BaseFragment {
     protected void insertBeacons(DatabaseHandler databaseHandler, ArrayList<Beacon> beacons, int machineID) {
         for (Beacon beacon: beacons){
             beacon.setMachineId(machineID);
-            if (beacon.checkBecaoninDB(beacon, databaseHandler)) {
+
+            Beacon databaseBeacon = databaseHandler.getBeacon(beacon.getMinor()); //, beacon.getMajor(), beacon.getUuid()
+
+            if (databaseBeacon != null) {
+                beacon.setId(databaseBeacon.getId());
                 databaseHandler.updateBeacon(beacon);
             }
             else{
