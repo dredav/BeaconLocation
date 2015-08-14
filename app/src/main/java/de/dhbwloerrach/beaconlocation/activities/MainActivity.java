@@ -22,7 +22,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
 
         getActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#d3d3d3")));
-        getActionBar().setElevation(0);
+        //getActionBar().setElevation(0);
         setContentView(R.layout.activity_main);
 
         checkBluetoothState();
