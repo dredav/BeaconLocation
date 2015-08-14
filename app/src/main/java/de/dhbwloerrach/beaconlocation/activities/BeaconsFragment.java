@@ -160,6 +160,7 @@ public class BeaconsFragment extends AddMachineBaseFragment implements IBeaconLi
                             @Override
                             public void execute() {
                                 insertBeacons(databaseHandler, selectedBeacons, machineId);
+                                activity.getCommons().switchFragment(ActivityCommons.FragmentType.MACHINES_VIEW);
                             }
                         };
 
