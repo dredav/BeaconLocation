@@ -187,7 +187,7 @@ public class MachineFragment extends BaseFragment implements IBeaconListView {
 
         builder.setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                for (Beacon beacon : selectedBeacons) {
+                for (Beacon beacon : new ArrayList<>(selectedBeacons)) {
                     selectedBeacons.remove(beacon);
                     databaseHandler.deleteBeacon(beacon);
                 }
