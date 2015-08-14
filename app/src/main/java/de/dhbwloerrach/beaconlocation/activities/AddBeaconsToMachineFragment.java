@@ -96,6 +96,6 @@ public class AddBeaconsToMachineFragment extends AddMachineBaseFragment {
 
     @Override
     protected void disconnectView() {
-        //
+        selectedBeacons.clear();
     }
 }

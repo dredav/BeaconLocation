@@ -71,8 +71,8 @@ public class BeaconsFragment extends AddMachineBaseFragment implements IBeaconLi
                     view.setBackgroundColor(0xFF8db6cd);
                 }
 
-                menu.getItem(0).setEnabled(!updatePaused);
-                menu.getItem(1).setEnabled(updatePaused);
+                menu.findItem(R.id.action_sort).setEnabled(!updatePaused);
+                menu.findItem(R.id.add_beacon).setEnabled(updatePaused);
             }
         });
 
@@ -141,7 +141,7 @@ public class BeaconsFragment extends AddMachineBaseFragment implements IBeaconLi
         activity.getMenuInflater().inflate(R.menu.menu_main, menu);
         setSortTitle();
 
-        menu.getItem(1).setEnabled(false);
+        menu.findItem(R.id.add_beacon).setEnabled(false);
     }
 
     @Override
@@ -190,15 +190,15 @@ public class BeaconsFragment extends AddMachineBaseFragment implements IBeaconLi
                 switch (adapter.getRssiAverageType()) {
                     case None:
                         rssiAverageType = RssiAverageType.Average;
-                        menu.getItem(3).setTitle("RSSI Avg.");
+                        menu.findItem(R.id.rssi_average).setTitle("RSSI Avg.");
                         break;
                     case Average:
                         rssiAverageType = RssiAverageType.SmoothedAverage;
-                        menu.getItem(3).setTitle("RSSI Adv.");
+                        menu.findItem(R.id.rssi_average).setTitle("RSSI Adv.");
                         break;
                     case SmoothedAverage:
                         rssiAverageType = RssiAverageType.None;
-                        menu.getItem(3).setTitle("RSSI");
+                        menu.findItem(R.id.rssi_average).setTitle("RSSI");
                         break;
                     default:
                         return false;
@@ -215,5 +215,6 @@ public class BeaconsFragment extends AddMachineBaseFragment implements IBeaconLi
     @Override
     protected void disconnectView() {
         activity.getCommons().stopMonitoring(this);
+        selectedBeacons.clear();
     }
 }

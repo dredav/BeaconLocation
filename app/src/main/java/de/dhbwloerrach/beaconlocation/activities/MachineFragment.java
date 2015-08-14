@@ -82,7 +82,7 @@ public class MachineFragment extends BaseFragment implements IBeaconListView {
         listView.setAdapter(adapter);
         listView.setEmptyView(activity.findViewById(R.id.emptyList_machine));
     }
-
+    
     protected void updateMenuButtons() {
         menu.findItem(R.id.add_beacon).setVisible(selectedBeacons.size() == 0);
         menu.findItem(R.id.delete_machine).setVisible(selectedBeacons.size() == 0);
@@ -228,5 +228,6 @@ public class MachineFragment extends BaseFragment implements IBeaconListView {
     @Override
     protected void disconnectView() {
         activity.getCommons().stopMonitoring(this);
+        selectedBeacons.clear();
     }
 }
