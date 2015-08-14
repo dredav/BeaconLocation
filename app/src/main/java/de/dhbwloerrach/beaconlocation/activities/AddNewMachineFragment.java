@@ -45,7 +45,7 @@ public class AddNewMachineFragment extends AddMachineBaseFragment {
         final Button cancelButton = (Button) activity.findViewById(R.id.button_cancel);
         cancelButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                commons.switchFragment(ActivityCommons.FragmentType.BEACON_SEARCH);
+                commons.switchFragment(ActivityCommons.FragmentType.MACHINES_VIEW);
 
             }
         });
@@ -55,7 +55,7 @@ public class AddNewMachineFragment extends AddMachineBaseFragment {
                 // Textfeld auslesen
                 final EditText textField = (EditText) activity.findViewById(R.id.editText);
                 ArrayList<Beacon> beacons = selectedBeacons;
-                addMachine(textField, beacons, ActivityCommons.FragmentType.BEACON_SEARCH);
+                addMachine(textField, beacons, ActivityCommons.FragmentType.MACHINES_VIEW);
             }
 
 

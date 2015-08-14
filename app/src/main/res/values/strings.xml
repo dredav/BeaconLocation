@@ -1,6 +1,6 @@
     <resources>
         <!--General-->
-        <string name="app_name">BeaconLocation</string>
+        <string name="app_name">Machine Locator</string>
         <string name="hello_world">Hello world!</string>
 
         <!--Menu -->

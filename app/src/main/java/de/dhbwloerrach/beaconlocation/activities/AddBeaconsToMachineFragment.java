@@ -63,7 +63,7 @@ public class AddBeaconsToMachineFragment extends AddMachineBaseFragment {
                                     @Override
                                     public void execute() {
                                         insertBeacons(databaseHandler, selectedBeacons, machineId);
-                                        commons.switchFragment(ActivityCommons.FragmentType.BEACON_SEARCH);
+                                        commons.switchFragment(ActivityCommons.FragmentType.MACHINES_VIEW);
                                     }
                                 };
 
