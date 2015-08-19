@@ -52,6 +52,9 @@ public class AddManualMachineFragment extends AddMachineBaseFragment {
         editText.setHint(R.string.minorId);
         editText.setId(9500 + dynamicMinorIds.size());
 
+        editText.setFocusableInTouchMode(true);
+        editText.requestFocus();
+
         dynamicMinorIds.add(editText);
         layout.addView(editText);
     }
