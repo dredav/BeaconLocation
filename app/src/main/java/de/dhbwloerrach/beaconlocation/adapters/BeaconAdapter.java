@@ -115,7 +115,7 @@ public class BeaconAdapter extends ArrayAdapter<Beacon> {
         }
         valueViewRssi.setText(rssiFormat.format(calculatedRSSI));
 
-        if (calculatedRSSI >= -70) {
+        if (calculatedRSSI >= -70 && calculatedRSSI < 0) {
             image.setImageResource(R.mipmap.circle_green);
         }else
         if (calculatedRSSI < -70 && calculatedRSSI >= -80){
