@@ -85,37 +85,32 @@ public class ActivityCommons implements Drawer.OnDrawerItemClickListener {
 
         if(lastFragment != null) {
             lastFragment.disconnectView();
+            fragmentTransaction.remove(lastFragment);
+            fragmentTransaction.commit();
+            fragmentTransaction = fragmentManager.beginTransaction();
         }
 
         switch (type) {
             case BEACON_SEARCH:
-                if (beaconsFragment == null) {
-                    beaconsFragment = new BeaconsFragment();
-                }
+                beaconsFragment = new BeaconsFragment();
 
                 fragment = beaconsFragment;
                 break;
 
             case MACHINES_VIEW:
-                if (machinesFragment == null) {
-                    machinesFragment = new MachinesFragment();
-                }
+                machinesFragment = new MachinesFragment();
 
                 fragment = machinesFragment;
                 break;
 
             case ADD_MACHINE:
-                if (addNewMachineFragment == null) {
-                    addNewMachineFragment = new AddNewMachineFragment();
-                }
+                addNewMachineFragment = new AddNewMachineFragment();
 
                 fragment = addNewMachineFragment;
                 allowSwitchBack = false;
                 break;
             case ADD_MACHINE_MANUAL:
-                if(addManualMachineFragment == null) {
-                    addManualMachineFragment = new AddManualMachineFragment();
-                }
+                addManualMachineFragment = new AddManualMachineFragment();
 
                 fragment = addManualMachineFragment;
                 allowSwitchBack = false;
@@ -148,6 +143,8 @@ public class ActivityCommons implements Drawer.OnDrawerItemClickListener {
         fragment.setActivity(context);
         if(bundle != null) {
             fragment.setArguments(bundle);
+        } else {
+            fragment.setArguments(new Bundle());
         }
 
         if(menu != null) {

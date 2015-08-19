@@ -29,9 +29,9 @@ public class AddNewMachineFragment extends AddMachineBaseFragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
         commons = activity.getCommons();
         selectedBeacons = getArguments().getParcelableArrayList("selectedBeacons");
-
 
         BeaconAdapter adapter = new BeaconAdapter(activity);
         ListView beaconList = (ListView) activity.findViewById(R.id.beaconList);
