@@ -87,8 +87,8 @@ public class MachineFragment extends BaseFragment implements IBeaconListView {
     
     protected void updateMenuButtons() {
         menu.findItem(R.id.add_beacon).setVisible(selectedBeacons.size() == 0);
-        menu.findItem(R.id.delete_machine).setVisible(selectedBeacons.size() == 0);
-        menu.findItem(R.id.delete_beacon).setVisible(selectedBeacons.size() != 0);
+        menu.findItem(R.id.delete_machine).setVisible(selectedBeacons.size() != 0);
+        menu.findItem(R.id.delete_beacon).setVisible(selectedBeacons.size() == 0);
     }
 
     @Override

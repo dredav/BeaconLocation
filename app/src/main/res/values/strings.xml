@@ -16,9 +16,9 @@
         <string name="addMachine">Add machine</string>
         <string name="addBeacon">Add beacon</string>
         <string name="deleteBeacon">Delete beacon</string>
-        <string name="modusRssiAvg">RSSI: Average</string>
-        <string name="modusRssiAdv">RSSI: Smoothed</string>
-        <string name="modusRssiNormal">RSSI: Normal</string>
+        <string name="modusRssiAvg">Mode: RSSI Average</string>
+        <string name="modusRssiAdv">Mode: RSSI Advanced</string>
+        <string name="modusRssiNormal">Mode: RSSI Default</string>
 
         <!--Dialog Buttons-->
         <string name="addToMachine">Add to machine</string>
