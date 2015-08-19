@@ -3,6 +3,7 @@ package de.dhbwloerrach.beaconlocation.activities;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.os.DropBoxManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,6 +15,14 @@ import com.mikepenz.materialdrawer.model.DividerDrawerItem;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
+
+import java.util.AbstractMap;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.NavigableMap;
+import java.util.TreeMap;
 
 import de.dhbwloerrach.beaconlocation.R;
 import de.dhbwloerrach.beaconlocation.bluetooth.BeaconTools;
@@ -35,6 +44,8 @@ public class ActivityCommons implements Drawer.OnDrawerItemClickListener {
     private AddManualMachineFragment addManualMachineFragment;
     private AddBeaconsToMachineFragment addBeaconsToMachineFragment;
     private MachineFragment machineFragment;
+
+    protected List<Map.Entry<FragmentType, Bundle>> fragmentStack = new ArrayList<>();
 
     public ActivityCommons(MainActivity context) {
         this.context = context;
@@ -70,6 +81,7 @@ public class ActivityCommons implements Drawer.OnDrawerItemClickListener {
     public void switchFragment(FragmentType type, Bundle bundle) {
         FragmentManager fragmentManager = context.getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        boolean allowSwitchBack = true;
         BaseFragment lastFragment = fragment;
 
         if(lastFragment != null) {
@@ -99,6 +111,7 @@ public class ActivityCommons implements Drawer.OnDrawerItemClickListener {
                 }
 
                 fragment = addNewMachineFragment;
+                allowSwitchBack = false;
                 break;
             case ADD_MACHINE_MANUAL:
                 if(addManualMachineFragment == null) {
@@ -106,6 +119,7 @@ public class ActivityCommons implements Drawer.OnDrawerItemClickListener {
                 }
 
                 fragment = addManualMachineFragment;
+                allowSwitchBack = false;
                 break;
             case ADD_BEACON_TO_MACHINE:
                 if(addBeaconsToMachineFragment==null){
@@ -113,6 +127,7 @@ public class ActivityCommons implements Drawer.OnDrawerItemClickListener {
                 }
 
                 fragment = addBeaconsToMachineFragment;
+                allowSwitchBack = false;
                 break;
             case MACHINE:
                 if(machineFragment==null){
@@ -127,6 +142,10 @@ public class ActivityCommons implements Drawer.OnDrawerItemClickListener {
             return;
         }
 
+        if (allowSwitchBack) {
+            fragmentStack.add(new AbstractMap.SimpleEntry<>(type, bundle));
+        }
+
         fragment.setActivity(context);
         if(bundle != null) {
             fragment.setArguments(bundle);
@@ -138,9 +157,6 @@ public class ActivityCommons implements Drawer.OnDrawerItemClickListener {
         }
 
         fragmentTransaction.replace(R.id.mainView, fragment);
-        if (lastFragment != null) {
-            fragmentTransaction.addToBackStack(null);
-        }
         fragmentTransaction.commit();
     }
 
@@ -182,6 +198,20 @@ public class ActivityCommons implements Drawer.OnDrawerItemClickListener {
 
     public void unbind(){
         beaconTools.unbind();
+    }
+
+    public boolean fragmentStackCount() {
+        return fragmentStack.size() >= 2;
+    }
+
+    public void lastFragmentStackItem() {
+        if(!fragmentStackCount()) {
+            return;
+        }
+
+        fragmentStack.remove(fragmentStack.size() - 1);
+        Map.Entry<FragmentType, Bundle> entry = fragmentStack.remove(fragmentStack.size() - 1);
+        switchFragment(entry.getKey(), entry.getValue());
     }
 
     public enum FragmentType
