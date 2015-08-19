@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Random;
 
 import de.dhbwloerrach.beaconlocation.models.Beacon;
+import de.dhbwloerrach.beaconlocation.models.Machine;
 
 /**
  * Created by David on 7/24/15.
@@ -41,6 +42,21 @@ public class TestHelper {
         }
 
         return beacons;
+    }
+
+    public List<Machine> createMachines(int count) {
+        List<Machine> machines = new ArrayList<>(count);
+
+        for (int index = 0; index < count; index ++) {
+            int id = createRandom(1, 9999);
+
+            Machine machine = new Machine();
+            machine.setId(id).setName("Machine " + id);
+
+            machines.add(machine);
+        }
+
+        return machines;
     }
 
     public int createRandom(int min, int max)

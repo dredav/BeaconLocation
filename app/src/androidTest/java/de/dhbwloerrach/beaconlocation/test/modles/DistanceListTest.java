@@ -1,4 +1,4 @@
-package de.dhbwloerrach.beaconlocation.test.adapters;
+package de.dhbwloerrach.beaconlocation.test.modles;
 
 import android.test.AndroidTestCase;
 
