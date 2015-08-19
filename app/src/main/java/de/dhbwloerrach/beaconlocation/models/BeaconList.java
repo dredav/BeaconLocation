@@ -27,9 +27,9 @@ public class BeaconList extends ArrayList<Beacon> {
                     return 0;
                 }
                 if (tempDiff < 0) {
-                    return -1;
-                } else {
                     return 1;
+                } else {
+                    return -1;
                 }
             }
         });
