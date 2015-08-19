@@ -51,7 +51,9 @@ public class MachineFragment extends BaseFragment implements IBeaconListView {
         activity.getCommons().startMonitoring(this);
         machine = getArguments().getParcelable("machine");
 
-        updateBeaconListView();
+        DatabaseHandler databaseHandler = new DatabaseHandler(activity);
+        updateBeaconListView(databaseHandler.getAllBeaconsByMachine(machine.getId()));
+        databaseHandler.close();
 
         TextView textView = (TextView) activity.findViewById(R.id.name);
         textView.setText(machine.getName());
@@ -155,21 +157,16 @@ public class MachineFragment extends BaseFragment implements IBeaconListView {
             databaseHandler.close();
         }
 
-        updateBeaconListView();
+        updateBeaconListView(beaconList);
     }
 
-    protected void updateBeaconListView() {
+    protected void updateBeaconListView(final ArrayList<Beacon> beacons) {
         activity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                DatabaseHandler databaseHandler = new DatabaseHandler(activity);
-                try {
-                    adapter.clearItems();
-                    adapter.addItems(databaseHandler.getAllBeaconsByMachine(machine.getId()));
-                    adapter.notifyDataSetChanged();
-                } finally {
-                    databaseHandler.close();
-                }
+                adapter.clearItems();
+                adapter.addItems(beacons);
+                adapter.notifyDataSetChanged();
             }
         });
     }
@@ -191,7 +188,9 @@ public class MachineFragment extends BaseFragment implements IBeaconListView {
                     selectedBeacons.remove(beacon);
                     databaseHandler.deleteBeacon(beacon);
                 }
-                updateBeaconListView();
+                DatabaseHandler databaseHandler = new DatabaseHandler(activity);
+                updateBeaconListView(databaseHandler.getAllBeaconsByMachine(machine.getId()));
+                databaseHandler.close();
                 updateMenuButtons();
             }
         });
