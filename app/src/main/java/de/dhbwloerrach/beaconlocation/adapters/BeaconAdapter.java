@@ -104,10 +104,10 @@ public class BeaconAdapter extends ArrayAdapter<Beacon> {
                 valueViewRssi.setText(beacons.get(position).getRssi().toString());
                 break;
             case Average:
-                valueViewRssi.setText(rssiFormat.format(beacons.get(position).getRssis(10).getAverage()));
+                valueViewRssi.setText(rssiFormat.format(beacons.get(position).getRssis(2).getAverage()));
                 break;
             case SmoothedAverage:
-                valueViewRssi.setText(rssiFormat.format(beacons.get(position).getRssis(10).getSmoothAverage()));
+                valueViewRssi.setText(rssiFormat.format(beacons.get(position).getRssis(2).getSmoothAverage()));
                 break;
         }
 
