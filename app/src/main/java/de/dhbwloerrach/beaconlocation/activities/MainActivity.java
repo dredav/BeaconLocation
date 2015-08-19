@@ -79,16 +79,16 @@ public class MainActivity extends Activity {
 
     @Override
     public void onBackPressed() {
-        if(commons.getDrawer() == null || getFragmentManager().getBackStackEntryCount() <= 0) {
+        if(commons.getDrawer() == null || !commons.fragmentStackCount()) {
             super.onBackPressed();
             return;
         }
 
-        Log.e("COUNTER", getFragmentManager().getBackStackEntryCount() + "");
         if (commons.getDrawer().isDrawerOpen()) {
             commons.getDrawer().closeDrawer();
-        } else if (getFragmentManager().getBackStackEntryCount() > 0) {
-            getFragmentManager().popBackStack();
+            return;
         }
+
+        commons.lastFragmentStackItem();
     }
 }
