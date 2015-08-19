@@ -45,10 +45,9 @@ public class BeaconsFragment extends AddMachineBaseFragment implements IBeaconLi
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        if(!initialized) {
-            adapter = new BeaconAdapter(activity);
-            initialized = true;
-        }
+        initialize();
+
+        setRSSIMode(RssiAverageType.None);
 
         activity.getCommons().startMonitoring(this);
 
@@ -78,6 +77,13 @@ public class BeaconsFragment extends AddMachineBaseFragment implements IBeaconLi
 
         listView.setAdapter(adapter);
         listView.setEmptyView(activity.findViewById(R.id.emptyList_beacons));
+    }
+
+    private void initialize() {
+        if(!initialized) {
+            adapter = new BeaconAdapter(activity);
+            initialized = true;
+        }
     }
 
     public void setSortTitle() {
@@ -136,6 +142,7 @@ public class BeaconsFragment extends AddMachineBaseFragment implements IBeaconLi
 
     @Override
     protected void createActionBarMenu(Menu menu) {
+        initialize();
         this.menu = menu;
 
         activity.getMenuInflater().inflate(R.menu.menu_main, menu);
@@ -187,30 +194,42 @@ public class BeaconsFragment extends AddMachineBaseFragment implements IBeaconLi
                 break;
 
             case R.id.rssi_average:
-                RssiAverageType rssiAverageType;
                 switch (adapter.getRssiAverageType()) {
                     case None:
-                        rssiAverageType = RssiAverageType.Average;
-                        menu.findItem(R.id.rssi_average).setTitle("RSSI Avg.");
+                        setRSSIMode(RssiAverageType.Average);
                         break;
                     case Average:
-                        rssiAverageType = RssiAverageType.SmoothedAverage;
-                        menu.findItem(R.id.rssi_average).setTitle("RSSI Adv.");
+                        setRSSIMode(RssiAverageType.SmoothedAverage);
                         break;
                     case SmoothedAverage:
-                        rssiAverageType = RssiAverageType.None;
-                        menu.findItem(R.id.rssi_average).setTitle("RSSI");
+                        setRSSIMode(RssiAverageType.None);
                         break;
                     default:
                         return false;
                 }
-                adapter.setRssiAverageType(rssiAverageType);
+
                 break;
             default:
                 return false;
         }
 
         return true;
+    }
+
+    protected void setRSSIMode(RssiAverageType rssiAverageType){
+        switch (rssiAverageType) {
+            case None:
+                menu.findItem(R.id.rssi_average).setTitle("Mode: RSSI Default");
+                break;
+            case Average:
+                menu.findItem(R.id.rssi_average).setTitle("Mode: RSSI Average");
+                break;
+            case SmoothedAverage:
+                menu.findItem(R.id.rssi_average).setTitle("Mode: RSSI Advanced");
+                break;
+            default:
+        }
+        adapter.setRssiAverageType(rssiAverageType);
     }
 
     @Override

@@ -132,16 +132,17 @@ public class ActivityCommons implements Drawer.OnDrawerItemClickListener {
             fragment.setArguments(bundle);
         }
 
+
+        fragmentTransaction.replace(R.id.mainView, fragment);
+        if (lastFragment != null) {
+            //fragmentTransaction.addToBackStack(null);
+        }
+        fragmentTransaction.commit();
+
         if(menu != null) {
             menu.clear();
             fragment.createActionBarMenu(menu);
         }
-
-        fragmentTransaction.replace(R.id.mainView, fragment);
-        if (lastFragment != null) {
-            fragmentTransaction.addToBackStack(null);
-        }
-        fragmentTransaction.commit();
     }
 
     public void createDrawer(){
@@ -150,14 +151,14 @@ public class ActivityCommons implements Drawer.OnDrawerItemClickListener {
                 .withTranslucentStatusBar(false)
                 .withActionBarDrawerToggle(true)
                 .addDrawerItems(
-                        new PrimaryDrawerItem().withTag(FragmentType.BEACON_SEARCH).withName(R.string.menu_beaconView).withDescription(R.string.menu_beaconViewDescription),
+                        new SecondaryDrawerItem().withTag(FragmentType.MACHINES_VIEW).withName(R.string.menu_machineView),
                         new DividerDrawerItem(),
-                        new SecondaryDrawerItem().withTag(FragmentType.MACHINES_VIEW).withName(R.string.menu_machineView)
+                        new SecondaryDrawerItem().withTag(FragmentType.BEACON_SEARCH).withName(R.string.menu_beaconView)
                 )
                 .withOnDrawerItemClickListener(this)
                 .build();
 
-        switchFragment(FragmentType.BEACON_SEARCH);
+        switchFragment(FragmentType.MACHINES_VIEW);
     }
 
     public Drawer getDrawer() {
