@@ -22,6 +22,7 @@ import de.dhbwloerrach.beaconlocation.database.DatabaseHandler;
 import de.dhbwloerrach.beaconlocation.models.Beacon;
 import de.dhbwloerrach.beaconlocation.models.BeaconList;
 import de.dhbwloerrach.beaconlocation.models.Machine;
+import de.dhbwloerrach.beaconlocation.models.RssiAverageType;
 
 /**
  * Created by Lukas on 05.08.2015.
@@ -43,10 +44,7 @@ public class MachineFragment extends BaseFragment implements IBeaconListView {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        if(!initialized) {
-            adapter = new BeaconAdapter(activity);
-            initialized = true;
-        }
+        initialize();
 
         activity.getCommons().startMonitoring(this);
         machine = getArguments().getParcelable("machine");
@@ -84,7 +82,14 @@ public class MachineFragment extends BaseFragment implements IBeaconListView {
         listView.setAdapter(adapter);
         listView.setEmptyView(activity.findViewById(R.id.emptyList_machine));
     }
-    
+
+    private void initialize() {
+        if(!initialized) {
+            adapter = new BeaconAdapter(activity);
+            initialized = true;
+        }
+    }
+
     protected void updateMenuButtons() {
         menu.findItem(R.id.add_beacon).setVisible(selectedBeacons.size() == 0);
         menu.findItem(R.id.delete_machine).setVisible(selectedBeacons.size() != 0);
@@ -93,9 +98,11 @@ public class MachineFragment extends BaseFragment implements IBeaconListView {
 
     @Override
     protected void createActionBarMenu(Menu menu) {
+        initialize();
         this.menu = menu;
 
         activity.getMenuInflater().inflate(R.menu.menu_machine, menu);
+        setRSSIMode(RssiAverageType.None);
     }
 
     @Override
@@ -117,12 +124,43 @@ public class MachineFragment extends BaseFragment implements IBeaconListView {
                 case R.id.delete_beacon:
                     menuActionDeleteBeacon(databaseHandler);
                     return true;
+                case R.id.rssi_average:
+                    switch (adapter.getRssiAverageType()) {
+                        case None:
+                            setRSSIMode(RssiAverageType.Average);
+                            break;
+                        case Average:
+                            setRSSIMode(RssiAverageType.SmoothedAverage);
+                            break;
+                        case SmoothedAverage:
+                            setRSSIMode(RssiAverageType.None);
+                            break;
+                        default:
+                            return false;
+                    }
+                    break;
             }
 
             return false;
         } finally {
             databaseHandler.close();
         }
+    }
+
+    protected void setRSSIMode(RssiAverageType rssiAverageType){
+        switch (rssiAverageType) {
+            case None:
+                menu.findItem(R.id.rssi_average).setTitle("Mode: RSSI Default");
+                break;
+            case Average:
+                menu.findItem(R.id.rssi_average).setTitle("Mode: RSSI Average");
+                break;
+            case SmoothedAverage:
+                menu.findItem(R.id.rssi_average).setTitle("Mode: RSSI Advanced");
+                break;
+            default:
+        }
+        adapter.setRssiAverageType(rssiAverageType);
     }
 
     @Override

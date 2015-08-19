@@ -3,4 +3,5 @@
     <item android:id="@+id/add_beacon" android:title="@string/addBeacon" android:showAsAction="ifRoom"/>
     <item android:id="@+id/delete_machine" android:title="@string/delete" android:showAsAction="ifRoom"/>
     <item android:id="@+id/delete_beacon" android:title="@string/deleteBeacon" android:showAsAction="ifRoom" android:visible="false" />
+    <item android:id="@+id/rssi_average" android:title="" android:showAsAction="ifRoom" />
 </menu>
