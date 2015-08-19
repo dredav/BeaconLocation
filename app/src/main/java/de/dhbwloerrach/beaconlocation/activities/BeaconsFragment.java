@@ -47,8 +47,6 @@ public class BeaconsFragment extends AddMachineBaseFragment implements IBeaconLi
 
         initialize();
 
-        setRSSIMode(RssiAverageType.None);
-
         activity.getCommons().startMonitoring(this);
 
         ListView listView = (ListView) activity.findViewById(R.id.listView);
@@ -150,6 +148,8 @@ public class BeaconsFragment extends AddMachineBaseFragment implements IBeaconLi
 
         activity.getMenuInflater().inflate(R.menu.menu_main, menu);
         setSortTitle();
+        setRSSIMode(RssiAverageType.None);
+
     }
 
     @Override
