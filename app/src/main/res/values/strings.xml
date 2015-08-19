@@ -27,9 +27,12 @@
         <string name="yes">Yes</string>
         <string name="no">No</string>
         <string name="activate">Activate</string>
+        <string name="addMachineManual">Create Machine manually</string>
+        <string name="addMachineWithScan">Use Beacon Scan</string>
 
         <!--Dialog Titles-->
         <string name="dialog_title">Beacon Options</string>
+        <string name="dialog_titleMachine">Add Machine Options</string>
 
         <!--Alert Titles-->
         <string name="alert_title_warning">Warning</string>

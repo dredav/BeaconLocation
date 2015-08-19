@@ -1,5 +1,7 @@
 package de.dhbwloerrach.beaconlocation.activities;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -63,8 +65,7 @@ public class MachinesFragment extends BaseFragment {
     protected boolean handleMenuClick(int itemId) {
         switch (itemId) {
             case R.id.add_machine:
-                // go to view #6
-                activity.getCommons().switchFragment(ActivityCommons.FragmentType.ADD_MACHINE_MANUAL);
+                buildDialog();
                 break;
 
             default:
@@ -72,6 +73,28 @@ public class MachinesFragment extends BaseFragment {
         }
 
         return true;
+    }
+
+    public void buildDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+        builder.setTitle(R.string.dialog_titleMachine);
+
+        builder.setPositiveButton(R.string.addMachineManual, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                activity.getCommons().switchFragment(ActivityCommons.FragmentType.ADD_MACHINE_MANUAL);
+
+            }
+        });
+
+        builder.setNegativeButton(R.string.addMachineWithScan, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                activity.getCommons().switchFragment(ActivityCommons.FragmentType.BEACON_SEARCH);
+
+            }
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     @Override
