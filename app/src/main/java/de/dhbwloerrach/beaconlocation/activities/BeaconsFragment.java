@@ -56,23 +56,21 @@ public class BeaconsFragment extends AddMachineBaseFragment implements IBeaconLi
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                updatePaused=true;
+                updatePaused = true;
                 ListView listView = (ListView) parent;
                 Beacon beacon = (Beacon) listView.getAdapter().getItem(position);
-                if (selectedBeacons.contains(beacon)){
+                if (selectedBeacons.contains(beacon)) {
                     selectedBeacons.remove(beacon);
                     view.setBackgroundColor(Color.TRANSPARENT);
-                    if (selectedBeacons.isEmpty()){
-                        updatePaused=false;
+                    if (selectedBeacons.isEmpty()) {
+                        updatePaused = false;
                     }
-                }
-                else{
+                } else {
                     selectedBeacons.add(beacon);
                     view.setBackgroundColor(0xFF8db6cd);
                 }
 
-                menu.findItem(R.id.action_sort).setEnabled(!updatePaused);
-                menu.findItem(R.id.add_beacon).setEnabled(updatePaused);
+                updateMenuButtons();
             }
         });
 
@@ -133,6 +131,11 @@ public class BeaconsFragment extends AddMachineBaseFragment implements IBeaconLi
         dialog.show();
     }
 
+    protected void updateMenuButtons() {
+        menu.findItem(R.id.action_sort).setVisible(selectedBeacons.size() == 0);
+        menu.findItem(R.id.add_beacon).setVisible(selectedBeacons.size() != 0);
+        menu.findItem(R.id.rssi_average).setVisible(selectedBeacons.size() == 0);
+    }
 
     @Override
     protected void createActionBarMenu(Menu menu) {
@@ -140,8 +143,6 @@ public class BeaconsFragment extends AddMachineBaseFragment implements IBeaconLi
 
         activity.getMenuInflater().inflate(R.menu.menu_main, menu);
         setSortTitle();
-
-        menu.findItem(R.id.add_beacon).setEnabled(false);
     }
 
     @Override
@@ -191,15 +192,15 @@ public class BeaconsFragment extends AddMachineBaseFragment implements IBeaconLi
                 switch (adapter.getRssiAverageType()) {
                     case None:
                         rssiAverageType = RssiAverageType.Average;
-                        menu.findItem(R.id.rssi_average).setTitle("RSSI Avg.");
+                        menu.findItem(R.id.rssi_average).setTitle(R.string.modusRssiAvg);
                         break;
                     case Average:
                         rssiAverageType = RssiAverageType.SmoothedAverage;
-                        menu.findItem(R.id.rssi_average).setTitle("RSSI Adv.");
+                        menu.findItem(R.id.rssi_average).setTitle(R.string.modusRssiAdv);
                         break;
                     case SmoothedAverage:
                         rssiAverageType = RssiAverageType.None;
-                        menu.findItem(R.id.rssi_average).setTitle("RSSI");
+                        menu.findItem(R.id.rssi_average).setTitle(R.string.modusRssiNormal);
                         break;
                     default:
                         return false;

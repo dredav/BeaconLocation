@@ -12,13 +12,16 @@
         <string name="action_settings">Settings</string>
         <string name="rssi">Sort: RSSI</string>
         <string name="minor">Sort: Minor</string>
-        <string name="delete">Delete</string>
+        <string name="delete">Delete machine</string>
         <string name="addMachine">Add machine</string>
         <string name="addBeacon">Add beacon</string>
-        <string name="deleteBeacon">Delete Beacon</string>
+        <string name="deleteBeacon">Delete beacon</string>
+        <string name="modusRssiAvg">RSSI: Average</string>
+        <string name="modusRssiAdv">RSSI: Smoothed</string>
+        <string name="modusRssiNormal">RSSI: Normal</string>
 
         <!--Dialog Buttons-->
-        <string name="addToMachine">Add to Machine</string>
+        <string name="addToMachine">Add to machine</string>
         <string name="createNewMachine">Create new Machine</string>
         <string name="cancel">Cancel</string>
         <string name="yes">Yes</string>
