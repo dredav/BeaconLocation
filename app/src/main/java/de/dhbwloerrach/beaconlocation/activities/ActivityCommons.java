@@ -3,6 +3,7 @@ package de.dhbwloerrach.beaconlocation.activities;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -159,7 +160,6 @@ public class ActivityCommons implements Drawer.OnDrawerItemClickListener {
     public void createDrawer(){
         drawer = new DrawerBuilder()
                 .withActivity(context)
-                .withActionBarDrawerToggle(true)
                 .withTranslucentStatusBar(false)
                 .withActionBarDrawerToggle(true)
                 .addDrawerItems(
