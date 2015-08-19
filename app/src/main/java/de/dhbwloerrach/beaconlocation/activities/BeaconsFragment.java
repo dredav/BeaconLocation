@@ -149,7 +149,6 @@ public class BeaconsFragment extends AddMachineBaseFragment implements IBeaconLi
         activity.getMenuInflater().inflate(R.menu.menu_main, menu);
         setSortTitle();
         setRSSIMode(RssiAverageType.None);
-
     }
 
     @Override
@@ -220,13 +219,13 @@ public class BeaconsFragment extends AddMachineBaseFragment implements IBeaconLi
     protected void setRSSIMode(RssiAverageType rssiAverageType){
         switch (rssiAverageType) {
             case None:
-                menu.findItem(R.id.rssi_average).setTitle("Mode: RSSI Default");
+                menu.findItem(R.id.rssi_average).setTitle(R.string.modusRssiNormal);
                 break;
             case Average:
-                menu.findItem(R.id.rssi_average).setTitle("Mode: RSSI Average");
+                menu.findItem(R.id.rssi_average).setTitle(R.string.modusRssiAvg);
                 break;
             case SmoothedAverage:
-                menu.findItem(R.id.rssi_average).setTitle("Mode: RSSI Advanced");
+                menu.findItem(R.id.rssi_average).setTitle(R.string.modusRssiAdv);
                 break;
             default:
         }
@@ -237,5 +236,8 @@ public class BeaconsFragment extends AddMachineBaseFragment implements IBeaconLi
     protected void disconnectView() {
         activity.getCommons().stopMonitoring(this);
         selectedBeacons = new ArrayList<>();
+
+        updatePaused = false;
+        adapter.clear();
     }
 }

@@ -52,6 +52,7 @@ public class AddManualMachineFragment extends AddMachineBaseFragment {
         editText.setHint(R.string.minorId);
         editText.setId(9500 + dynamicMinorIds.size());
 
+        editText.setSingleLine();
         editText.setFocusableInTouchMode(true);
         editText.requestFocus();
 
@@ -79,13 +80,20 @@ public class AddManualMachineFragment extends AddMachineBaseFragment {
 
                 ArrayList<Beacon> beacons = new ArrayList<>();
                 for(EditText minor : dynamicMinorIds){
-                    int minorId = Integer.parseInt(minor.getText().toString());
-                    Beacon beacon = databaseHandler.getBeacon(minorId);
-                    if (beacon == null) {
-                        beacon = new Beacon()
-                                .setMinor(minorId);
+                    if (minor != null && minor.getText() != null && !minor.getText().toString().isEmpty()) {
+                        int minorId;
+                        try{
+                            minorId = Integer.parseInt(minor.getText().toString());
+                        } catch (NumberFormatException ex) {
+                            continue;
+                        }
+                        Beacon beacon = databaseHandler.getBeacon(minorId);
+                        if (beacon == null) {
+                            beacon = new Beacon()
+                                    .setMinor(minorId);
+                        }
+                        beacons.add(beacon);
                     }
-                    beacons.add(beacon);
                 }
                 addMachine(editText, beacons, ActivityCommons.FragmentType.MACHINES_VIEW);
                 return true;

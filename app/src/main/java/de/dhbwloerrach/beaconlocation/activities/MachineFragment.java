@@ -92,8 +92,8 @@ public class MachineFragment extends BaseFragment implements IBeaconListView {
 
     protected void updateMenuButtons() {
         menu.findItem(R.id.add_beacon).setVisible(selectedBeacons.size() == 0);
-        menu.findItem(R.id.delete_machine).setVisible(selectedBeacons.size() != 0);
-        menu.findItem(R.id.delete_beacon).setVisible(selectedBeacons.size() == 0);
+        menu.findItem(R.id.delete_machine).setVisible(selectedBeacons.size() == 0);
+        menu.findItem(R.id.delete_beacon).setVisible(selectedBeacons.size() != 0);
     }
 
     @Override
@@ -150,13 +150,13 @@ public class MachineFragment extends BaseFragment implements IBeaconListView {
     protected void setRSSIMode(RssiAverageType rssiAverageType){
         switch (rssiAverageType) {
             case None:
-                menu.findItem(R.id.rssi_average).setTitle("Mode: RSSI Default");
+                menu.findItem(R.id.rssi_average).setTitle(R.string.modusRssiNormal);
                 break;
             case Average:
-                menu.findItem(R.id.rssi_average).setTitle("Mode: RSSI Average");
+                menu.findItem(R.id.rssi_average).setTitle(R.string.modusRssiAvg);
                 break;
             case SmoothedAverage:
-                menu.findItem(R.id.rssi_average).setTitle("Mode: RSSI Advanced");
+                menu.findItem(R.id.rssi_average).setTitle(R.string.modusRssiAdv);
                 break;
             default:
         }
@@ -212,15 +212,22 @@ public class MachineFragment extends BaseFragment implements IBeaconListView {
     protected void menuActionDeleteBeacon(final DatabaseHandler databaseHandler) {
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         builder.setTitle(R.string.alert_title_deleteBeacon);
-        builder.setMessage(String.format(activity.getResources().getString(R.string.alert_message_deleteBeacon), selectedBeacons.toString()));
 
+        String beacons = "";
+        for (Beacon beacon : selectedBeacons) {
+            beacons += beacon.getMinor().toString();
+            if(selectedBeacons.indexOf(beacon) < selectedBeacons.size() - 1) {
+                beacons += ", ";
+            }
+        }
+
+        builder.setMessage(String.format(activity.getResources().getString(R.string.alert_message_deleteBeacon), beacons));
         builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 //
             }
         });
-
-        builder.setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(R.string.deleteBeacon, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 for (Beacon beacon : new ArrayList<>(selectedBeacons)) {
                     selectedBeacons.remove(beacon);
@@ -266,5 +273,8 @@ public class MachineFragment extends BaseFragment implements IBeaconListView {
     protected void disconnectView() {
         activity.getCommons().stopMonitoring(this);
         selectedBeacons.clear();
+
+        updatePaused = false;
+        adapter.clear();
     }
 }
