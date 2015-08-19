@@ -149,7 +149,6 @@ public class BeaconsFragment extends AddMachineBaseFragment implements IBeaconLi
         activity.getMenuInflater().inflate(R.menu.menu_main, menu);
         setSortTitle();
         setRSSIMode(RssiAverageType.None);
-
     }
 
     @Override
@@ -237,5 +236,8 @@ public class BeaconsFragment extends AddMachineBaseFragment implements IBeaconLi
     protected void disconnectView() {
         activity.getCommons().stopMonitoring(this);
         selectedBeacons = new ArrayList<>();
+
+        updatePaused = false;
+        adapter.clear();
     }
 }

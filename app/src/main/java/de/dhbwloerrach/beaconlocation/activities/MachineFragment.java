@@ -273,5 +273,8 @@ public class MachineFragment extends BaseFragment implements IBeaconListView {
     protected void disconnectView() {
         activity.getCommons().stopMonitoring(this);
         selectedBeacons.clear();
+
+        updatePaused = false;
+        adapter.clear();
     }
 }
