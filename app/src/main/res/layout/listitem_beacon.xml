@@ -6,50 +6,73 @@
     android:paddingTop="10dp"
     >
 
-    <TextView
-        android:id="@+id/minor_label"
-        android:text="Blukii"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="30sp"
-        android:paddingLeft="5dp"
-        android:textColor="#005"
-        >
-    </TextView>
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/minor"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/minor_label"
-        android:textSize="30sp"
-        android:paddingLeft="5dp"
-        android:textColor="#005"
-        >
-    </TextView>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/rssi_label"
-        android:text="RSSI:"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/minor_label"
-        android:textSize="20sp"
-        android:paddingLeft="5dp"
-        android:textColor="#005"
-        >
-    </TextView>
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="fill_parent"
+                android:id="@+id/circle"
+                android:layout_column="0"
+                android:src="@mipmap/circle_grey" />
 
-    <TextView
-        android:id="@+id/rssi"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/minor"
-        android:layout_toRightOf="@+id/rssi_label"
-        android:textSize="20sp"
-        android:paddingLeft="5dp"
-        android:textColor="#005"
-        >
-    </TextView>
+            <TextView
+                android:id="@+id/minor_label"
+                android:text="Blukii"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="30sp"
+                android:paddingLeft="5dp"
+                android:textColor="#005"
+                android:layout_column="1"
+                >
+            </TextView>
+
+            <TextView
+                android:id="@+id/minor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/minor_label"
+                android:textSize="30sp"
+                android:paddingLeft="5dp"
+                android:textColor="#005"
+                android:layout_column="2"
+                >
+            </TextView>
+            </TableRow>
+            <TableRow>
+
+            <TextView
+                android:id="@+id/rssi_label"
+                android:text="RSSI:"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/minor_label"
+                android:textSize="20sp"
+                android:paddingLeft="5dp"
+                android:textColor="#005"
+                android:layout_column="1"
+                >
+            </TextView>
+
+            <TextView
+                android:id="@+id/rssi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/minor"
+                android:layout_toRightOf="@+id/rssi_label"
+                android:textSize="20sp"
+                android:paddingLeft="5dp"
+                android:textColor="#005"
+                android:layout_column="2"
+                >
+            </TextView>
+        </TableRow>
+    </TableLayout>
 
 </RelativeLayout>

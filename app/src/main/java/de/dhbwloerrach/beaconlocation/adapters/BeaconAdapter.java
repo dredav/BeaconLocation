@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.text.DecimalFormat;
@@ -95,20 +96,39 @@ public class BeaconAdapter extends ArrayAdapter<Beacon> {
         // 3. Get the two text view from the rowView
         TextView valueViewMinor = (TextView) rowView.findViewById(R.id.minor);
         TextView valueViewRssi = (TextView) rowView.findViewById(R.id.rssi);
+        ImageView image = (ImageView) rowView.findViewById(R.id.circle);
 
 
         // 4. Set the text for textView
         valueViewMinor.setText(beacons.get(position).getMinor().toString());
+        Double calculatedRSSI = 0d;
         switch (rssiAverageType){
             case None:
-                valueViewRssi.setText(beacons.get(position).getRssi().toString());
+                calculatedRSSI = beacons.get(position).getRssi() * 1d;
                 break;
             case Average:
-                valueViewRssi.setText(rssiFormat.format(beacons.get(position).getRssis(2).getAverage()));
+                calculatedRSSI = beacons.get(position).getRssis(2).getAverage();
                 break;
             case SmoothedAverage:
-                valueViewRssi.setText(rssiFormat.format(beacons.get(position).getRssis(2).getSmoothAverage()));
+                calculatedRSSI = beacons.get(position).getRssis(2).getSmoothAverage();
                 break;
+        }
+        valueViewRssi.setText(rssiFormat.format(calculatedRSSI));
+
+        if (calculatedRSSI >= -70) {
+            image.setImageResource(R.mipmap.circle_green);
+        }else
+        if (calculatedRSSI < -70 && calculatedRSSI >= -80){
+            image.setImageResource(R.mipmap.circle_yellow);
+        }else
+        if (calculatedRSSI < -80 && calculatedRSSI >= -85){
+            image.setImageResource(R.mipmap.circle_orange);
+        }else
+        if (calculatedRSSI < -85 && calculatedRSSI >= -99){
+            image.setImageResource(R.mipmap.circle_red);
+        }
+        else {
+            image.setImageResource(R.mipmap.circle_grey);
         }
 
         // 5. retrn rowView
