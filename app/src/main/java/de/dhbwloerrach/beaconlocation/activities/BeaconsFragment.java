@@ -220,13 +220,13 @@ public class BeaconsFragment extends AddMachineBaseFragment implements IBeaconLi
     protected void setRSSIMode(RssiAverageType rssiAverageType){
         switch (rssiAverageType) {
             case None:
-                menu.findItem(R.id.rssi_average).setTitle("Mode: RSSI Default");
+                menu.findItem(R.id.rssi_average).setTitle(R.string.modusRssiNormal);
                 break;
             case Average:
-                menu.findItem(R.id.rssi_average).setTitle("Mode: RSSI Average");
+                menu.findItem(R.id.rssi_average).setTitle(R.string.modusRssiAvg);
                 break;
             case SmoothedAverage:
-                menu.findItem(R.id.rssi_average).setTitle("Mode: RSSI Advanced");
+                menu.findItem(R.id.rssi_average).setTitle(R.string.modusRssiAdv);
                 break;
             default:
         }

@@ -92,8 +92,8 @@ public class MachineFragment extends BaseFragment implements IBeaconListView {
 
     protected void updateMenuButtons() {
         menu.findItem(R.id.add_beacon).setVisible(selectedBeacons.size() == 0);
-        menu.findItem(R.id.delete_machine).setVisible(selectedBeacons.size() != 0);
-        menu.findItem(R.id.delete_beacon).setVisible(selectedBeacons.size() == 0);
+        menu.findItem(R.id.delete_machine).setVisible(selectedBeacons.size() == 0);
+        menu.findItem(R.id.delete_beacon).setVisible(selectedBeacons.size() != 0);
     }
 
     @Override
@@ -150,13 +150,13 @@ public class MachineFragment extends BaseFragment implements IBeaconListView {
     protected void setRSSIMode(RssiAverageType rssiAverageType){
         switch (rssiAverageType) {
             case None:
-                menu.findItem(R.id.rssi_average).setTitle("Mode: RSSI Default");
+                menu.findItem(R.id.rssi_average).setTitle(R.string.modusRssiNormal);
                 break;
             case Average:
-                menu.findItem(R.id.rssi_average).setTitle("Mode: RSSI Average");
+                menu.findItem(R.id.rssi_average).setTitle(R.string.modusRssiAvg);
                 break;
             case SmoothedAverage:
-                menu.findItem(R.id.rssi_average).setTitle("Mode: RSSI Advanced");
+                menu.findItem(R.id.rssi_average).setTitle(R.string.modusRssiAdv);
                 break;
             default:
         }
