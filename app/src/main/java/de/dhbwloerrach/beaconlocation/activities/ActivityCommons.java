@@ -159,6 +159,7 @@ public class ActivityCommons implements Drawer.OnDrawerItemClickListener {
     public void createDrawer(){
         drawer = new DrawerBuilder()
                 .withActivity(context)
+                .withActionBarDrawerToggle(true)
                 .withTranslucentStatusBar(false)
                 .withActionBarDrawerToggle(true)
                 .addDrawerItems(
