@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -14,6 +15,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import de.dhbwloerrach.beaconlocation.R;
 import de.dhbwloerrach.beaconlocation.adapters.BeaconAdapter;
@@ -139,6 +141,31 @@ public class BeaconsFragment extends AddMachineBaseFragment implements IBeaconLi
         menu.findItem(R.id.action_sort).setVisible(selectedBeacons.size() == 0);
         menu.findItem(R.id.add_beacon).setVisible(selectedBeacons.size() != 0);
         menu.findItem(R.id.rssi_average).setVisible(selectedBeacons.size() == 0);
+
+        Integer machine = getBeaconsMachine();
+        if(machine != null){
+            menu.findItem(R.id.to_machine).setVisible(true);
+        } else {
+            menu.findItem(R.id.to_machine).setVisible(false);
+        }
+    }
+
+    private Integer getBeaconsMachine() {
+        DatabaseHandler databaseHandler = new DatabaseHandler(activity);
+        Integer machine = null;
+        for(Beacon beacon : selectedBeacons){
+            Beacon dbBeacon = databaseHandler.getBeacon(beacon.getMinor());
+            if(dbBeacon == null || dbBeacon.getMachineId() <= 0)
+                continue;
+            if(machine == null){
+                machine = dbBeacon.getMachineId();
+            } else if(!Objects.equals(machine, dbBeacon.getMachineId())){
+                machine = null;
+                break;
+            }
+        }
+        databaseHandler.close();
+        return machine;
     }
 
     @Override
@@ -208,6 +235,21 @@ public class BeaconsFragment extends AddMachineBaseFragment implements IBeaconLi
                         return false;
                 }
 
+                break;
+            case R.id.to_machine:
+                Integer machineId = getBeaconsMachine();
+                if(machineId != null) {
+                    DatabaseHandler databaseHandler = new DatabaseHandler(activity);
+                    machine = databaseHandler.getMachine(machineId);
+                    databaseHandler.close();
+
+                    Bundle bundle = new Bundle();
+                    bundle.putParcelable("machine", machine);
+                    // got to AddBeaconsToMachineFragement if selected Beacons notEmpty?
+                    activity.getCommons().switchFragment(ActivityCommons.FragmentType.MACHINE, bundle);
+                } else {
+                    menu.findItem(R.id.to_machine).setVisible(false);
+                }
                 break;
             default:
                 return false;

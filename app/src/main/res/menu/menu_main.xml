@@ -3,4 +3,5 @@
     <item android:id="@+id/action_sort" android:showAsAction="always"/>
     <item android:id="@+id/add_beacon" android:title="@string/addToMachine" android:showAsAction="always" android:visible="false"/>
     <item android:id="@+id/rssi_average" android:showAsAction="ifRoom" />
+    <item android:id="@+id/to_machine" android:title="@string/toMachine" android:showAsAction="ifRoom" android:visible="false" />
 </menu>

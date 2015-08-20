@@ -19,6 +19,7 @@
         <string name="modusRssiAvg">Mode: RSSI Average</string>
         <string name="modusRssiAdv">Mode: RSSI Advanced</string>
         <string name="modusRssiNormal">Mode: RSSI Default</string>
+        <string name="toMachine">Go to machine</string>
 
         <!--Dialog Buttons-->
         <string name="addToMachine">Add to machine</string>
