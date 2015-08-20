@@ -113,7 +113,7 @@ public class BeaconAdapter extends ArrayAdapter<Beacon> {
                 calculatedRSSI = beacons.get(position).getRssis(2).getSmoothAverage();
                 break;
         }
-        valueViewRssi.setText(rssiFormat.format(calculatedRSSI));
+        valueViewRssi.setText((calculatedRSSI == 0) ? "-" : rssiFormat.format(calculatedRSSI));
 
         if (calculatedRSSI >= -70 && calculatedRSSI < 0) {
             image.setImageResource(R.mipmap.circle_green);
