@@ -155,14 +155,12 @@ public class BeaconsFragment extends AddMachineBaseFragment implements IBeaconLi
         Integer machine = null;
         for(Beacon beacon : selectedBeacons){
             Beacon dbBeacon = databaseHandler.getBeacon(beacon.getMinor());
-            if(dbBeacon == null || dbBeacon.getMachineId() <= 0)
-                continue;
-            if(machine == null){
-                machine = dbBeacon.getMachineId();
-            } else if(!Objects.equals(machine, dbBeacon.getMachineId())){
+            if(dbBeacon == null || dbBeacon.getMachineId() <= 0 || (machine != null && !Objects.equals(machine, dbBeacon.getMachineId()))){
                 machine = null;
                 break;
             }
+
+            machine = dbBeacon.getMachineId();
         }
         databaseHandler.close();
         return machine;
