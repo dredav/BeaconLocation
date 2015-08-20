@@ -87,9 +87,9 @@ public class BeaconsFragment extends AddMachineBaseFragment implements IBeaconLi
     public void setSortTitle() {
         MenuItem item = menu.findItem(R.id.action_sort);
         if (adapter.getFilterTyp()== FilterTyp.Minor) {
-            item.setTitle(R.string.rssi);
-        } else {
             item.setTitle(R.string.minor);
+        } else {
+            item.setTitle(R.string.rssi);
         }
     }
 
