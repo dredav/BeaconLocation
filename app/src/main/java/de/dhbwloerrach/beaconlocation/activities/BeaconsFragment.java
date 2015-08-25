@@ -95,20 +95,18 @@ public class BeaconsFragment extends AddMachineBaseFragment implements IBeaconLi
 
     @Override
     public void RefreshList(final ArrayList<Beacon> beacons) {
-        if (!updatePaused) {
-            BeaconList beaconList = new BeaconList();
-            beaconList.addAll(beacons);
-            final BeaconList filteredBeacons = beaconList.filterByLast(5);
-
-            activity.runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    adapter.clearItems();
-                    adapter.addItems(filteredBeacons);
-                    adapter.notifyDataSetChanged();
-                }
-            });
+        if(updatePaused) {
+            return;
         }
+
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                adapter.clearItems();
+                adapter.addItems(new BeaconList(beacons).filterByLast(5));
+                adapter.notifyDataSetChanged();
+            }
+        });
     }
 
     public void buildDialog() {
