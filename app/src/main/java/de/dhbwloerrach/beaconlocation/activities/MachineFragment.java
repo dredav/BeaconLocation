@@ -196,6 +196,24 @@ public class MachineFragment extends BaseFragment implements IBeaconListView {
         }
 
         updateBeaconListView(beaconList);
+
+        boolean allInRange = true;
+        for (Beacon beacon : beaconList) {
+            double rssi = beacon.getRssiByAverageType(adapter.getRssiAverageType(), 2);
+            if(beacon.getRssiDistanceStatus(rssi) != Beacon.RssiDistanceStatus.IN_RANGE) {
+                allInRange = false;
+                break;
+            }
+        }
+
+        final boolean finalAllInRange = allInRange;
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                TextView rangeView = (TextView) activity.findViewById(R.id.allBeaconsInRange);
+                rangeView.setVisibility(finalAllInRange ? View.VISIBLE : View.GONE);
+            }
+        });
     }
 
     protected void updateBeaconListView(final ArrayList<Beacon> beacons) {

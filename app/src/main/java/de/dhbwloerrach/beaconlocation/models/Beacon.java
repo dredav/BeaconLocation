@@ -250,4 +250,43 @@ public class Beacon implements Parcelable{
         Beacon databaseBeacon = databaseHandler.getBeacon(beacon.getMinor()); //, beacon.getMajor(), beacon.getUuid()
         return databaseBeacon != null;
     }
+
+    public double getRssiByAverageType(RssiAverageType averageType, int seconds) {
+        switch (averageType) {
+            case None:
+                return getRssi() * 1d;
+
+            case Average:
+                return getRssis(seconds).getAverage();
+
+            case SmoothedAverage:
+                return getRssis(seconds).getSmoothAverage();
+
+            default:
+                return 0d;
+        }
+    }
+
+    public RssiDistanceStatus getRssiDistanceStatus(double rssi) {
+        if (rssi >= -70 && rssi < 0) {
+            return RssiDistanceStatus.IN_RANGE;
+        } else if (rssi < -70 && rssi >= -80) {
+            return RssiDistanceStatus.NEAR_BY_RANGE;
+        } else if (rssi < -80 && rssi >= -85) {
+            return RssiDistanceStatus.AWAY;
+        } else if (rssi < -85 && rssi >= -99) {
+            return RssiDistanceStatus.FAR_AWAY;
+        } else {
+            return RssiDistanceStatus.UNKNOWN;
+        }
+    }
+
+    public enum RssiDistanceStatus
+    {
+        UNKNOWN,
+        IN_RANGE,
+        NEAR_BY_RANGE,
+        AWAY,
+        FAR_AWAY,
+    }
 }

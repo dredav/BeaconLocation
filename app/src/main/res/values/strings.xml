@@ -1,7 +1,7 @@
     <resources>
         <!--General-->
         <string name="app_name">Machine Locator</string>
-        <string name="hello_world">Hello world!</string>
+        <string name="allBeaconsInRange">Machine in range</string>
 
         <!--Menu -->
         <string name="menu_beaconView">Beacons</string>

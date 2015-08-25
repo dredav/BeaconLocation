@@ -38,7 +38,9 @@
     <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/beaconList"></ListView>
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:id="@+id/beaconList" />
 
     <TextView
         android:id="@+id/emptyList_machine"
@@ -49,4 +51,18 @@
         android:textColor="#525252"
         android:textSize="19.0sp"
         android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/allBeaconsInRange"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_alignParentBottom="true"
+        android:layout_above="@+id/beaconList"
+        android:layout_centerHorizontal="true"
+        android:text="@string/allBeaconsInRange"
+        android:textColor="#ff009600"
+        android:textSize="19.0sp"
+        android:visibility="gone" />
+
 </LinearLayout>

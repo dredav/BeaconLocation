@@ -101,37 +101,35 @@ public class BeaconAdapter extends ArrayAdapter<Beacon> {
 
         // 4. Set the text for textView
         valueViewMinor.setText(beacons.get(position).getMinor().toString());
-        Double calculatedRSSI = 0d;
-        switch (rssiAverageType){
-            case None:
-                calculatedRSSI = beacons.get(position).getRssi() * 1d;
-                break;
-            case Average:
-                calculatedRSSI = beacons.get(position).getRssis(2).getAverage();
-                break;
-            case SmoothedAverage:
-                calculatedRSSI = beacons.get(position).getRssis(2).getSmoothAverage();
-                break;
-        }
-        valueViewRssi.setText((calculatedRSSI == 0) ? "-" : rssiFormat.format(calculatedRSSI));
 
-        if (calculatedRSSI >= -70 && calculatedRSSI < 0) {
-            image.setImageResource(R.mipmap.circle_green);
-        }else
-        if (calculatedRSSI < -70 && calculatedRSSI >= -80){
-            image.setImageResource(R.mipmap.circle_yellow);
-        }else
-        if (calculatedRSSI < -80 && calculatedRSSI >= -85){
-            image.setImageResource(R.mipmap.circle_orange);
-        }else
-        if (calculatedRSSI < -85 && calculatedRSSI >= -99){
-            image.setImageResource(R.mipmap.circle_red);
+        double rssi = beacons.get(position).getRssiByAverageType(rssiAverageType, 2);
+        switch (beacons.get(position).getRssiDistanceStatus(rssi)) {
+            case IN_RANGE:
+                image.setImageResource(R.mipmap.circle_green);
+                break;
+
+            case NEAR_BY_RANGE:
+                image.setImageResource(R.mipmap.circle_yellow);
+                break;
+
+            case AWAY:
+                image.setImageResource(R.mipmap.circle_orange);
+                break;
+
+            case FAR_AWAY:
+                image.setImageResource(R.mipmap.circle_red);
+                break;
+
+            case UNKNOWN:
+                image.setImageResource(R.mipmap.circle_grey);
+                break;
         }
-        else {
-            image.setImageResource(R.mipmap.circle_grey);
-        }
+
+        valueViewRssi.setText((rssi == 0) ? "-" : rssiFormat.format(rssi));
 
         // 5. retrn rowView
         return rowView;
     }
+
+
 }
