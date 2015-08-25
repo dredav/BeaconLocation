@@ -8,6 +8,16 @@ import java.util.Comparator;
  * Created by Lukas on 23.07.2015.
  */
 public class BeaconList extends ArrayList<Beacon> {
+
+    public BeaconList() {
+        super();
+    }
+
+    public BeaconList(ArrayList<Beacon> beacons) {
+        super();
+        addAll(beacons);
+    }
+
     public BeaconList filterByLast(int seconds) {
         BeaconList result = new BeaconList();
         for (Beacon beacon : this) {
@@ -63,5 +73,17 @@ public class BeaconList extends ArrayList<Beacon> {
                 SortByRSSI();
                 break;
         }
+    }
+
+    public Beacon getBeacon(int minor) {
+        for (Beacon beacon : this) {
+            if (beacon.getMinor() != minor) {
+                continue;
+            }
+
+            return beacon;
+        }
+
+        return null;
     }
 }
