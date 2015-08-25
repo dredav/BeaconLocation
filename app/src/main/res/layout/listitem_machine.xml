@@ -27,6 +27,14 @@
             android:src="@mipmap/warning"
             android:visibility="gone" />
 
+        <ImageView
+            android:id="@+id/machineInRange"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_gravity="center_vertical"
+            android:paddingTop="10dp"
+            android:src="@mipmap/circle_grey" />
+
     </LinearLayout>
 
 </LinearLayout>

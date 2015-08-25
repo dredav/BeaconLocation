@@ -23,6 +23,7 @@ public class MachineAdapter extends ArrayAdapter<Machine> {
     private final Context context;
     private ArrayList<Machine> machines = new ArrayList<>();
     private DecimalFormat distanceFormat = new DecimalFormat("#m");
+    private ArrayList<Integer> machineIdInRange = new ArrayList<>();
 
     public MachineAdapter(Context context) {
         super(context, R.layout.listitem_beacon);
@@ -39,6 +40,11 @@ public class MachineAdapter extends ArrayAdapter<Machine> {
 
     public void clearItems() {
         machines.clear();
+    }
+
+    public void setMachineIdInRange(ArrayList<Integer> machineIdInRange) {
+        this.machineIdInRange.clear();
+        this.machineIdInRange.addAll(machineIdInRange);
     }
 
     @Override
@@ -73,6 +79,7 @@ public class MachineAdapter extends ArrayAdapter<Machine> {
 
         // 3. Get the two text view from the rowView
         TextView valueViewMinor = (TextView) rowView.findViewById(R.id.machineName);
+        ImageView inRangeIcon = (ImageView) rowView.findViewById(R.id.machineInRange);
         ImageView warningIcon = (ImageView) rowView.findViewById(R.id.machineWarning);
 
         // 4. Set the text for textView
@@ -80,10 +87,14 @@ public class MachineAdapter extends ArrayAdapter<Machine> {
 
         DatabaseHandler databaseHandler = new DatabaseHandler(context);
         try {
-            warningIcon.setVisibility(databaseHandler.getAllBeaconsByMachine(machine.getId()).size() == 0 ? View.VISIBLE : View.GONE);
+            int beaconsCount = databaseHandler.getAllBeaconsByMachine(machine.getId()).size();
+            warningIcon.setVisibility(beaconsCount == 0 ? View.VISIBLE : View.GONE);
+            inRangeIcon.setVisibility(beaconsCount != 0 ? View.VISIBLE : View.GONE);
         } finally {
             databaseHandler.close();
         }
+
+        inRangeIcon.setImageResource(machineIdInRange.contains(machine.getId()) ? R.mipmap.circle_green : R.mipmap.circle_grey);
 
         // 5. retrn rowView
         return rowView;

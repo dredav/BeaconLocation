@@ -10,16 +10,23 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
+
+import java.util.ArrayList;
 
 import de.dhbwloerrach.beaconlocation.R;
 import de.dhbwloerrach.beaconlocation.adapters.MachineAdapter;
+import de.dhbwloerrach.beaconlocation.bluetooth.IBeaconListView;
 import de.dhbwloerrach.beaconlocation.database.DatabaseHandler;
+import de.dhbwloerrach.beaconlocation.models.Beacon;
+import de.dhbwloerrach.beaconlocation.models.BeaconList;
 import de.dhbwloerrach.beaconlocation.models.Machine;
+import de.dhbwloerrach.beaconlocation.models.RssiAverageType;
 
 /**
  * Created by Lukas on 31.07.2015.
  */
-public class MachinesFragment extends BaseFragment {
+public class MachinesFragment extends BaseFragment implements IBeaconListView {
     private MachineAdapter adapter;
 
     @Nullable
@@ -36,6 +43,8 @@ public class MachinesFragment extends BaseFragment {
             adapter = new MachineAdapter(activity);
             initialized = true;
         }
+
+        activity.getCommons().startMonitoring(this);
 
         adapter.clearItems();
         adapter.addItems(new DatabaseHandler(activity).getAllMachines());
@@ -99,6 +108,51 @@ public class MachinesFragment extends BaseFragment {
 
     @Override
     protected void disconnectView() {
-        //
+        activity.getCommons().stopMonitoring(this);
+    }
+
+    @Override
+    public void RefreshList(ArrayList<Beacon> beacons) {
+        final BeaconList filteredBeacons = new BeaconList(beacons).filterByLast(5);
+
+        DatabaseHandler databaseHandler = new DatabaseHandler(activity);
+        try {
+            ArrayList<Integer> machinesInRange = new ArrayList<>();
+
+            for(Machine machine : databaseHandler.getAllMachines()) {
+                ArrayList<Beacon> machineBeacons = databaseHandler.getAllBeaconsByMachine(machine.getId());
+
+                boolean machineInRange = machineBeacons.size() > 0;
+                for (Beacon beacon : machineBeacons) {
+                    Beacon currentRealBeacon = filteredBeacons.getBeacon(beacon.getMinor());
+
+                    if(currentRealBeacon == null) {
+                        // Beacon is not visible
+                        machineInRange = false;
+                        break;
+                    }
+
+                    double rssi = currentRealBeacon.getRssiByAverageType(RssiAverageType.None, 2);
+                    if(currentRealBeacon.getRssiDistanceStatus(rssi) != Beacon.RssiDistanceStatus.IN_RANGE) {
+                        // Beacon is not in range
+                        machineInRange = false;
+                    }
+                }
+
+                if(machineInRange) {
+                    machinesInRange.add(machine.getId());
+                }
+            }
+
+            adapter.setMachineIdInRange(machinesInRange);
+            activity.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    adapter.notifyDataSetChanged();
+                }
+            });
+        } finally {
+            databaseHandler.close();
+        }
     }
 }
