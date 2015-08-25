@@ -197,7 +197,7 @@ public class MachineFragment extends BaseFragment implements IBeaconListView {
 
         updateBeaconListView(beaconList);
 
-        boolean allInRange = true;
+        boolean allInRange = beaconList.size() > 0;
         for (Beacon beacon : beaconList) {
             double rssi = beacon.getRssiByAverageType(adapter.getRssiAverageType(), 2);
             if(beacon.getRssiDistanceStatus(rssi) != Beacon.RssiDistanceStatus.IN_RANGE) {
