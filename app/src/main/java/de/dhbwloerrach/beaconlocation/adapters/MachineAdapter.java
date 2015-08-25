@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.text.DecimalFormat;
@@ -12,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import de.dhbwloerrach.beaconlocation.R;
+import de.dhbwloerrach.beaconlocation.database.DatabaseHandler;
 import de.dhbwloerrach.beaconlocation.models.Machine;
 
 /**
@@ -61,6 +63,8 @@ public class MachineAdapter extends ArrayAdapter<Machine> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        Machine machine = machines.get(position);
+
         // 1. Create inflater
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
@@ -68,11 +72,18 @@ public class MachineAdapter extends ArrayAdapter<Machine> {
         View rowView = inflater.inflate(R.layout.listitem_machine, parent, false);
 
         // 3. Get the two text view from the rowView
-        TextView valueViewMinor = (TextView) rowView.findViewById(R.id.name);
-
+        TextView valueViewMinor = (TextView) rowView.findViewById(R.id.machineName);
+        ImageView warningIcon = (ImageView) rowView.findViewById(R.id.machineWarning);
 
         // 4. Set the text for textView
-        valueViewMinor.setText(machines.get(position).getName().toString());
+        valueViewMinor.setText(machine.getName().toString());
+
+        DatabaseHandler databaseHandler = new DatabaseHandler(context);
+        try {
+            warningIcon.setVisibility(databaseHandler.getAllBeaconsByMachine(machine.getId()).size() == 0 ? View.VISIBLE : View.GONE);
+        } finally {
+            databaseHandler.close();
+        }
 
         // 5. retrn rowView
         return rowView;
