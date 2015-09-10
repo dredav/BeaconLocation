@@ -48,7 +48,7 @@ public class ActivityCommonsTest extends AndroidTestCase {
         for (int index = 0; index < COUNT_FRAGMENTS; index++) {
             {
                 Map.Entry<ActivityCommons.FragmentType, Bundle> entry = commons.getFragmentStack().remove(commons.getFragmentStack().size() - 1);
-                if (index % 2 == 0) {
+                if (index % 2 == 1) {
                     assertNotNull(entry.getValue());
                 } else {
                     assertNull(entry.getValue());
