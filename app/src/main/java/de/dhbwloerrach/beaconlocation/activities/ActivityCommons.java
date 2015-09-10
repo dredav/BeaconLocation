@@ -197,6 +197,10 @@ public class ActivityCommons implements Drawer.OnDrawerItemClickListener {
         beaconTools.unbind();
     }
 
+    public List<Map.Entry<FragmentType, Bundle>> getFragmentStack() {
+        return fragmentStack;
+    }
+
     public boolean fragmentStackCount() {
         return fragmentStack.size() >= 2;
     }
