@@ -4,6 +4,7 @@ import android.test.AndroidTestCase;
 import android.view.View;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 import de.dhbwloerrach.beaconlocation.R;
@@ -20,6 +21,8 @@ public class BeaconAdapterTest extends AndroidTestCase {
     private TestHelper helper = new TestHelper();
     private BeaconList beacons;
     private BeaconAdapter adapter;
+
+    private DecimalFormat numberFormat = new DecimalFormat("#");
 
     private static final int COUNT_BEACONS = 10;
 
@@ -76,8 +79,11 @@ public class BeaconAdapterTest extends AndroidTestCase {
             assertNotNull(viewMinor);
             assertNotNull(viewRssi);
 
+            int rssi = beacons.get(index).getRssi();
+            String rssiValue = (rssi == 0) ? "-" : numberFormat.format(rssi);
+
             assertEquals(viewMinor.getText(), beacons.get(index).getMinor().toString());
-            assertEquals(viewRssi.getText(), beacons.get(index).getRssi().toString());
+            assertEquals(viewRssi.getText(), rssiValue);
         }
     }
 
