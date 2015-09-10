@@ -8,11 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.dhbwloerrach.beaconlocation.R;
-import de.dhbwloerrach.beaconlocation.adapters.BeaconAdapter;
 import de.dhbwloerrach.beaconlocation.adapters.MachineAdapter;
-import de.dhbwloerrach.beaconlocation.models.Beacon;
-import de.dhbwloerrach.beaconlocation.models.BeaconList;
-import de.dhbwloerrach.beaconlocation.models.FilterTyp;
 import de.dhbwloerrach.beaconlocation.models.Machine;
 import de.dhbwloerrach.beaconlocation.test.helpers.TestHelper;
 

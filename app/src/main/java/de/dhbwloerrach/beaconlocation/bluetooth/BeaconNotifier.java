@@ -1,7 +1,5 @@
 package de.dhbwloerrach.beaconlocation.bluetooth;
 
-import android.util.Log;
-
 import org.altbeacon.beacon.Beacon;
 import org.altbeacon.beacon.Identifier;
 import org.altbeacon.beacon.RangeNotifier;

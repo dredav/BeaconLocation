@@ -2,19 +2,11 @@ package de.dhbwloerrach.beaconlocation.test.tools;
 
 import android.os.Bundle;
 import android.test.AndroidTestCase;
-import android.view.View;
-import android.widget.TextView;
 
 import java.util.AbstractMap;
-import java.util.List;
 import java.util.Map;
 
-import de.dhbwloerrach.beaconlocation.R;
 import de.dhbwloerrach.beaconlocation.activities.ActivityCommons;
-import de.dhbwloerrach.beaconlocation.adapters.BeaconAdapter;
-import de.dhbwloerrach.beaconlocation.models.Beacon;
-import de.dhbwloerrach.beaconlocation.models.BeaconList;
-import de.dhbwloerrach.beaconlocation.models.FilterTyp;
 import de.dhbwloerrach.beaconlocation.test.helpers.TestHelper;
 
 public class ActivityCommonsTest extends AndroidTestCase {
