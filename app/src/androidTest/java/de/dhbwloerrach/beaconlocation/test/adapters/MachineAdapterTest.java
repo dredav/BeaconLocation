@@ -24,7 +24,7 @@ public class MachineAdapterTest extends AndroidTestCase {
     private List<Machine> machines;
     private MachineAdapter adapter;
 
-    private static final int COUNT_MACHINES = 2;
+    private static final int COUNT_MACHINES = 10;
 
     public MachineAdapterTest() {
         super();
