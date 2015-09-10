@@ -17,6 +17,12 @@ import de.dhbwloerrach.beaconlocation.models.Machine;
  */
 public abstract class AddMachineBaseFragment extends BaseFragment {
 
+    /**
+     * Add a machine with beacons from form
+     * @param textField EditText
+     * @param beacons ArrayList
+     * @param aim FragmentType
+     */
     protected void addMachine(final EditText textField, final ArrayList<Beacon> beacons, final ActivityCommons.FragmentType aim) {
         final ActivityCommons commons = activity.getCommons();
         final DatabaseHandler databaseHandler = new DatabaseHandler(activity);
@@ -38,6 +44,12 @@ public abstract class AddMachineBaseFragment extends BaseFragment {
         }
     }
 
+    /**
+     * Create a new machine from from
+     * @param textField EditText
+     * @param databaseHandler DatabaseHandler
+     * @return Machine
+     */
     protected Machine createMachine(EditText textField, DatabaseHandler databaseHandler){
         // Wenn Texfeld leer ist
         if (textField.getText() == null || textField.getText().toString().isEmpty()) {
@@ -64,6 +76,13 @@ public abstract class AddMachineBaseFragment extends BaseFragment {
         }
     }
 
+    /**
+     * Check if some beacons already associated with one machine
+     * @param beacons ArrayList
+     * @param databaseHandler DatabaseHandler
+     * @param action Delegate
+     * @return boolean
+     */
     protected boolean checkBeacons(ArrayList<Beacon> beacons, DatabaseHandler databaseHandler, final Delegate action) {
         String allOverwriteBeacons = "";
         for (Beacon beacon : beacons) {
@@ -99,12 +118,24 @@ public abstract class AddMachineBaseFragment extends BaseFragment {
         return true;
     }
 
+    /**
+     * Add a new machine to the database
+     * @param databaseHandler DatabaseHandler
+     * @param newMachine Machine
+     * @return int
+     */
     protected int insertMachine(DatabaseHandler databaseHandler, Machine newMachine) {
         int machineId = databaseHandler.createMachine(newMachine);
         newMachine.setId(machineId);
         return machineId;
     }
 
+    /**
+     * Insert a beacon to database and associate ith with one machine
+     * @param databaseHandler DatabaseHandler
+     * @param beacons Beacon
+     * @param machineID int
+     */
     protected void insertBeacons(DatabaseHandler databaseHandler, ArrayList<Beacon> beacons, int machineID) {
         for (Beacon beacon: beacons){
             beacon.setMachineId(machineID);

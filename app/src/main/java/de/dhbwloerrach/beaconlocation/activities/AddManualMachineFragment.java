@@ -44,6 +44,9 @@ public class AddManualMachineFragment extends AddMachineBaseFragment {
         activity.getMenuInflater().inflate(R.menu.menu_newmachine, menu);
     }
 
+    /**
+     * Add a new empty input field for insert a manual beacon minor id
+     */
     protected void addBeaconInputField() {
         LinearLayout layout = (LinearLayout) activity.findViewById(R.id.minors);
 

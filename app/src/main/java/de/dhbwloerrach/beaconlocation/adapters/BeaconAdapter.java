@@ -33,34 +33,63 @@ public class BeaconAdapter extends ArrayAdapter<Beacon> {
         this.context = context;
     }
 
+    /**
+     * Get the filter typ from the beacon list
+     * @return FilterTyp
+     */
     public FilterTyp getFilterTyp() {
         return filterTyp;
     }
 
+    /**
+     * Set the filter typ for the beacon list
+     * @param filterTyp FilterTyp
+     * @return BeaconAdapter
+     */
     public BeaconAdapter setFilterTyp(FilterTyp filterTyp) {
         this.filterTyp = filterTyp;
         return this;
     }
 
+    /**
+     * Return the current rssi calculation mode
+     * @return RssiAverageType
+     */
     public RssiAverageType getRssiAverageType() {
         return rssiAverageType;
     }
 
+    /**
+     * Set the current rssi value calculation mode
+     * @param rssiAverageType RssiAverageType
+     * @return BeaconAdapter
+     */
     public BeaconAdapter setRssiAverageType(RssiAverageType rssiAverageType) {
         this.rssiAverageType = rssiAverageType;
         return this;
     }
 
+    /**
+     * Add one item
+     * @param item Beacon
+     */
     public void addItem(Beacon item) {
         beacons.add(item);
         beacons.Sort(filterTyp);
     }
 
+    /**
+     * Add multiple Items
+     * @param items Collection
+     */
     public void addItems(Collection<Beacon> items) {
         beacons.addAll(items);
         beacons.Sort(filterTyp);
     }
 
+    /**
+     * Clear the adapter
+     */
     public void clearItems() {
         beacons.clear();
     }
@@ -130,6 +159,4 @@ public class BeaconAdapter extends ArrayAdapter<Beacon> {
         // 5. retrn rowView
         return rowView;
     }
-
-
 }

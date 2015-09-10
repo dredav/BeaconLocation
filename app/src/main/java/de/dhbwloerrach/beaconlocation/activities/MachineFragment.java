@@ -83,6 +83,9 @@ public class MachineFragment extends BaseFragment implements IBeaconListView {
         listView.setEmptyView(activity.findViewById(R.id.emptyList_machine));
     }
 
+    /**
+     * Initialize the fragment
+     */
     private void initialize() {
         if(!initialized) {
             adapter = new BeaconAdapter(activity);
@@ -90,6 +93,9 @@ public class MachineFragment extends BaseFragment implements IBeaconListView {
         }
     }
 
+    /**
+     * Change the menu item title
+     */
     protected void updateMenuButtons() {
         menu.findItem(R.id.add_beacon).setVisible(selectedBeacons.size() == 0);
         menu.findItem(R.id.delete_machine).setVisible(selectedBeacons.size() == 0);
@@ -147,6 +153,10 @@ public class MachineFragment extends BaseFragment implements IBeaconListView {
         }
     }
 
+    /**
+     * Chang ethe rssi calculation mode
+     * @param rssiAverageType RssiAverageType
+     */
     protected void setRSSIMode(RssiAverageType rssiAverageType){
         switch (rssiAverageType) {
             case None:
@@ -216,6 +226,10 @@ public class MachineFragment extends BaseFragment implements IBeaconListView {
         });
     }
 
+    /**
+     * Notify the beacon adapter for refresh
+     * @param beacons ArrayList
+     */
     protected void updateBeaconListView(final ArrayList<Beacon> beacons) {
         activity.runOnUiThread(new Runnable() {
             @Override
@@ -227,6 +241,10 @@ public class MachineFragment extends BaseFragment implements IBeaconListView {
         });
     }
 
+    /**
+     * Delete the beacon from machine and database
+     * @param databaseHandler DatabaseHandler
+     */
     protected void menuActionDeleteBeacon(final DatabaseHandler databaseHandler) {
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         builder.setTitle(R.string.alert_title_deleteBeacon);
@@ -262,6 +280,10 @@ public class MachineFragment extends BaseFragment implements IBeaconListView {
         dialog.show();
     }
 
+    /**
+     * Delete a machine and all beacons from database
+     * @param databaseHandler DatabaseHandler
+     */
     protected void menuActionDeleteMachine(final DatabaseHandler databaseHandler) {
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         builder.setTitle(R.string.alert_title_deleteMachine);

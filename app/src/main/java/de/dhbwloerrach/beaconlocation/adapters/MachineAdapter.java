@@ -30,18 +30,33 @@ public class MachineAdapter extends ArrayAdapter<Machine> {
         this.context = context;
     }
 
+    /**
+     * Add one item
+     * @param item Machine
+     */
     public void addItem(Machine item) {
         machines.add(item);
     }
 
+    /**
+     * Add multiple items
+     * @param items Collection
+     */
     public void addItems(Collection<Machine> items) {
         machines.addAll(items);
     }
 
+    /**
+     * Clear the adapter
+     */
     public void clearItems() {
         machines.clear();
     }
 
+    /**
+     * Set machine which are currently in range
+     * @param machineIdInRange ArrayList
+     */
     public void setMachineIdInRange(ArrayList<Integer> machineIdInRange) {
         this.machineIdInRange.clear();
         this.machineIdInRange.addAll(machineIdInRange);

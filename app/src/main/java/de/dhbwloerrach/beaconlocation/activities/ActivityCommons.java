@@ -42,10 +42,18 @@ public class ActivityCommons implements Drawer.OnDrawerItemClickListener {
 
     protected List<Map.Entry<FragmentType, Bundle>> fragmentStack = new ArrayList<>();
 
+    /**
+     * @param context MainActivity
+     */
     public ActivityCommons(MainActivity context) {
         this.context = context;
     }
 
+    /**
+     * Set a new custom fragment menu
+     * @param menu Menu
+     * @return ActivityCommons
+     */
     public ActivityCommons setMenu(Menu menu) {
         this.menu = menu;
 
@@ -57,6 +65,11 @@ public class ActivityCommons implements Drawer.OnDrawerItemClickListener {
         return this;
     }
 
+    /**
+     * Handle the menu item click for the current fragment
+     * @param item MenuItem
+     * @return boolean
+     */
     public boolean menuHandler(MenuItem item) {
         return fragment.handleMenuClick(item.getItemId());
     }
@@ -69,10 +82,19 @@ public class ActivityCommons implements Drawer.OnDrawerItemClickListener {
         return true;
     }
 
+    /**
+     * Switch the current Fragment without passing some arguments
+     * @param type FragmentType
+     */
     public void switchFragment(FragmentType type) {
         switchFragment(type, null);
     }
 
+    /**
+     * Switch the current Fragment and set some arguments
+     * @param type FragmentType
+     * @param bundle Bundle
+     */
     public void switchFragment(FragmentType type, Bundle bundle) {
         FragmentManager fragmentManager = context.getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -152,6 +174,9 @@ public class ActivityCommons implements Drawer.OnDrawerItemClickListener {
         fragmentTransaction.commit();
     }
 
+    /**
+     * Setup and create the drawer (left menu)
+     */
     public void createDrawer(){
         drawer = new DrawerBuilder()
                 .withActivity(context)
@@ -168,10 +193,18 @@ public class ActivityCommons implements Drawer.OnDrawerItemClickListener {
         switchFragment(FragmentType.MACHINES_VIEW);
     }
 
+    /**
+     * Returns the drawer
+     * @return Drawer
+     */
     public Drawer getDrawer() {
         return drawer;
     }
 
+    /**
+     * Start the beacon monitoring
+     * @param view IBeaconListView
+     */
     public void startMonitoring(IBeaconListView view) {
         if (beaconTools == null) {
             beaconTools = new BeaconTools(context, view);
@@ -180,6 +213,10 @@ public class ActivityCommons implements Drawer.OnDrawerItemClickListener {
         }
     }
 
+    /**
+     * Stop the beacon monitoring
+     * @param view IBeaconListView
+     */
     public void stopMonitoring(IBeaconListView view) {
         if(beaconTools == null) {
             return;
@@ -188,18 +225,32 @@ public class ActivityCommons implements Drawer.OnDrawerItemClickListener {
         beaconTools.removeView(view);
     }
 
-    public void unbind(){
+    /**
+     * Unbind the beacon tools and his additional bindings
+     */
+    public void unbind() {
         beaconTools.unbind();
     }
 
+    /**
+     * Returns the fragmentStack
+     * @return List
+     */
     public List<Map.Entry<FragmentType, Bundle>> getFragmentStack() {
         return fragmentStack;
     }
 
+    /**
+     * Returns if the size of the fragmentStack is high enough for use
+     * @return int
+     */
     public boolean fragmentStackCount() {
         return fragmentStack.size() >= 2;
     }
 
+    /**
+     * Switch the fragment to the last one
+     */
     public void lastFragmentStackItem() {
         if(!fragmentStackCount()) {
             return;
@@ -210,6 +261,9 @@ public class ActivityCommons implements Drawer.OnDrawerItemClickListener {
         switchFragment(entry.getKey(), entry.getValue());
     }
 
+    /**
+     * Defines the available FragmentTypes
+     */
     public enum FragmentType
     {
         BEACON_SEARCH,

@@ -76,6 +76,9 @@ public class BeaconsFragment extends AddMachineBaseFragment implements IBeaconLi
         listView.setEmptyView(activity.findViewById(R.id.emptyList_beacons));
     }
 
+    /**
+     * Initialize the Fragment
+     */
     private void initialize() {
         if(!initialized) {
             adapter = new BeaconAdapter(activity);
@@ -83,6 +86,9 @@ public class BeaconsFragment extends AddMachineBaseFragment implements IBeaconLi
         }
     }
 
+    /**
+     * Change the menu item title
+     */
     public void setSortTitle() {
         MenuItem item = menu.findItem(R.id.action_sort);
         if (adapter.getFilterTyp()== FilterTyp.Minor) {
@@ -108,6 +114,9 @@ public class BeaconsFragment extends AddMachineBaseFragment implements IBeaconLi
         });
     }
 
+    /**
+     * Build a dialog for choose the between AddToMachine and CreateNewMachine
+     */
     public void buildDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         builder.setTitle(R.string.dialog_title);
@@ -134,6 +143,9 @@ public class BeaconsFragment extends AddMachineBaseFragment implements IBeaconLi
         dialog.show();
     }
 
+    /**
+     * Change the Menu button visibility
+     */
     protected void updateMenuButtons() {
         menu.findItem(R.id.action_sort).setVisible(selectedBeacons.size() == 0);
         menu.findItem(R.id.add_beacon).setVisible(selectedBeacons.size() != 0);
@@ -147,6 +159,10 @@ public class BeaconsFragment extends AddMachineBaseFragment implements IBeaconLi
         }
     }
 
+    /**
+     * Returns the machine id from the selected beacon
+     * @return int
+     */
     private Integer getBeaconsMachine() {
         DatabaseHandler databaseHandler = new DatabaseHandler(activity);
         Integer machine = null;
@@ -253,6 +269,10 @@ public class BeaconsFragment extends AddMachineBaseFragment implements IBeaconLi
         return true;
     }
 
+    /**
+     * Change the rssi calculation mode
+     * @param rssiAverageType RssiAverageType
+     */
     protected void setRSSIMode(RssiAverageType rssiAverageType){
         switch (rssiAverageType) {
             case None:

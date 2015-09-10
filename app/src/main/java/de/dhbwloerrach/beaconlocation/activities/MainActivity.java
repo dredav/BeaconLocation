@@ -47,10 +47,17 @@ public class MainActivity extends Activity {
         return commons.menuHandler(item);
     }
 
+    /**
+     * Get the ActivityCommons
+     * @return ActivityCommons
+     */
     public ActivityCommons getCommons() {
         return commons;
     }
 
+    /**
+     * Check the bluetooth state and ask the use to enable bluetooth
+     */
     public void checkBluetoothState() {
         BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         if (mBluetoothAdapter == null) {

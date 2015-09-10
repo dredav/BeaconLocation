@@ -83,6 +83,9 @@ public class MachinesFragment extends BaseFragment implements IBeaconListView {
         return true;
     }
 
+    /**
+     * Build a dialog to choose between create machine manually and use beacon scan
+     */
     public void buildDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         builder.setTitle(R.string.dialog_titleMachine);
