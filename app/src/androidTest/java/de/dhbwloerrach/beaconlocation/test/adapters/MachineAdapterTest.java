@@ -24,7 +24,7 @@ public class MachineAdapterTest extends AndroidTestCase {
     private List<Machine> machines;
     private MachineAdapter adapter;
 
-    private static final int COUNT_MACHINES = 10;
+    private static final int COUNT_MACHINES = 2;
 
     public MachineAdapterTest() {
         super();
@@ -69,7 +69,7 @@ public class MachineAdapterTest extends AndroidTestCase {
         for (int index = 0; index < machines.size(); index++) {
             View view = adapter.getView(index, null, null);
 
-            TextView machineName = (TextView) view.findViewById(R.id.name);
+            TextView machineName = (TextView) view.findViewById(R.id.machineName);
 
             assertNotNull(machineName);
 
