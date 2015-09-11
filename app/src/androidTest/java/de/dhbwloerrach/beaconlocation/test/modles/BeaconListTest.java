@@ -36,27 +36,25 @@ public class BeaconListTest extends AndroidTestCase {
         this.beacons.addAll(beacons);
     }
 
-    public void testSortByRSSI() {
+    public void testFilterByLast() throws Exception {
+        beacons.clear();
+        beacons.addAll(helper.createBeacons(5));
+
+        BeaconList filteredList = beacons.filterByLast(2);
+        assertEquals(2, filteredList.size());
+    }
+
+    public void testSortByRssi() throws Exception {
         beacons.Sort(FilterTyp.RSSI);
-
-        int lastRssi = 0;
-        for (int index = 0; index < beacons.size(); index ++) {
-            int currentRssi = beacons.get(index).getRssi();
-
-            assertTrue(currentRssi <= lastRssi);
-            lastRssi = currentRssi;
+        for(int i = 1; i < beacons.size(); i++){
+            assertTrue(beacons.get(i).getRssi() >= beacons.get(i-1).getRssi());
         }
     }
 
-    public void testSortByMinor() {
+    public void testSortByMinor() throws Exception {
         beacons.Sort(FilterTyp.Minor);
-
-        int lastMinor = 0;
-        for (int index = 0; index < beacons.size(); index ++) {
-            int currentMinor = beacons.get(index).getMinor();
-
-            assertTrue(currentMinor >= lastMinor);
-            lastMinor = currentMinor;
+        for(int i = 1; i < beacons.size(); i++){
+            assertTrue(beacons.get(i).getRssi() <= beacons.get(i-1).getRssi());
         }
     }
 

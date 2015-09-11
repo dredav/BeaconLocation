@@ -33,12 +33,13 @@ public class DistanceListTest extends AndroidTestCase {
             double distance = helper.createRandom(1d, 5d);
             distances.add(distance);
             distanceList.add(new TimedDistance(distance));
-            Thread.sleep(helper.createRandom(567, 1234));
+            Thread.sleep(567);
         }
     }
 
     public void testGetLast() throws Exception {
-        assertTrue(true);
+        DistanceList lastDistances = distanceList.getLast(2);
+        assertEquals(4, lastDistances.size());
     }
 
     public void testAverageDistance() throws Exception {
