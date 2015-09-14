@@ -40,7 +40,7 @@ public class RssiListTest extends AndroidTestCase {
 
     public void testGetLast() throws Exception {
         RssiList lastRssis = rssiList.getLast(2);
-        assertEquals(4, lastRssis.size());
+        assertEquals(3, lastRssis.size());
     }
 
     public void testGetAverage() throws Exception {
